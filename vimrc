@@ -76,7 +76,8 @@ set t_Co=256
 " colo desert
 " colo fruity 
 " colo elflord
-colo night_kdm
+" colo night_kdm
+colo blue
 
 
 " -----------------------

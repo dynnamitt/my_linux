@@ -1,0 +1,49 @@
+#!/bin/sh
+
+#alias grep="grep --color=auto"
+#alias ls="ls --color=auto"
+#alias l='ls -lhF'
+
+alias ll="ls -lhp"
+
+alias trgopkg="tree $GOPATH/pkg -L 4"
+alias u='du -h --max-depth=1'
+
+alias tc_restart='sudo service tomcat7 restart'
+
+alias vima='vim --servername a --remote-tab'
+
+alias mytags='gcc -M *.[ch] | sed -e "s/^.*\:\s//" |\
+ sed -e "s/\s\\\\$//" | sed -e "s/^ //" |\
+ sed -e "s/ /\n/g" | ctags -R -L -'
+
+# git
+alias ssweep='for f in *; do [ -d "$f/.git" ] && ( cd $f; echo -e "$PWD\n----------------" ; git status -s; echo -e "\n\n"; ); done'
+alias gd='git diff'
+alias grm='git rm'
+alias gmv='git mv'
+alias ds-gl='git log -25 --no-merges --pretty=format:"%h - %an, %ar : %s"'
+
+# xmllint
+alias xl='xmllint --noout --loaddtd --xinclude --postvalid'
+
+
+# funcs
+
+function xslt2(){
+  
+  if [ -z $1 ] || [ -z $2 ]; then
+    echo "usage: xslt2 stylesheet src [params]" >&2 
+    return 2
+  fi
+  
+  local stylesheet=$1
+  local src=$2
+  shift;shift
+
+  # TODO -Dparams as "a bulk"
+
+  $JAVA_HOME/bin/java -cp "$SAXON" net.sf.saxon.Transform \
+    -xi:on -xsl:"$stylesheet" -s:"$src" "$@"
+
+}
