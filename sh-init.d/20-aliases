@@ -28,6 +28,9 @@ alias ds-gl='git log -25 --no-merges --pretty=format:"%h - %an, %ar : %s"'
 alias xl='xmllint --noout --loaddtd --xinclude --postvalid'
 
 
+# uberfast img viewer
+alias thum="feh -g 640x480 -d -S filename"
+
 # funcs
 
 function xslt2(){

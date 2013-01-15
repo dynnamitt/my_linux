@@ -77,8 +77,8 @@ set t_Co=256
 " colo fruity 
 " colo elflord
 " colo night_kdm
-colo blue
-
+" colo blue
+colo evening
 
 " -----------------------
 " statusline

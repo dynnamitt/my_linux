@@ -1,0 +1,12 @@
+URxvt.depth:32
+URxvt.background:#1A1144
+URxvt.foreground:#CCCCCC
+
+
+URxvt*.transparent:true
+URxvt*.shading:45
+
+URxvt*.font:-*-ubuntu mono-medium-r-*-*-17-*-100-100-m-*-iso10646-*
+URxvt*termName:screen-256color
+
+
