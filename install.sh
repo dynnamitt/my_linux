@@ -27,6 +27,8 @@ fi
 # VIM pointer
 #
 rm -f $HOME/.vimrc && ln -s $HOME/.my_linux/vimrc $HOME/.vimrc 
+rm -d $HOME/.Xresources && ln -s $HOME/.my_linux/Xresources $HOME/.Xresources
+rm -d $HOME/.Xdefaults && ln -s $HOME/.my_linux/Xresources $HOME/.Xdefaults
 
 # SHELL hookup
 if grep -c .my_linux/sh-init.d $HOME/.zshrc 
