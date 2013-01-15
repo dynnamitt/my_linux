@@ -6,7 +6,7 @@ URxvt.foreground:#CCCCCC
 URxvt*.transparent:true
 URxvt*.shading:45
 
-URxvt*.font:-*-ubuntu mono-medium-r-*-*-17-*-100-100-m-*-iso10646-*
+URxvt*.font:-*-courier 10 pitch-medium-r-*-*-*-*-*-*-*-*-iso10646-*
 URxvt*termName:screen-256color
 
 
