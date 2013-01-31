@@ -24,11 +24,11 @@ else
     echo ".oh-my-zsh clone skipped."
 fi
 
-# VIM pointer
-#
 rm -f $HOME/.vimrc && ln -s $HOME/.my_linux/vimrc $HOME/.vimrc 
 rm -f $HOME/.Xresources && ln -s $HOME/.my_linux/Xresources $HOME/.Xresources
 rm -f $HOME/.Xdefaults && ln -s $HOME/.my_linux/Xresources $HOME/.Xdefaults
+rm -f $HOME/.xinitrc && ln -s $HOME/.my_linux/xinitrc $HOME/.xinitrc
+rm -f $HOME/.xbindkeyrc && ln -s $HOME/.my_linux/xbindkeyrc $HOME/.xbindkeyrc
 
 # SHELL hookup
 if grep -c .my_linux/sh-init.d $HOME/.zshrc 
