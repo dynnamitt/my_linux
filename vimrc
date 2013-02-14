@@ -73,12 +73,11 @@ imap <F5> <Esc>:%!astyle --mode=c -p -U -w -k2 -O -j -A10<CR>
 " ---------------------
 set t_Co=256
 " colorscheme nightflight2
-" colo desert
+colo desert
 " colo fruity 
 " colo elflord
 " colo night_kdm
 " colo blue
-colo evening
 
 " -----------------------
 " statusline
