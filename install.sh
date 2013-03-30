@@ -44,3 +44,7 @@ do
 done
 __STOP__
 fi
+
+# SUDO section for DWM exec script
+echo "No skal me legge inn et dwm-start-script i /usr/local/bin"
+sudo cp $HOME/.my_linux/dwm-starter /usr/local/bin/dwm-starter

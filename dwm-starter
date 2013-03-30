@@ -1,4 +1,10 @@
-#!/bin/zsh
+#!/bin/sh
+
+# if avail:
+lxkeymap -a
+# otherwise:
+# setxkbmap -rules evdev -model evdev -layout us -variant altgr-intl
+
 
 while true
 do
@@ -6,3 +12,4 @@ do
     sleep 1m
 done &
 
+exec dwm
