@@ -1,0 +1,19 @@
+I prefer to make a .deb package:
+
+sudo apt-get update
+sudo apt-get build-dep dwm
+
+mkdir dwm
+cd dwm
+apt-get source dwm
+
+edit config.def.h with your favourite editor and save it as config.h
+(I also need to rename config.def.h to for example original-config)
+sudo apt-get -b source dwm
+(note -b switch
+
+sudo dpkg -i dwm*.deb
+
+and you are done.
+
+(fra http://openmindlifestyle.wordpress.com/2009/11/28/howto-compile-and-configure-dwm-tiling-window-manager-on-ubuntu/ )

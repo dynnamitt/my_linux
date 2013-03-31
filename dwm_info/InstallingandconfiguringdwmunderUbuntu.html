@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--
+	generated in 0.304 seconds
+	66094 bytes batcached for 300 seconds
+-->
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width" />
+<title>Installing and configuring dwm under Ubuntu | Cannibal&#039;s Candy</title>
+<link rel="profile" href="http://gmpg.org/xfn/11" />
+<link rel="pingback" href="http://cannibalcandy.wordpress.com/xmlrpc.php" />
+<!--[if lt IE 9]>
+<script src="http://s2.wp.com/wp-content/themes/pub/hero/js/html5.js?m=1354654449g" type="text/javascript"></script>
+<![endif]-->
+
+<link rel="alternate" type="application/rss+xml" title="Cannibal&#039;s Candy &raquo; Feed" href="http://cannibalcandy.wordpress.com/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Cannibal&#039;s Candy &raquo; Comments Feed" href="http://cannibalcandy.wordpress.com/comments/feed/" />
+<link rel="alternate" type="application/rss+xml" title="Cannibal&#039;s Candy &raquo; Installing and configuring dwm under&nbsp;Ubuntu Comments Feed" href="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/feed/" />
+<script type="text/javascript">
+/* <![CDATA[ */
+function addLoadEvent(func){var oldonload=window.onload;if(typeof window.onload!='function'){window.onload=func;}else{window.onload=function(){oldonload();func();}}}
+/* ]]> */
+</script>
+<link rel='stylesheet' id='all-css-0' href='http://s2.wp.com/_static/??-eJx1ztEKwjAMBdAfskax0yfxW7oupt2ypqwpw793CuJg7CkEzr0JzNl4SYpJYawmc6WYCnAcsECPmp0fzHc7+lIOsOItC/0DQoSdVDVPYZYZ5tgR6ia0upGlLJpdnKDoi3FjNeC4fJFrCwEn2VE7jcFNMdFv7nUHC8TSOv6Ax3g/X67WnprG3vo3GARovg==' type='text/css' media='all' />
+<script type='text/javascript'>
+/* <![CDATA[ */
+var LoggedOutFollow = {"invalid_email":"Your subscription did not succeed, please try again with a valid email address."};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s2.wp.com/_static/??-eJyFj9EKwjAMRX/IroqdPonfMrtYUtumLunK/HorKCgKQiCBe86F6JoVJhvKCKx9m2uBaXmuzvNKN8BSEkjyyDOxRGAeHPxIP21MM0L9i3mQPNiLmoDx9tV6CuRUDsVhYt1uByMVUWcKgaquODqQl/P+iKUYm99ac1i6iKlBx3jYbHfGrPve7P0d5oJdfw=='></script>
+<link rel='stylesheet' id='all-css-0' href='http://s0.wp.com/wp-content/mu-plugins/highlander-comments/style.css?m=1364417154g' type='text/css' media='all' />
+<!--[if lt IE 8]>
+<link rel='stylesheet' id='highlander-comments-ie7-css'  href='http://s2.wp.com/wp-content/mu-plugins/highlander-comments/style-ie7.css?m=1351637563g&#038;ver=20110606' type='text/css' media='all' />
+<![endif]-->
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://cannibalcandy.wordpress.com/xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://cannibalcandy.wordpress.com/wp-includes/wlwmanifest.xml" /> 
+<link rel='prev' title='A quick way to determine&nbsp;endianness' href='http://cannibalcandy.wordpress.com/2012/01/22/a-quick-way-to-determine-endianness/' />
+<link rel='next' title='Haskell: Using already computed part of list to compute further&nbsp;list' href='http://cannibalcandy.wordpress.com/2012/09/16/haskell-using-already-computed-part-of-list-to-compute-further-list/' />
+<meta name="generator" content="WordPress.com" />
+<link rel='canonical' href='http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/' />
+<link rel='shortlink' href='http://wp.me/p1kgIo-3e' />
+<link rel="alternate" type="application/json+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=json&amp;url=http%3A%2F%2Fcannibalcandy.wordpress.com%2F2012%2F04%2F26%2Finstalling-and-configuring-dwm-under-ubuntu%2F&amp;for=wpcom-auto-discovery" /><link rel="alternate" type="application/xml+oembed" href="http://public-api.wordpress.com/oembed/1.0/?format=xml&amp;url=http%3A%2F%2Fcannibalcandy.wordpress.com%2F2012%2F04%2F26%2Finstalling-and-configuring-dwm-under-ubuntu%2F&amp;for=wpcom-auto-discovery" />
+<!-- Jetpack Open Graph Tags -->
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Installing and configuring dwm under Ubuntu" />
+<meta property="og:url" content="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/" />
+<meta property="og:description" content="dwm is an ultra-minimal tiling WM written in C. Ubuntu offers a binary package, but it&#039;s kind of pointless since the only way to configure dwm is by editing its source code and recompiling. Instead..." />
+<meta property="og:site_name" content="Cannibal&#039;s Candy" />
+<meta property="og:image" content="http://i2.wp.com/cannibalcandy.files.wordpress.com/2012/04/5-tiling-3.png?fit=1000%2C1000" />
+<meta property="og:image" content="http://i1.wp.com/cannibalcandy.files.wordpress.com/2012/04/4-tiling-2.png?fit=1000%2C1000" />
+<meta property="og:image" content="http://i1.wp.com/cannibalcandy.files.wordpress.com/2012/04/3-tiling-1.png?fit=1000%2C1000" />
+<meta property="og:image" content="http://i2.wp.com/cannibalcandy.files.wordpress.com/2012/04/1-default-dwm.jpeg?fit=1000%2C1000" />
+<meta name="twitter:site" content="@wordpressdotcom" />
+<meta name="twitter:image" content="http://i2.wp.com/cannibalcandy.files.wordpress.com/2012/04/5-tiling-3.png" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="@gatorviolateur" />
+<meta property="fb:app_id" content="249643311490" />
+<link rel="shortcut icon" type="image/x-icon" href="http://0.gravatar.com/blavatar/22edfe4e8efcbe5ab0af59ec0bc72c82?s=16" sizes="16x16" />
+<link rel="icon" type="image/x-icon" href="http://0.gravatar.com/blavatar/22edfe4e8efcbe5ab0af59ec0bc72c82?s=16" sizes="16x16" />
+<link rel="apple-touch-icon-precomposed" href="http://1.gravatar.com/blavatar/9e52e783bc6af4291e542a6c1368b5ef?s=114" />
+<link rel='openid.server' href='http://cannibalcandy.wordpress.com/?openidserver=1' />
+<link rel='openid.delegate' href='http://cannibalcandy.wordpress.com/' />
+<link rel="search" type="application/opensearchdescription+xml" href="http://cannibalcandy.wordpress.com/osd.xml" title="Cannibal&#039;s Candy" />
+<link rel="search" type="application/opensearchdescription+xml" href="http://wordpress.com/opensearch.xml" title="WordPress.com" />
+		<style>
+		/* <![CDATA[ */
+		/* Block: reblog */
+		
+		.reblog-from img                   { margin: 0 10px 0 0; vertical-align: middle; padding: 0; border: 0; }
+		.reblogger-note img.avatar         { float: left; padding: 0; border: 0; }
+		.reblogger-note-content            { margin: 0 0 20px; }
+		.reblog-post .wpcom-enhanced-excerpt-content { border-left: 3px solid #eee; padding-left: 15px; }
+		.reblog-post ul.thumb-list         { display: block; list-style: none; margin: 2px 0; padding: 0; clear: both; }
+		.reblog-post ul.thumb-list li      { display: inline; margin: 0; padding: 0 1px; border: 0; }
+		.reblog-post ul.thumb-list li a    { margin: 0; padding: 0; border: 0; }
+		.reblog-post ul.thumb-list li img  { margin: 0; padding: 0; border: 0; }
+		
+		.reblog-post .wpcom-enhanced-excerpt { clear: both; }
+		
+		.reblog-post .wpcom-enhanced-excerpt address,
+		.reblog-post .wpcom-enhanced-excerpt li,
+		.reblog-post .wpcom-enhanced-excerpt h1,
+		.reblog-post .wpcom-enhanced-excerpt h2,
+		.reblog-post .wpcom-enhanced-excerpt h3,
+		.reblog-post .wpcom-enhanced-excerpt h4,
+		.reblog-post .wpcom-enhanced-excerpt h5,
+		.reblog-post .wpcom-enhanced-excerpt h6,
+		.reblog-post .wpcom-enhanced-excerpt p { font-size: 100% !important; }
+		
+		.reblog-post .wpcom-enhanced-excerpt blockquote,
+		.reblog-post .wpcom-enhanced-excerpt pre,
+		.reblog-post .wpcom-enhanced-excerpt code,
+		.reblog-post .wpcom-enhanced-excerpt q { font-size: 98% !important; }
+		
+
+		/* ]]> */
+		</style>
+		<script type="text/javascript" src="//use.typekit.net/juy7dto.js"></script><script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+		<style type="text/css">
+			.recentcomments a {
+				display: inline !important;
+				padding: 0 !important;
+				margin: 0 !important;
+			}
+
+			table.recentcommentsavatartop img.avatar, table.recentcommentsavatarend img.avatar {
+				border: 0px;
+				margin: 0;
+			}
+
+			table.recentcommentsavatartop a, table.recentcommentsavatarend a {
+				border: 0px !important;
+				background-color: transparent !important;
+			}
+
+			td.recentcommentsavatarend, td.recentcommentsavatartop {
+				padding: 0px 0px 1px 0px;
+				margin: 0px;
+			}
+
+			td.recentcommentstextend {
+				border: none !important;
+				padding: 0px 0px 2px 10px;
+			}
+
+			.rtl td.recentcommentstextend {
+				padding: 0px 10px 2px 0px;
+			}
+
+			td.recentcommentstexttop {
+				border: none !important;
+				padding: 0px 0px 0px 10px;
+			}
+
+			.rtl td.recentcommentstexttop {
+				padding: 0px 10px 0px 0px;
+			}
+		</style>
+		<meta name="application-name" content="Cannibal&#039;s Candy" /><meta name="msapplication-window" content="width=device-width;height=device-height" /><meta name="msapplication-tooltip" content="Because humans just aren&#039;t sweet enough" /><meta name="msapplication-task" content="name=Subscribe;action-uri=http://cannibalcandy.wordpress.com/feed/;icon-uri=http://0.gravatar.com/blavatar/22edfe4e8efcbe5ab0af59ec0bc72c82?s=16" /><meta name="msapplication-task" content="name=Sign up for a free blog;action-uri=http://wordpress.com/signup/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Support;action-uri=http://support.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="msapplication-task" content="name=WordPress.com Forums;action-uri=http://forums.wordpress.com/;icon-uri=http://s2.wp.com/i/favicon.ico" /><meta name="title" content="Installing and configuring dwm under&nbsp;Ubuntu | Cannibal&#039;s Candy on WordPress.com" />
+<meta name="description" content="Because humans just aren&#039;t sweet enough" />
+	<style type="text/css">
+			.site-title a,
+		.site-description {
+			color: #dd3333 !important;
+		}
+		</style>
+	<style type="text/css" id="custom-background-css">
+body.custom-background { background-color: #000000; }
+</style>
+
+<script type='text/javascript' src='http://partner.googleadservices.com/gampad/google_service.js'>
+</script>
+<script type='text/javascript'>
+if ( typeof GS_googleAddAdSenseService == 'function' ) { GS_googleAddAdSenseService("ca-pub-3443918307802676"); }
+if ( typeof GS_googleEnableAllServices == 'function' ) { GS_googleEnableAllServices() };
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleAddSlot == 'function' ) { GA_googleAddSlot("ca-pub-3443918307802676", "wpcom_below_post"); }
+</script>
+<script type='text/javascript'>
+if ( typeof GA_googleFetchAds == 'function' ) { GA_googleFetchAds(); }
+</script>
+
+<script type="text/javascript">
+var wpcom_ads = { bid: 19607152, pt: 'permalink', wa: 0, as: 0, domain: 'cannibalcandy.wordpress.com', url: escape('http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/'), gid: '', };
+</script>
+<style id="syntaxhighlighteranchor"></style>
+<script type="text/javascript"> 
+	window.google_analytics_uacct = "UA-52447-2"; 
+</script>
+
+<script type="text/javascript">
+	var _gaq = _gaq || [];
+	_gaq.push(['_setAccount', 'UA-52447-2']);
+	_gaq.push(['_setDomainName', 'wordpress.com']);
+	_gaq.push(['_initData']);
+	_gaq.push(['_trackPageview']);
+
+	(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ga);
+	})();
+</script>
+</head>
+
+<body class="single single-post postid-200 single-format-standard custom-background typekit-enabled highlander-enabled highlander-dark">
+<div id="page" class="hfeed site">
+		<header id="masthead" class="site-header" role="banner">
+		<hgroup>
+						<h1 class="site-title"><a href="http://cannibalcandy.wordpress.com/" title="Cannibal&#039;s Candy" rel="home">Cannibal&#039;s Candy</a></h1>
+			<h2 class="site-description">Because humans just aren&#039;t sweet enough</h2>
+		</hgroup>
+
+		<nav role="navigation" class="site-navigation main-navigation">
+			<h1 class="assistive-text">Menu</h1>
+			<div class="assistive-text skip-link"><a href="#content" title="Skip to content">Skip to content</a></div>
+
+			<div class="menu"><ul><li ><a href="http://cannibalcandy.wordpress.com/" title="Home">Home</a></li></ul></div>
+		</nav><!-- .site-navigation .main-navigation -->
+		<div class="clearfix"></div>
+	</header><!-- #masthead .site-header -->
+
+	<div id="main" class="site-main">
+		<div id="primary" class="content-area">
+			<div id="content" class="site-content" role="main">
+
+			
+				
+<article id="post-200" class="post-200 post type-post status-publish format-standard hentry category-linux tag-dwm tag-linux-2 tag-ubuntu-2">
+	<header class="entry-header">
+		<h1 class="entry-title">Installing and configuring dwm under&nbsp;Ubuntu</h1>
+
+		<div class="entry-meta">
+			<a href="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/" title="22:30" rel="bookmark"><time class="entry-date" datetime="2012-04-26T22:30:13+00:00" pubdate>April 26, 2012</time></a><span class="byline"> by <span class="author vcard"><a class="url fn n" href="http://cannibalcandy.wordpress.com/author/shpongl/" title="View all posts by shpongl" rel="author">shpongl</a></span></span>			 in <a href="http://cannibalcandy.wordpress.com/category/linux/" title="View all posts in Linux" rel="category tag">Linux</a> and tagged <a href="http://cannibalcandy.wordpress.com/tag/dwm/" rel="tag">dwm</a>, <a href="http://cannibalcandy.wordpress.com/tag/linux-2/" rel="tag">linux</a>, <a href="http://cannibalcandy.wordpress.com/tag/ubuntu-2/" rel="tag">ubuntu</a> | <a href="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/" title="Permalink to Installing and configuring dwm under&nbsp;Ubuntu" rel="bookmark">Permalink</a>		</div><!-- .entry-meta -->
+	</header><!-- .entry-header -->
+
+	<div class="entry-content">
+		<p>dwm is an ultra-minimal tiling WM written in C. Ubuntu offers a binary package, but it&#8217;s kind of pointless since the only way to configure dwm is by editing its source code and recompiling. Instead we will grab the latest source from the project website directly.</p>
+<p>First install the dependencies needed for compiling dwm along with the package suckless-tools which contains a bunch of utilities for use with dwm.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+$ sudo apt-get install build-essential libx11-dev libxinerama-dev sharutils suckless-tools
+</pre>
+<p>Now grab the dwm source code from the project website and extract it locally.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+$ cd /usr/local/src
+$ sudo wget http://dl.suckless.org/dwm/dwm-6.0.tar.gz
+$ sudo tar xvzf dwm-6.0.tar.gz
+$ chown -R `id -u`:`id -g` dwm-6.0
+$ cd dwm-6.0
+</pre>
+<p>Before proceeding further with compilation, have a look at the README file. It tells you to modify the config.mk file to match your system. However the defaults work just fine on a normal Ubuntu system. So, go ahead and compile!</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+$ sudo make clean install
+</pre>
+<p>At this point, dwm is installed as /usr/local/bin/dwm, but you still need to add an entry for dwm so that it shows as an option in your login screen. For this we will install dwm from the repositories which, as I said before, is not of much use. But, it will also install a file /usr/share/xsessions/dwm.desktop which is what we need. So we will back up this file, remove dwm, and restore the backup file.</p>
+<pre class="brush: bash; title: ; notranslate" title="">
+$ sudo apt-get install dwm
+$ sudo cp /usr/share/xsessions/dwm.desktop{,.bak}
+$ sudo apt-get purge dwm
+$ sudo mv /usr/share/xsessions/dwm.desktop{.bak,}
+</pre>
+<p>Now we are all set to log in to our dwm setup! So log out and log back in to dwm session to be greeted with a shiny new desktop that looks something like this:</p>
+<div id="attachment_202" class="wp-caption alignleft" style="width: 310px"><a href="http://cannibalcandy.files.wordpress.com/2012/04/1-default-dwm.jpeg"><img class="size-medium wp-image-202" title="dwm default" src="http://cannibalcandy.files.wordpress.com/2012/04/1-default-dwm.jpeg?w=300&#038;h=168" alt="Default dwm under Ubuntu 11.10" width="300" height="168" /></a><p class="wp-caption-text">Default dwm desktop</p></div>
+<p>There you go, unabashed simplicity for you, right there. No oversized icons to waste screen space, no system trays, taskbars, panels to distract you and no apparent way to launch applications. What you do have is an narrow bar running along the top edge of the screen displaying some numbers and symbols with “dwm-6.0” written in the right corner. This bar is known as&#8230;.we&#8217;ll just call it bar for now. Try pressing Alt+B to toggle the bar visibility. The numbers you see are virtual desktops (called tags in dwm) – dwm provides 9 of them by default. Try Alt+[Num] to switch between tags. The weird “[]=” symbol you see next to the tags is your current tiling layout. dwm offers three layouts by default – tile ([]=), monocle ([M]) and float (&gt;). The “dwm-6.0” string you see in the far left can actually be changed to show useful information like current date, time, network status, battery status etc.</p>
+<p>This is a good time to get yourself acquainted with dwm&#8217;s keyboard shortcuts. Remember, keyboard shortcuts are of prime importance in tiling WMs and you should know them as your life depended on it. You can configure them to your liking, but it helps to get acquainted with a few default ones:</p>
+<pre class="brush: plain; title: ; notranslate" title="">
+Alt+Shift+Enter
+    Launch xterm
+Alt+Shift+C
+    Kill a client (a window, if you must insist)
+Alt+t
+    Switch to tile layout
+Alt+m
+    Switch to monocle layout
+Alt+f
+    Switch to floating layout
+Alt+b
+    Show/hide bar
+Alt+p
+    Launch dmenu
+Alt+[num]
+    Switch to tag [num]
+Alt+Shift+Q
+    Quit dwm
+</pre>
+<p>dmenu is an application launcher from the author of dwm following the same minimalist philosophy as dwm. It is a part of the suckless-tools package we installed earlier.</p>
+<p>Now we will try out the tiling modes of dwm. First close any open clients (Alt+Shift+C) and switch to tile mode (Alt+t). Now open up xterm using dmenu. Press Alt+p and you should see the bar get replaced by something like this</p>
+<div id="attachment_204" class="wp-caption alignleft" style="width: 310px"><a href="http://cannibalcandy.files.wordpress.com/2012/04/2-dmenu.jpeg"><img class="size-medium wp-image-204" title="dmenu" src="http://cannibalcandy.files.wordpress.com/2012/04/2-dmenu.jpeg?w=300&#038;h=23" alt="dmenu under Ubuntu 11.10" width="300" height="23" /></a><p class="wp-caption-text">dmenu</p></div>
+<p>Start typing the name of the app you wish to launch, and once dmenu has narrowed down the search, select it using arrow keys and press Enter. Launch xterm this way. It will occupy the entire screen. (Number 1 has been added by me)</p>
+<div id="attachment_205" class="wp-caption alignleft" style="width: 310px"><a href="http://cannibalcandy.files.wordpress.com/2012/04/3-tiling-1.png"><img class="size-medium wp-image-205" title="single client open" src="http://cannibalcandy.files.wordpress.com/2012/04/3-tiling-1.png?w=300&#038;h=168" alt="single client open in dwm" width="300" height="168" /></a><p class="wp-caption-text">Single xterm client.</p></div>
+<p>Open another xterm client (using either dmenu or Alt+Shift+Enter). You will find the previously open xterm automatically resize and move to make space for this newly opened xterm.</p>
+<div id="attachment_206" class="wp-caption alignleft" style="width: 310px"><a href="http://cannibalcandy.files.wordpress.com/2012/04/4-tiling-2.png"><img class="size-medium wp-image-206" title="two clients open" src="http://cannibalcandy.files.wordpress.com/2012/04/4-tiling-2.png?w=300&#038;h=168" alt="two clients open in dwm" width="300" height="168" /></a><p class="wp-caption-text">Two xterm clients.</p></div>
+<p>Here, area 1 is called the master area and area 2 is called the stack area. The master area can hold a single client while the stack area holds all the remaining ones. Any newly opened clients always occupy the master area and the existing clients gets pushed into the stacking area. Open up a couple more xterms to see how it works You can switch focus between clients using Alt+j and Alt+k. Focused clients are denoted by a blue border while the rest have gray border. You can move a focused client from stacking area to master area using Alt+Enter. Play around with these shortcuts till you get the hang of how exactly the tiling works. Finally, you can change the ratio between master and stacking areas using Alt+h and Alt+l.</p>
+<div id="attachment_207" class="wp-caption alignleft" style="width: 310px"><a href="http://cannibalcandy.files.wordpress.com/2012/04/5-tiling-3.png"><img class="size-medium wp-image-207" title="multiple clients" src="http://cannibalcandy.files.wordpress.com/2012/04/5-tiling-3.png?w=300&#038;h=168" alt="multiple clients in dwm" width="300" height="168" /></a><p class="wp-caption-text">1 Client in master, 4 in stack with highly skewed area ratio</p></div>
+<p>Now switch over to monocle layout (Alt+m) to have the focused client occupy the entire screen. Note how the “[]=” sign in the bar changes when you switch layout. This layout is equivalent to maximized windows in floating WMs. Note that Alt+j, Alt+k and Alt+Enter shortcuts will work in this layout too.</p>
+<p>The final layout is the floating layout which is equivalent to your conventional floating WMs. Move the clients around using Alt+LMB+Drag and resize them using Alt+RMB+Drag. Note that you can switch individual clients into floating mode without affecting the layout of the rest by using Alt+Shift+Space. Floating clients always stay above the tiled ones.</p>
+<p>Tags in dwm are a more powerful version of virtual desktops in KDE/Gnome etc. A client can have more than one tag associated with it and you can view all clients from any number of tags simultaneously. Use Alt+[num] to view all clients having tag [num], Alt+Ctrl+[num] to view clients having tag [num] in additon to currently visible clients, Alt+Shift+[num] to associate focused client to tag [num] and Alt+Ctrl+Shift+[num] to associate in addition to current tag associations.</p>
+<p>There is still a lot more tweaking you can do before you using dwm as a full-fledged replacement for Unity. This includes configuring a system tray so you can use NetworkManager applet under dwm, displaying some meaningful information in the bar instead of the the curt “dwm-6.0”, configuring dwm by editing it&#8217;s source code (Have a look at /usr/local/src/dwm-6.0/config.h file to get started) and making your gnome themes and settings carry over to your dwm session (if you open any gnome apps at this point, they will have an ugly theme and unreadable fonts).</p>
+<p>PS: Use “nautilus &#8211;no-desktop” in dmenu to launch nautilus, or else it will mess up your dwm session. A default rule in dwm specifies firefox should open in tag 9 by default. Happy tiling!</p>
+
+<div class="wpadvert" style="position: relative; width:300px; text-align: center; padding: 0; margin: 10px auto; overflow: hidden; clear: both;">
+<a style="position: absolute; text-align: left; display: block; font: 9px/1 sans-serif; text-decoration: underline;" href="http://en.wordpress.com/about-these-ads/" rel="nofollow">About these ads</a>
+<script type="text/javascript">
+		var wpcom_adclk_hovering = false;
+		var wpcom_adclk_recorded = false;
+		var wpcom_adclk_theme = "Hero";
+		var wpcom_adclk_slot = "wpcom_below_post";
+		var wpcom_adclk_network = ( typeof wpcom_adclk_network === "undefined" ) ? "" : wpcom_adclk_network ;
+
+		jQuery(document).ready( function() {
+			function wpcom_adclk_hover_yes() { wpcom_adclk_hovering = true; }
+			function wpcom_adclk_hover_no() { wpcom_adclk_hovering = false; }
+			jQuery(".wpadvert").click(wpcom_adclk_click);
+			jQuery(".wpadvert iframe").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+			jQuery(".wpadvert object").hover( wpcom_adclk_hover_yes, wpcom_adclk_hover_no );
+
+			jQuery(window).blur( function() {
+				if ( wpcom_adclk_hovering ) { wpcom_adclk_click(); }
+			});
+		});
+
+		function wpcom_adclk_impression() {
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_imp_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_imp_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_imp_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_imp_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			return true;
+		}
+
+		function wpcom_adclk_click() {
+			if (wpcom_adclk_recorded) { return true; } // no double counting
+			var stat_gif = document.location.protocol + "//stats.wordpress.com/g.gif?v=wpcom-no-pv";
+			stat_gif += "&x_ads_click_theme=" + wpcom_adclk_theme;
+			stat_gif += "&x_ads_click_placement="+wpcom_adclk_slot;
+			stat_gif += "&x_ads_click_network=" + wpcom_adclk_network;
+			stat_gif += "&x_ads_click_theme_network="+wpcom_adclk_theme+"_"+wpcom_adclk_network;
+
+			new Image().src = stat_gif + "&baba=" + Math.random();
+			wpcom_adclk_recorded = true;
+			var now=new Date(); var end=now.getTime()+250;
+			while(true){now=new Date();if(now.getTime()>end){break;}}
+			return true;
+		}
+	
+if ( typeof GA_googleAddAttr == 'function' ) {
+GA_googleAddAttr("AdOpt", "1");
+GA_googleAddAttr("Origin", "extsearch");
+GA_googleAddAttr("LangId", "1");
+GA_googleAddAttr("Domain", "cannibalcandy.wordpress.com");
+GA_googleAddAttr("BlogId", "19607152");
+GA_googleAddAttr("Autotag", "technology");
+GA_googleAddAttr("Tag", "linux");
+GA_googleAddAttr("Tag", "dwm");
+GA_googleAddAttr("Tag", "linux-2");
+GA_googleAddAttr("Tag", "ubuntu-2");
+GA_googleAddAttr("theme_bg", "000000");
+GA_googleAddAttr("theme_border", "333333");
+GA_googleAddAttr("theme_text", "ffffff");
+GA_googleAddAttr("theme_link", "ff0000");
+GA_googleAddAttr("theme_url", "ff0000");
+GA_googleAddAdSensePageAttr("google_page_url", "http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/");
+GA_googleFillSlot("wpcom_below_post");
+}
+</script>
+</div>
+<style type="text/css">
+div.wpadvert>div { margin-top: 1em; }
+</style>
+<script type="text/javascript">
+jQuery( window ).load( function() {
+    if ( jQuery(".wpadvert script[src*='shareth.ru']").length > 0 || jQuery(".wpadvert iframe[src*='boomvideo.tv']").length > 0 || jQuery(".wpadvert iframe[src*='viewablemedia.net']").length > 0 || jQuery(".wpadvert .sharethrough-placement").length > 0 ) {
+        jQuery( '.wpadvert' ).css( 'width', '400px' );
+    }
+setTimeout(function(){if(typeof GS_googleAddAdSenseService !== 'function'){new Image().src=document.location.protocol+"//stats.wordpress.com/g.gif?v=wpcom-no-pv&x_noads=adblock&baba="+Math.random()}},100);
+} );
+</script>
+<div id="jp-post-flair" class="sharedaddy sharedaddy-dark sd-like-enabled sd-sharing-enabled"><div class="sharedaddy sd-sharing-enabled"><div class="robots-nocontent sd-block sd-social sd-social-icon sd-sharing"><h3 class="sd-title">Cannibalize here:</h3><div class="sd-content"><ul><li class="share-facebook"><a rel="nofollow" class="share-facebook sd-button share-icon no-text" href="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/?share=facebook" target="_blank" title="Share on Facebook" id="sharing-facebook-200"><span></span></a></li><li class="share-twitter"><a rel="nofollow" class="share-twitter sd-button share-icon no-text" href="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/?share=twitter" target="_blank" title="Click to share on Twitter" id="sharing-twitter-200"><span></span></a></li><li class="share-reddit"><a rel="nofollow" class="share-reddit sd-button share-icon no-text" href="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/?share=reddit" target="_blank" title="Click to share on Reddit"><span></span></a></li><li class="share-google-plus-1"><a rel="nofollow" class="share-google-plus-1 sd-button share-icon no-text" href="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/?share=google-plus-1" target="_blank" title="Click to share on Google+" id="sharing-google-200"><span></span></a></li><li class="share-email"><a rel="nofollow" class="share-email sd-button share-icon no-text" href="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/?share=email" target="_blank" title="Click to email this to a friend"><span></span></a></li><li class="share-print"><a rel="nofollow" class="share-print sd-button share-icon no-text" href="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/#print" target="_blank" title="Click to print"><span></span></a></li><li class="share-end"></li></ul><div class="sharing-clear"></div></div></div></div><div class='sharedaddy sd-block sd-like jetpack-likes-widget-wrapper jetpack-likes-widget-unloaded' id='like-post-wrapper-19607152-200' data-src='http://widgets.wp.com/likes/#blog_id=19607152&post_id=200&origin=http://cannibalcandy.wordpress.com' data-name='like-post-frame-19607152-200'><h3 class='sd-title'>Like this:</h3><div class='post-likes-widget-placeholder' style='height:55px'><span class='button'><span>Like</span></span> <span class="loading">Loading...</span></div><span class='sd-text-color'></span><a class='sd-link-color'></a></div></div>			</div><!-- .entry-content -->
+</article><!-- #post-200 -->
+
+					<nav role="navigation" id="nav-below" class="site-navigation post-navigation">
+		<h1 class="assistive-text">Post navigation</h1>
+
+	
+		<div class="nav-previous"><a href="http://cannibalcandy.wordpress.com/2012/01/22/a-quick-way-to-determine-endianness/" rel="prev"><span class="meta-nav">&larr;</span> A quick way to determine&nbsp;endianness</a></div>		<div class="nav-next"><a href="http://cannibalcandy.wordpress.com/2012/09/16/haskell-using-already-computed-part-of-list-to-compute-further-list/" rel="next">Haskell: Using already computed part of list to compute further&nbsp;list <span class="meta-nav">&rarr;</span></a></div>
+	
+	</nav><!-- #nav-below -->
+	
+				
+
+	<div id="comments" class="comments-area">
+
+	
+			<h2 class="comments-title">
+			2 thoughts on &ldquo;<span>Installing and configuring dwm under&nbsp;Ubuntu</span>&rdquo;		</h2>
+
+		<ol class="commentlist">
+				<li class="post pingback">
+		<p>Pingback: <a href='http://blog.talueee.com/?p=1128' rel='external nofollow' class='url'>&raquo; dwm &#8211; Setup and config. .:: talueee blog ::.</a></p>
+	</li>
+	<li class="comment even thread-even depth-1 highlander-comment" id="li-comment-172">
+		<article id="comment-172" class="comment">
+			<footer>
+				<div class="comment-author vcard">
+					<img alt='' src='http://0.gravatar.com/avatar/?s=40&amp;d=retro&amp;r=G' class='avatar avatar-40' height='40' width='40' />					<cite class="fn">Anonymous</cite> <span class="says">says:</span>				</div><!-- .comment-author .vcard -->
+				
+				<div class="comment-meta commentmetadata">
+					<a href="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/#comment-172"><time pubdate datetime="2012-12-26T03:21:43+00:00">
+					December 26, 2012 at 03:21					</time></a>
+									</div><!-- .comment-meta .commentmetadata -->
+			</footer>
+
+			<div class="comment-content"><p>Great tutorial. Thanks.</p>
+</div>
+
+			<div class="reply">
+				<a class='comment-reply-link' href='/2012/04/26/installing-and-configuring-dwm-under-ubuntu/?replytocom=172#respond' onclick='return addComment.moveForm("comment-172", "172", "respond", "200")'>Reply</a>			</div><!-- .reply -->
+		</article><!-- #comment-## -->
+
+	</li>
+		</ol><!-- .commentlist -->
+
+		
+	
+	
+									<div id="respond">
+				<h3 id="reply-title">Leave a Reply <small><a rel="nofollow" id="cancel-comment-reply-link" href="/2012/04/26/installing-and-configuring-dwm-under-ubuntu/#respond" style="display:none;">Cancel reply</a></small></h3>
+									<form action="http://cannibalcandy.wordpress.com/wp-comments-post.php" method="post" id="commentform">
+																										
+
+
+												
+<input type="hidden" name="hc_post_as" id="hc_post_as" value="guest" />
+
+<div class="comment-form-field comment-textarea">
+	<label for="comment">Enter your comment here...</label>
+	<div id="comment-form-comment"><textarea id="comment" name="comment"></textarea></div>
+</div>
+
+<div id="comment-form-identity">
+
+	<div id="comment-form-nascar">
+		<p>Fill in your details below or click an icon to log in:</p>
+		<ul>
+			<li class="selected" style="display:none;">
+				<a href="#comment-form-guest" id="postas-guest" title="Guest">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:WordPress.com" id="postas-wordpress" title="WordPress.com">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Twitter" id="postas-twitter" title="Twitter">
+					<span></span>
+				</a>
+			</li>
+			<li>
+				<a href="#comment-form-load-service:Facebook" id="postas-facebook" title="Facebook">
+					<span></span>
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<div id="comment-form-guest" class="comment-form-service selected">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+<a href="https://gravatar.com/site/signup/" target="_blank">				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=retro&amp;forcedefault=y&amp;r=G" alt="Gravatar" width="25" class="no-grav" />
+</a>			</div>
+
+				<div class="comment-form-fields">
+				<div class="comment-form-field comment-form-email">
+					<label for="email">Email <span class="nopublish">(Address never made public)</span></label>
+					<div class="comment-form-input"><input id="email" name="email" type="email" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-author">
+					<label for="author">Name</label>
+					<div class="comment-form-input"><input id="author" name="author" type="text" value="" /></div>
+				</div>
+				<div class="comment-form-field comment-form-url">
+					<label for="url">Website</label>
+					<div class="comment-form-input"><input id="url" name="url" type="text" value="" /></div>
+				</div> 
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-wordpress" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://s2.wp.com/wp-content/mu-plugins/highlander-comments/images/wplogo.png?m=1289230950g" alt="WordPress.com Logo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="wp_avatar" id="wordpress-avatar" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_user_id" id="wordpress-user_id" class="comment-meta-wordpress" value="" />
+				<input type="hidden" name="wp_access_token" id="wordpress-access_token" class="comment-meta-wordpress" value="" />
+				<p class="comment-form-posting-as pa-wordpress"><strong></strong> You are commenting using your WordPress.com account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'wordpress' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-twitter" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=retro&amp;forcedefault=y&amp;r=G" alt="Twitter picture" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="twitter_avatar" id="twitter-avatar" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_user_id" id="twitter-user_id" class="comment-meta-twitter" value="" />
+				<input type="hidden" name="twitter_access_token" id="twitter-access_token" class="comment-meta-twitter" value="" />
+				<p class="comment-form-posting-as pa-twitter"><strong></strong> You are commenting using your Twitter account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'twitter' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+	<div id="comment-form-facebook" class="comment-form-service">
+		<div class="comment-form-padder">
+			<div class="comment-form-avatar">
+				<img src="http://1.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=25&amp;d=retro&amp;forcedefault=y&amp;r=G" alt="Facebook photo" width="25" class="no-grav" />
+			</div>
+
+				<div class="comment-form-fields">
+				<input type="hidden" name="fb_avatar" id="facebook-avatar" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_user_id" id="facebook-user_id" class="comment-meta-facebook" value="" />
+				<input type="hidden" name="fb_access_token" id="facebook-access_token" class="comment-meta-facebook" value="" />
+				<p class="comment-form-posting-as pa-facebook"><strong></strong> You are commenting using your Facebook account. <span class="comment-form-log-out">(&nbsp;<a href="javascript:HighlanderComments.doExternalLogout( 'facebook' );">Log&nbsp;Out</a>&nbsp;/&nbsp;<a href="#" onclick="javascript:HighlanderComments.switchAccount();return false;">Change</a>&nbsp;)</span></p>
+			</div>
+	
+		</div>
+	</div>
+
+
+	<div id="comment-form-load-service" class="comment-form-service">
+		<div class="comment-form-posting-as-cancel"><a href="javascript:HighlanderComments.cancelExternalWindow();">Cancel</a></div>
+		<p>Connecting to %s</p>
+	</div>
+	
+	
+</div>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+	var input = document.createElement( 'input' ),
+	    comment = jQuery( '#comment' );
+
+	if ( 'placeholder' in input ) {
+		comment.attr( 'placeholder', jQuery( '.comment-textarea label' ).remove().text() );
+	}
+
+	// Expando Mode: start small, then auto-resize on first click + text length
+	jQuery( '#comment-form-identity' ).hide();
+	jQuery( '#comment-form-subscribe' ).hide();
+	jQuery( '#commentform .form-submit' ).hide();
+
+	comment.css( { 'height':'10px' } ).one( 'focus', function() {
+		var timer = setInterval( HighlanderComments.resizeCallback, 10 )
+		jQuery( this ).animate( { 'height': HighlanderComments.initialHeight } ).delay( 100 ).queue( function(n) { clearInterval( timer ); HighlanderComments.resizeCallback(); n(); } );
+		jQuery( '#comment-form-identity' ).slideDown();
+		jQuery( '#comment-form-subscribe' ).slideDown();
+		jQuery( '#commentform .form-submit' ).slideDown();
+	});
+});
+</script>
+
+<div id="comment-form-subscribe"> 
+	<p class="comment-subscription-form"><input type="checkbox" name="subscribe" id="subscribe" value="subscribe" style="width: auto;" tabindex="6"/> <label class="subscribe-label" id="subscribe-label" for="subscribe" style="display: inline;">Notify me of follow-up comments via email.</label></p><p class="post-subscription-form"><input type="checkbox" name="subscribe_blog" id="subscribe_blog" value="subscribe" style="width: auto;" tabindex="7"/> <label class="subscribe-label" id="subscribe-blog-label" for="subscribe_blog"  style="display: inline;">Notify me of new posts via email.</label></p></div>
+
+												<p class="form-submit">
+							<input name="submit" type="submit" id="comment-submit" value="Post Comment" />
+							<input type='hidden' name='comment_post_ID' value='200' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+						</p>
+						
+<input type="hidden" name="genseq" value="1364717123" />
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="1c094e94fb" /></p><script type='text/javascript' src='http://s2.wp.com/wp-content/mu-plugins/akismet-2.5/form.js?m=1308783962g'></script>
+<p style="display: none;"><input type="hidden" id="ak_js" name="ak_js" value="246"/></p>					</form>
+							</div><!-- #respond -->
+			<div style="clear: both"></div>			
+</div><!-- #comments .comments-area -->
+
+			
+			</div><!-- #content .site-content -->
+		</div><!-- #primary .content-area -->
+
+		<div id="secondary" class="widget-area" role="complementary">
+						<aside id="wp_tag_cloud-2" class="widget wp_widget_tag_cloud"><h1 class="widget-title">Tags</h1><div style="overflow:hidden"><a href='http://cannibalcandy.wordpress.com/tag/arch-2/' class='tag-link-35645814' title='2 topics' style='font-size: 12.581818181818pt;'>arch</a>
+<a href='http://cannibalcandy.wordpress.com/tag/atheism/' class='tag-link-8146' title='1 topic' style='font-size: 8pt;'>atheism</a>
+<a href='http://cannibalcandy.wordpress.com/tag/bash/' class='tag-link-2674' title='1 topic' style='font-size: 8pt;'>bash</a>
+<a href='http://cannibalcandy.wordpress.com/tag/c-2/' class='tag-link-1634593' title='1 topic' style='font-size: 8pt;'>c</a>
+<a href='http://cannibalcandy.wordpress.com/tag/delhi/' class='tag-link-23154' title='1 topic' style='font-size: 8pt;'>delhi</a>
+<a href='http://cannibalcandy.wordpress.com/tag/dsdt/' class='tag-link-14275433' title='1 topic' style='font-size: 8pt;'>dsdt</a>
+<a href='http://cannibalcandy.wordpress.com/tag/dwm/' class='tag-link-203139' title='2 topics' style='font-size: 12.581818181818pt;'>dwm</a>
+<a href='http://cannibalcandy.wordpress.com/tag/endianness/' class='tag-link-7143678' title='1 topic' style='font-size: 8pt;'>endianness</a>
+<a href='http://cannibalcandy.wordpress.com/tag/evolution/' class='tag-link-11940' title='1 topic' style='font-size: 8pt;'>evolution</a>
+<a href='http://cannibalcandy.wordpress.com/tag/existentialism/' class='tag-link-11509' title='1 topic' style='font-size: 8pt;'>existentialism</a>
+<a href='http://cannibalcandy.wordpress.com/tag/functional/' class='tag-link-188921' title='1 topic' style='font-size: 8pt;'>functional</a>
+<a href='http://cannibalcandy.wordpress.com/tag/haskell-2/' class='tag-link-35014732' title='1 topic' style='font-size: 8pt;'>haskell</a>
+<a href='http://cannibalcandy.wordpress.com/tag/india-2/' class='tag-link-17265798' title='2 topics' style='font-size: 12.581818181818pt;'>india</a>
+<a href='http://cannibalcandy.wordpress.com/tag/linux-2/' class='tag-link-34922710' title='6 topics' style='font-size: 22pt;'>linux</a>
+<a href='http://cannibalcandy.wordpress.com/tag/metal/' class='tag-link-1393' title='1 topic' style='font-size: 8pt;'>metal</a>
+<a href='http://cannibalcandy.wordpress.com/tag/mumbai/' class='tag-link-4010' title='1 topic' style='font-size: 8pt;'>mumbai</a>
+<a href='http://cannibalcandy.wordpress.com/tag/music-2/' class='tag-link-192227' title='1 topic' style='font-size: 8pt;'>music</a>
+<a href='http://cannibalcandy.wordpress.com/tag/personal-views/' class='tag-link-61414' title='2 topics' style='font-size: 12.581818181818pt;'>personal views</a>
+<a href='http://cannibalcandy.wordpress.com/tag/poem/' class='tag-link-1720' title='4 topics' style='font-size: 18.181818181818pt;'>poem</a>
+<a href='http://cannibalcandy.wordpress.com/tag/poem-poetry/' class='tag-link-707449' title='1 topic' style='font-size: 8pt;'>poem. poetry</a>
+<a href='http://cannibalcandy.wordpress.com/tag/poetry/' class='tag-link-422' title='4 topics' style='font-size: 18.181818181818pt;'>poetry</a>
+<a href='http://cannibalcandy.wordpress.com/tag/programming-2/' class='tag-link-24194809' title='1 topic' style='font-size: 8pt;'>programming</a>
+<a href='http://cannibalcandy.wordpress.com/tag/rape/' class='tag-link-71648' title='1 topic' style='font-size: 8pt;'>rape</a>
+<a href='http://cannibalcandy.wordpress.com/tag/religion/' class='tag-link-116' title='1 topic' style='font-size: 8pt;'>religion</a>
+<a href='http://cannibalcandy.wordpress.com/tag/ubuntu-2/' class='tag-link-34920936' title='1 topic' style='font-size: 8pt;'>ubuntu</a>
+<a href='http://cannibalcandy.wordpress.com/tag/universe/' class='tag-link-8145' title='1 topic' style='font-size: 8pt;'>universe</a></div></aside><aside id="meta-4" class="widget widget_meta"><h1 class="widget-title">Meta</h1>			<ul>
+			<li><a href="http://cannibalcandy.wordpress.com/wp-login.php?action=register">Register</a></li>			<li><a href="http://cannibalcandy.wordpress.com/wp-login.php">Log in</a></li>
+			<li><a href="http://cannibalcandy.wordpress.com/feed/" title="Syndicate this site using RSS 2.0">Entries <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://cannibalcandy.wordpress.com/comments/feed/" title="The latest comments to all posts in RSS">Comments <abbr title="Really Simple Syndication">RSS</abbr></a></li>
+			<li><a href="http://wordpress.com/" title="Powered by WordPress, state-of-the-art semantic personal publishing platform.">WordPress.com</a></li>
+						</ul>
+</aside><aside id="blog_subscription-3" class="widget widget_blog_subscription"><h1 class="widget-title"><label for="subscribe-field">Your inbox, my posts. Deal?</label></h1>
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="subscribe-blog">
+									<p>Join 242 other followers</p>
+					<p><input type="text" name="email" style="width: 95%; padding: 1px 2px" value="" id="subscribe-field"/></p>
+				
+				<p>
+					<input type="hidden" name="action" value="subscribe"/>
+					<input type="hidden" name="blog_id" value="19607152"/>
+					<input type="hidden" name="source" value="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/"/>
+					<input type="hidden" name="sub-type" value="widget"/>
+					<input type="hidden" name="redirect_fragment" value="blog_subscription-3" />
+					<input type="hidden" id="_wpnonce" name="_wpnonce" value="7315787a18" />					<input type="submit" value="Follow" />
+				</p>
+			</form>
+			
+</aside>		</div><!-- #secondary .widget-area -->
+
+	</div><!-- #main .site-main -->
+
+	<footer id="colophon" class="site-footer" role="contentinfo">
+				<div id="tertiary" role="complementary">
+			
+			
+			
+			
+					</div><!-- #tertiary .widget-area -->
+		<div class="site-info">
+						<span class="generator-link"><a href="http://wordpress.com/?ref=footer" rel="generator">Blog at WordPress.com</a>.</span>
+			Theme: <a href="http://theme.wordpress.com/themes/hero/" title="Learn more about this theme">Hero</a> by <a href="http://www.antthemes.com" rel="designer">antthemes</a>.		</div><!-- .site-info -->
+	</footer><!-- #colophon .site-footer -->
+</div><!-- #page .hfeed .site -->
+
+
+<script type="text/javascript">
+var _qevents = _qevents || [], wpcomQuantcastData = {"qacct":"p-18-mFEk4J448M","labels":",language.en,type.wpcom,posttag.dwm,posttag.linux-2,posttag.ubuntu-2,as"};
+function wpcomQuantcastPixel( labels, options ) {
+	var i, defaults = wpcomQuantcastData, data = { event: 'ajax' };
+
+	labels  = labels  || '';
+	options = options || {};
+
+	if ( typeof labels != 'string' )
+		options = labels;
+
+	for ( i in defaults ) {
+		data[i] = defaults[i];
+	}
+
+	for ( i in options ) {
+		data[i] = options[i];
+	}
+
+	if ( data.labels ) {
+		data.labels += ',' + labels;
+	} else {
+		data.labels = labels;
+	}
+
+	_qevents.push( data );
+};
+(function() {var elem = document.createElement('script');elem.src = (document.location.protocol == "https:" ? "https://secure" : "http://edge") + ".quantserve.com/quant.js";elem.async = true;elem.type = "text/javascript";var scpt = document.getElementsByTagName('script')[0];scpt.parentNode.insertBefore(elem, scpt);  })();
+_qevents.push( wpcomQuantcastData );
+</script>
+<noscript><div style="display: none;"><img src="//pixel.quantserve.com/pixel/p-18-mFEk4J448M.gif?labels=%2Clanguage.en%2Ctype.wpcom%2Cposttag.dwm%2Cposttag.linux-2%2Cposttag.ubuntu-2%2Cas" height="1" width="1" alt="" /></div></noscript>
+
+<script type='text/javascript' src='//0.gravatar.com/js/gprofiles.js?ver=201313ac'></script>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var WPGroHo = {"my_hash":""};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s0.wp.com/wp-content/mu-plugins/gravatar-hovercards/wpgroho.js?m=1351637563g'></script>
+<script>jQuery(document).ready(function($){ Gravatar.profile_cb = function( h, d ) { WPGroHo.syncProfileData( h, d );	}; Gravatar.my_hash = WPGroHo.my_hash; Gravatar.init( 'body', '#wp-admin-bar-my-account' ); });</script>	<div style="display:none">
+	<div class="grofile-hash-map-d41d8cd98f00b204e9800998ecf8427e">
+	</div>
+	</div>
+<script type='text/javascript'>
+/* <![CDATA[ */
+var HighlanderComments = {"loggingInText":"Logging In\u2026","submittingText":"Posting Comment\u2026","postCommentText":"Post Comment","connectingToText":"Connecting to %s","commentingAsText":"%1$s: You are commenting using your %2$s account.","logoutText":"Log Out","loginText":"Log In","connectURL":"http:\/\/cannibalcandy.wordpress.com\/public.api\/connect\/?action=request","logoutURL":"http:\/\/cannibalcandy.wordpress.com\/wp-login.php?action=logout&_wpnonce=11de46fa58","homeURL":"http:\/\/cannibalcandy.wordpress.com\/","postID":"200","gravDefault":"retro","enterACommentError":"Please enter a comment","enterEmailError":"Please enter your email address here","invalidEmailError":"Invalid email address","enterAuthorError":"Please enter your name here","gravatarFromEmail":"This picture will show whenever you leave a comment. Click to customize it.","logInToExternalAccount":"Log in to use details from one of these accounts.","change":"Change","changeAccount":"Change Account","comment_registration":"","userIsLoggedIn":"","isJetpack":"0"};
+/* ]]> */
+</script>
+<script type='text/javascript' src='http://s1.wp.com/wp-content/mu-plugins/highlander-comments/script.js?m=1364417154g'></script>
+
+	<div id="bit" class="loggedout-follow-typekit">
+		<a class="bsub" href="javascript:void(0)"><span id='bsub-text'>Follow</span></a>
+		<div id="bitsubscribe">
+
+					<h3><label for="loggedout-follow-field">Follow &ldquo;Cannibal&#039;s Candy&rdquo;</label></h3>
+
+			<form action="https://subscribe.wordpress.com" method="post" accept-charset="utf-8" id="loggedout-follow">
+			<p>Get every new post delivered to your Inbox.</p>
+
+			<p id="loggedout-follow-error" style="display: none;"></p>
+
+						<p class="bit-follow-count">Join 242 other followers</p>
+			<p><input type="email" name="email" style="width: 95%; padding: 1px 2px" value="Enter your email address" onfocus='this.value=(this.value=="Enter your email address") ? "" : this.value;' onblur='this.value=(this.value=="") ? "Enter email address" : this.value;'  id="loggedout-follow-field"/></p>
+
+			<input type="hidden" name="action" value="subscribe"/>
+			<input type="hidden" name="blog_id" value="19607152"/>
+			<input type="hidden" name="source" value="http://cannibalcandy.wordpress.com/2012/04/26/installing-and-configuring-dwm-under-ubuntu/"/>
+			<input type="hidden" name="sub-type" value="loggedout-follow"/>
+
+			<input type="hidden" id="_wpnonce" name="_wpnonce" value="7315787a18" /><input type="hidden" name="_wp_http_referer" value="/2012/04/26/installing-and-configuring-dwm-under-ubuntu/" />
+			<p id='bsub-subscribe-button'><input type="submit" value="Sign me up" /></p>
+			</form>
+					<div id='bsub-credit'><a href="http://wordpress.com/signup/?ref=lof">Powered by WordPress.com</a></div>
+		</div><!-- #bitsubscribe -->
+	</div><!-- #bit -->
+<script type='text/javascript' src='http://s1.wp.com/wp-content/mu-plugins/post-flair/sharing/sharing.js?m=1363286270g'></script>
+		<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-facebook' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomfacebook', 'menubar=1,resizable=1,width=600,height=400' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-twitter' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomtwitter', 'menubar=1,resizable=1,width=600,height=350' );
+				return false;
+			});
+		});
+		</script>
+				<script type="text/javascript">
+		jQuery(document).on( 'ready post-load', function(){
+			jQuery( 'a.share-google-plus-1' ).on( 'click', function() {
+				window.open( jQuery(this).attr( 'href' ), 'wpcomgoogle-plus-1', 'menubar=1,resizable=1,width=600,height=600' );
+				return false;
+			});
+		});
+		</script>
+			<div id="sharing_email" style="display: none;">
+		<form action="/2012/04/26/installing-and-configuring-dwm-under-ubuntu/" method="post">
+			<label for="target_email">Send to Email Address</label>
+			<input type="text" name="target_email" id="target_email" value="" />
+
+			
+				<label for="source_name">Your Name</label>
+				<input type="text" name="source_name" id="source_name" value="" />
+
+				<label for="source_email">Your Email Address</label>
+				<input type="text" name="source_email" id="source_email" value="" />
+
+			
+			<div class="recaptcha" id="sharing_recaptcha"></div><input type="hidden" name="recaptcha_public_key" id="recaptcha_public_key" value="6LcYW8MSAAAAADBAuEH9yaPcF7lWh11Iq62ZKtoo" />
+			<img style="float: right; display: none" class="loading" src="http://s2.wp.com/wp-content/mu-plugins/post-flair/sharing/images/loading.gif?m=1315610318g" alt="loading" width="16" height="16" />
+			<input type="submit" value="Send Email" class="sharing_send" />
+			<a href="#cancel" class="sharing_cancel">Cancel</a>
+
+			<div class="errors errors-1" style="display: none;">
+				Post was not sent - check your email addresses!			</div>
+
+			<div class="errors errors-2" style="display: none;">
+				Email check failed, please try again			</div>
+
+			<div class="errors errors-3" style="display: none;">
+				Sorry, your blog cannot share posts by email.			</div>
+		</form>
+	</div>
+		<iframe src='http://widgets.wp.com/likes/master.html?ver=20130326b#ver=20130326b' id='likes-master' name='likes-master' style='display:none;'></iframe>
+		<div id='likes-other-gravatars'><div class="likes-text"><span>%d</span> bloggers like this:</div><ul class="wpl-avatars sd-like-gravatars"></ul></div>
+		<script type="text/javascript">
+		//<![CDATA[
+			var jetpackLikesWidgetQueue = [];
+			var jetpackLikesMasterReady = false;
+
+			function JetpackLikespostMessage( message, target ) {
+				if ( "string" === typeof message ){
+					try{
+						message = JSON.parse( message );
+					}
+					catch(e) {
+						return;
+					}
+				}
+
+				pm( {
+					target: target,
+					type: 'likesMessage',
+					data: message,
+					origin: '*'					
+				} );
+			}
+
+			function JetpackLikesMessageListener( event ) {
+				if ( "undefined" == typeof event.event )
+					return;
+
+				if ( 'masterReady' == event.event ) {
+					jQuery( document ).ready( function() {
+						jetpackLikesMasterReady = true;
+
+						var stylesData = {
+								event: 'injectStyles'
+						};
+
+						if ( jQuery( 'iframe.admin-bar-likes-widget' ).length > 0 ) {
+							JetpackLikespostMessage( { event: 'adminBarEnabled' }, window.frames[ 'likes-master' ] );
+
+							stylesData.adminBarStyles = {
+								background: jQuery( '#wpadminbar .quicklinks li#wp-admin-bar-wpl-like > a' ).css( 'background' )
+							};
+						}
+
+						if ( !window.addEventListener )
+							jQuery( '#wp-admin-bar-admin-bar-likes-widget' ).hide();
+
+						stylesData.textStyles = {
+							color: jQuery( '.sd-text-color').css( 'color' ),
+							fontFamily: jQuery( '.sd-text-color' ).css( 'font-family' ),
+							fontSize: jQuery( '.sd-text-color' ).css( 'font-size' ),
+							direction: jQuery( '.sd-text-color' ).css( 'direction' ),
+							fontWeight: jQuery( '.sd-text-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-text-color' ).css( 'font-style' ),
+							textDecoration: jQuery( '.sd-text-color' ).css('text-decoration')
+						};
+
+						stylesData.linkStyles = {
+							color: jQuery( '.sd-link-color' ).css('color'),
+							fontFamily: jQuery( '.sd-link-color' ).css('font-family'),
+							fontSize: jQuery( '.sd-link-color' ).css('font-size'),
+							textDecoration: jQuery( '.sd-link-color' ).css('text-decoration'),
+							fontWeight: jQuery( '.sd-link-color' ).css( 'font-weight' ),
+							fontStyle: jQuery( '.sd-link-color' ).css( 'font-style' )
+						};
+
+						JetpackLikespostMessage( stylesData, window.frames[ 'likes-master' ] );
+
+						var requests = [];
+						jQuery( '.jetpack-likes-widget-wrapper' ).each( function( i ) {
+							var regex = /like-(post|comment)-wrapper-(\d+)-(\d+)/;
+							var match = regex.exec( this.id );
+							if ( ! match || match.length != 4 )
+								return;
+
+							var info = {
+								blog_id: match[2],
+								width:   this.width
+							};
+
+							if ( 'post' == match[1] ) {
+								info.post_id = match[3];
+							} else if ( 'comment' == match[1] ) {
+								info.comment_id = match[3];
+							}
+
+							requests.push( info );
+						});
+
+						JetpackLikespostMessage( { event: 'initialBatch', requests: requests }, window.frames['likes-master'] );
+
+						jQuery( document ).on( 'inview', 'div.jetpack-likes-widget-unloaded', function() {
+							jetpackLikesWidgetQueue.push( this.id );
+						});
+					});
+				}
+
+				if ( 'showLikeWidget' == event.event ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 10 );
+					jQuery( '#' + event.id + ' .post-likes-widget-placeholder'  ).fadeOut( 'fast', function() {
+						jQuery( '#' + event.id + ' .post-likes-widget' ).fadeIn( 'fast', function() {
+							JetpackLikespostMessage( { event: 'likeWidgetDisplayed', blog_id: event.blog_id, post_id: event.post_id }, window.frames['likes-master'] );
+						});
+					});
+				}
+
+				if ( 'showOtherGravatars' == event.event ) {
+					var $container = jQuery( '#likes-other-gravatars' );
+					var $list = $container.find( 'ul' );
+
+					$container.hide();
+					$list.html( '' );
+
+					$container.find( '.likes-text span' ).text( event.total );
+
+					jQuery.each( event.likers, function( i, liker ) {
+						$list.append( '<li class="' + liker.css_class + '"><a href="' + liker.profile_URL + '" class="wpl-liker" rel="nofollow" target="_parent"><img src="' + liker.avatar_URL + '" alt="' + liker.name + '" width="30" height="30" style="padding-right: 3px;" /></a></li>');
+					} );
+
+					var offset = jQuery( "[name='" + event.parent + "']" ).offset();
+
+					$container.css( 'left', offset.left + event.position.left - 10 + 'px' );
+					$container.css( 'top', offset.top + event.position.top - 33 + 'px' );
+
+					var rowLength = Math.floor( event.width / 37 );
+					var height = ( Math.ceil( event.likers.length / rowLength ) * 37 ) + 13;
+					if ( height > 204 ) {
+						height = 204;
+					}
+
+					$container.css( 'height', height + 'px' );
+					$container.css( 'width', rowLength * 37 - 7 + 'px' );
+
+					$list.css( 'width', rowLength * 37 + 'px' );
+
+					$container.fadeIn( 'slow' );
+
+					var scrollbarWidth = $list[0].offsetWidth - $list[0].clientWidth;
+					if ( scrollbarWidth > 0 ) {
+						$container.width( $container.width() + scrollbarWidth );
+						$list.width( $list.width() + scrollbarWidth );
+					}
+				}
+			}
+
+			pm.bind( 'likesMessage', function(e) { JetpackLikesMessageListener(e); } );
+
+			jQuery( document ).click( function( e ) {
+				var $container = jQuery( '#likes-other-gravatars' );
+
+				if ( $container.has( e.target ).length === 0 ) {
+					$container.fadeOut( 'slow' );
+				}
+			});
+
+			function JetpackLikesWidgetQueueHandler() {
+				var wrapperID;
+				if ( ! jetpackLikesMasterReady ) {
+					setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+					return;
+				}
+
+				if ( jetpackLikesWidgetQueue.length > 0 ) {
+					// We may have a widget that needs creating now
+					var found = false;
+					while( jetpackLikesWidgetQueue.length > 0 ) {
+						// Grab the first member of the queue that isn't already loading.
+						wrapperID = jetpackLikesWidgetQueue.splice( 0, 1 )[0];
+						if ( jQuery( '#' + wrapperID ).hasClass( 'jetpack-likes-widget-unloaded' ) ) {
+							found = true;
+							break;
+						}
+					}
+					if ( ! found ) {
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				} else if ( jQuery( 'div.jetpack-likes-widget-unloaded' ).length > 0 ) {
+					// Get the next unloaded widget
+					wrapperID = jQuery( 'div.jetpack-likes-widget-unloaded' ).first()[0].id;
+					if ( ! wrapperID ) {
+						// Everything is currently loaded
+						setTimeout( JetpackLikesWidgetQueueHandler, 500 );
+						return;
+					}
+				}
+
+				var $wrapper = jQuery( '#' + wrapperID );
+				$wrapper.find( 'iframe' ).remove();
+
+				if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='22px' width='68px' frameBorder='0' scrolling='no' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				} else {
+					$wrapper.find( '.post-likes-widget-placeholder' ).after( "<iframe class='post-likes-widget jetpack-likes-widget' name='" + $wrapper.data( 'name' ) + "' height='55px' width='100%' frameBorder='0' src='" + $wrapper.data( 'src' ) + "'></iframe>" );
+				}
+
+				$wrapper.removeClass( 'jetpack-likes-widget-unloaded' ).addClass( 'jetpack-likes-widget-loading' );
+
+				$wrapper.find( 'iframe' ).load( function( e ) {
+					var $iframe = jQuery( e.target );
+					$wrapper.removeClass( 'jetpack-likes-widget-loading' ).addClass( 'jetpack-likes-widget-loaded' );
+
+					JetpackLikespostMessage( { event: 'loadLikeWidget', name: $iframe.attr( 'name' ), width: $iframe.width() }, window.frames[ 'likes-master' ] );
+
+					if ( $wrapper.hasClass( 'slim-likes-widget' ) ) {
+						$wrapper.find( 'iframe' ).Jetpack( 'resizeable' );
+					}
+				});
+			}
+			setInterval( JetpackLikesWidgetQueueHandler, 250 );
+		//]]>
+		</script>
+<script type='text/javascript' src='http://s2.wp.com/_static/??-eJzTLy/QTc7PK0nNK9EvyClNz8wr1i+uzCtJrMjITM/IAeKS1CJMEWP94uSizIISoOIM5/yiVL2sYh19yo1yKioFEonFGdQ0LyAnMTMPaKB9rq2hsZmxsYGJiaFJFgDUz1/U'></script>
+<script type='text/javascript'>
+	(function(){
+		var corecss = document.createElement('link');
+		var themecss = document.createElement('link');
+		var corecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shCore.css?m=1363661091g&amp;ver=3.0.83c";
+		if ( corecss.setAttribute ) {
+				corecss.setAttribute( "rel", "stylesheet" );
+				corecss.setAttribute( "type", "text/css" );
+				corecss.setAttribute( "href", corecssurl );
+		} else {
+				corecss.rel = "stylesheet";
+				corecss.href = corecssurl;
+		}
+		document.getElementsByTagName("head")[0].insertBefore( corecss, document.getElementById("syntaxhighlighteranchor") );
+		var themecssurl = "http://s0.wp.com/wp-content/plugins/syntaxhighlighter/syntaxhighlighter3/styles/shThemeDefault.css?m=1363304414g&amp;ver=3.0.83c";
+		if ( themecss.setAttribute ) {
+				themecss.setAttribute( "rel", "stylesheet" );
+				themecss.setAttribute( "type", "text/css" );
+				themecss.setAttribute( "href", themecssurl );
+		} else {
+				themecss.rel = "stylesheet";
+				themecss.href = themecssurl;
+		}
+		//document.getElementById("syntaxhighlighteranchor").appendChild(themecss);
+		document.getElementsByTagName("head")[0].insertBefore( themecss, document.getElementById("syntaxhighlighteranchor") );
+	})();
+	SyntaxHighlighter.config.strings.expandSource = '+ expand source';
+	SyntaxHighlighter.config.strings.help = '?';
+	SyntaxHighlighter.config.strings.alert = 'SyntaxHighlighter\n\n';
+	SyntaxHighlighter.config.strings.noBrush = 'Can\'t find brush for: ';
+	SyntaxHighlighter.config.strings.brushNotHtmlScript = 'Brush wasn\'t configured for html-script option: ';
+	SyntaxHighlighter.defaults['pad-line-numbers'] = false;
+	SyntaxHighlighter.defaults['toolbar'] = false;
+	SyntaxHighlighter.all();
+</script>
+<script type='text/javascript' src='http://s2.wp.com/_static/??/wp-content/js/devicepx.js,/wp-content/themes/pub/hero/js/small-menu.js?m=1354656609j'></script>
+<script type="text/javascript">
+// <![CDATA[
+(function() {
+try{
+  if ( window.external &&'msIsSiteMode' in window.external) {
+    if (window.external.msIsSiteMode()) {
+      var jl = document.createElement('script');
+      jl.type='text/javascript';
+      jl.async=true;
+      jl.src='/wp-content/plugins/ie-sitemode/custom-jumplist.php';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(jl, s);
+    }
+  }
+}catch(e){}
+})();
+// ]]>
+</script><script src="http://s.stats.wordpress.com/w.js?21" type="text/javascript"></script>
+<script type="text/javascript">
+st_go({'blog':'19607152','v':'wpcom','tz':'5','user_id':'0','post':'200','subd':'cannibalcandy'});
+ex_go({'crypt':'UE5XaGUuOTlwaD85flAmcm1mcmZsaDhkV11YdTdvUG14Q2VDQTR4LlUsLi82dU1mai9BMnRXSFpXc095TWlsMVNiXS16bWRwMmo4ZHFiNklaOXVGdHpdVUI4Rk1dYzR+LyVTby1nJmQmNWRwS3o9d2NqaXxXUUpUMENyYVRZNW5mSVRmK3omOFUxdmRLMmlncWpNP2dIRGdOajdjRnZtajJnUnJBJkFbMVgzdEJDQ351anIrVEhmLU89dlljOWV2OTRsVHNiVkkrc0dIRT9LLk0uT1hyZ2N6QSYlaGklP2R2YWZbMHhyYXl0ZDBHdiUmclA4LzdNV2tLbWxbW2lnflgwWj9uNk8lRk0sdVBrMkUvSTN5LUZWNld+LXFUTXEvYS5jTUFNZXpUUS18VGEwJlpBclVVcHExcF9zbURibVhtODNrNDFPZDRdTmcuLW8='});
+addLoadEvent(function(){linktracker_init('19607152',200);});
+	</script>
+<noscript><img src="http://stats.wordpress.com/b.gif?v=noscript" style="height:0px;width:0px;overflow:hidden" alt="" /></noscript>
+
+</body>
+</html>
