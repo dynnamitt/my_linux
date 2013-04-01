@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8" />
+<title>Disable / enable keyboard and mouse in Linux - WPKG | Open Source Software Deployment and Distribution</title>
+<meta name="description" content="Disable_/_enable_keyboard_and_mouse_in_Linux. WPKG is an open source software deployment and distribution tool. The site has a large collection of silent installers." />
+<meta name="keywords" content="Disable_/_enable_keyboard_and_mouse_in_Linux, silent install, installers, software deployment, unattended" />
+<meta name="generator" content="MediaWiki 1.17.0" />
+<link rel="alternate" type="application/x-wiki" title="Edit" href="/index.php?title=Disable_/_enable_keyboard_and_mouse_in_Linux&amp;action=edit" />
+<link rel="edit" title="Edit" href="/index.php?title=Disable_/_enable_keyboard_and_mouse_in_Linux&amp;action=edit" />
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="search" type="application/opensearchdescription+xml" href="/opensearch_desc.php" title="WPKG | Open Source Software Deployment and Distribution (en)" />
+<link rel="EditURI" type="application/rsd+xml" href="http://wpkg.org/api.php?action=rsd" />
+<link rel="alternate" type="application/atom+xml" title="WPKG | Open Source Software Deployment and Distribution Atom feed" href="/index.php?title=Special:RecentChanges&amp;feed=atom" />
+<link rel="stylesheet" href="/load.php?debug=false&amp;lang=en&amp;modules=mediawiki.legacy.commonPrint%2Cshared%7Cskins.vector&amp;only=styles&amp;skin=vector&amp;*" />
+<meta name="ResourceLoaderDynamicStyles" content="" />
+<!--[if lt IE 7]><style type="text/css">body{behavior:url("/skins/vector/csshover.min.htc")}</style><![endif]--></head>
+<body class="mediawiki ltr ns-0 ns-subject page-Disable_enable_keyboard_and_mouse_in_Linux skin-vector">
+		<div id="mw-page-base" class="noprint"></div>
+		<div id="mw-head-base" class="noprint"></div>
+		<!-- content -->
+		<div id="content">
+			<a id="top"></a>
+			<div id="mw-js-message" style="display:none;"></div>
+						<!-- firstHeading -->
+			<h1 id="firstHeading" class="firstHeading">Disable / enable keyboard and mouse in Linux</h1>
+			<!-- /firstHeading -->
+			<!-- bodyContent -->
+			<div id="bodyContent">
+				<!-- tagline -->
+				<div id="siteSub">From WPKG | Open Source Software Deployment and Distribution</div>
+				<!-- /tagline -->
+				<!-- subtitle -->
+				<div id="contentSub"></div>
+				<!-- /subtitle -->
+																<!-- jumpto -->
+				<div id="jump-to-nav">
+					Jump to: <a href="#mw-head">navigation</a>,
+					<a href="#p-search">search</a>
+				</div>
+				<!-- /jumpto -->
+								<!-- bodytext -->
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-0787350498492105";
+/* wpkg.org - 728x90 - top */
+google_ad_slot = "7277231375";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+				<p>Sometimes, you may need to disable mouse and keyboard on a remote server / PC running X (i.e. over SSH) and Linux (or any other operating system running X).
+</p><p>Here is how to do it:
+</p>
+<ul><li> First, list the devices your X sees:
+</li></ul>
+<pre>
+$ xinput --list
+&quot;Virtual core pointer&quot;  id=0    [XPointer]
+&quot;Virtual core keyboard&quot; id=1    [XKeyboard]
+&quot;Keyboard2&quot;     id=2    [XExtensionKeyboard]
+&quot;Mouse2&quot;        id=3    [XExtensionKeyboard]
+</pre>
+<p><br />
+</p>
+<ul><li> Now, list details for the mouse (id=3):
+</li></ul>
+<pre>
+$ xinput --list-props 3
+Device 'Mouse2':
+        Device Enabled (119):   1
+        Evdev Reopen Attempts (254):    10
+        Evdev Axis Inversion (257):     0, 0
+        Evdev Axis Calibration (258):   &lt;no items&gt;
+        Evdev Axes Swap (259):  0
+        Evdev Middle Button Emulation (260):    2
+        Evdev Middle Button Timeout (261):      50
+        Evdev Wheel Emulation (262):    0
+        Evdev Wheel Emulation Axes (263):       0, 0, 4, 5
+        Evdev Wheel Emulation Inertia (264):    10
+        Evdev Wheel Emulation Timeout (265):    200
+        Evdev Wheel Emulation Button (266):     4
+        Evdev Drag Lock Buttons (267):  0
+</pre>
+<p><br />
+</p>
+<ul><li> Disable the mouse:
+</li></ul>
+<pre>$ export DISPLAY=:0
+$ xinput set-int-prop 3 "Device Enabled" 8 0
+</pre>
+<p><br />
+</p>
+<ul><li> Enable the mouse again:
+</li></ul>
+<pre>$ xinput set-int-prop 3 "Device Enabled" 8 1
+</pre>
+<p><br />
+</p>
+<ul><li> Disable the keyboard:
+</li></ul>
+<pre>$ xinput set-int-prop 2 "Device Enabled" 8 0
+</pre>
+<p><br />
+</p>
+<ul><li> Enable the keyboard again:
+</li></ul>
+<pre>$ xinput set-int-prop 2 "Device Enabled" 8 1
+</pre>
+<p><br />
+</p>
+<ul><li> You may find more details in "man xinput".
+</li></ul>
+
+<!-- 
+NewPP limit report
+Preprocessor node count: 7/1000000
+Post-expand include size: 0/2097152 bytes
+Template argument size: 0/2097152 bytes
+Expensive parser function count: 0/100
+-->
+
+<!-- Saved in parser cache with key wpkg.org:pcache:idhash:2300-0!*!0!!*!* and timestamp 20130320130739 -->
+<div class="printfooter">
+Retrieved from "<a href="http://wpkg.org/Disable_/_enable_keyboard_and_mouse_in_Linux">http://wpkg.org/Disable_/_enable_keyboard_and_mouse_in_Linux</a>"</div>
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-0787350498492105";
+/* wpkg.org - 728x90 - bottom */
+google_ad_slot = "1230697770";
+google_ad_width = 728;
+google_ad_height = 90;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+				<!-- /bodytext -->
+								<!-- catlinks -->
+				<div id='catlinks' class='catlinks'><div id="mw-normal-catlinks"><a href="/Special:Categories" title="Special:Categories">Category</a>: <span dir='ltr'><a href="/Category:Non-WPKG_related" title="Category:Non-WPKG related">Non-WPKG related</a></span></div></div>				<!-- /catlinks -->
+												<div class="visualClear"></div>
+			</div>
+			<!-- /bodyContent -->
+		</div>
+		<!-- /content -->
+		<!-- header -->
+		<div id="mw-head" class="noprint">
+			
+<!-- 0 -->
+<div id="p-personal" class="">
+	<h5>Personal tools</h5>
+	<ul>
+					<li  id="pt-login"><a href="/index.php?title=Special:UserLogin&amp;returnto=Disable_/_enable_keyboard_and_mouse_in_Linux">Log in / create account</a></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+			<div id="left-navigation">
+				
+<!-- 0 -->
+<div id="p-namespaces" class="vectorTabs">
+	<h5>Namespaces</h5>
+	<ul>
+					<li  id="ca-nstab-main" class="selected"><span><a href="/Disable_/_enable_keyboard_and_mouse_in_Linux" >Page</a></span></li>
+					<li  id="ca-talk" class="new"><span><a href="/index.php?title=Talk:Disable_/_enable_keyboard_and_mouse_in_Linux&amp;action=edit&amp;redlink=1" >Discussion</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-variants" class="vectorMenu emptyPortlet">
+		<h5><span>Variants</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+			</div>
+			<div id="right-navigation">
+				
+<!-- 0 -->
+<div id="p-views" class="vectorTabs">
+	<h5>Views</h5>
+	<ul>
+					<li id="ca-view" class="selected"><span><a href="/Disable_/_enable_keyboard_and_mouse_in_Linux" >Read</a></span></li>
+					<li id="ca-edit"><span><a href="/index.php?title=Disable_/_enable_keyboard_and_mouse_in_Linux&amp;action=edit" >Edit</a></span></li>
+					<li id="ca-history" class="collapsible "><span><a href="/index.php?title=Disable_/_enable_keyboard_and_mouse_in_Linux&amp;action=history" >View history</a></span></li>
+			</ul>
+</div>
+
+<!-- /0 -->
+
+<!-- 1 -->
+<div id="p-cactions" class="vectorMenu emptyPortlet">
+	<h5><span>Actions</span><a href="#"></a></h5>
+	<div class="menu">
+		<ul>
+					</ul>
+	</div>
+</div>
+
+<!-- /1 -->
+
+<!-- 2 -->
+<div id="p-search">
+	<h5><label for="searchInput">Search</label></h5>
+	<form action="/index.php" id="searchform">
+		<input type='hidden' name="title" value="Special:Search"/>
+				<input id="searchInput" name="search" type="text"   value="" />
+		<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />
+		<input type="submit" name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</form>
+</div>
+
+<!-- /2 -->
+			</div>
+		</div>
+		<!-- /header -->
+		<!-- panel -->
+			<div id="mw-panel" class="noprint">
+				<!-- logo -->
+					<div id="p-logo"><a style="background-image: url(http://wpkg.org/wpkg.png);" href="/Main_Page" ></a></div>
+				<!-- /logo -->
+				
+<!-- navigation -->
+<div class="portal" id='p-navigation'>
+	<h5>Navigation</h5>
+	<div class="body">
+				<ul>
+					<li id="n-mainpage"><a href="http://wpkg.org">Main Page</a></li>
+					<li id="n-News"><a href="/News">News</a></li>
+					<li id="n-Screenshots"><a href="/Screenshots">Screenshots</a></li>
+					<li id="n-Documentation"><a href="/Documentation">Documentation</a></li>
+					<li id="n-Support"><a href="/Support">Support</a></li>
+					<li id="n-Download"><a href="/Download">Download</a></li>
+					<li id="n-Related-Projects"><a href="/Related_projects">Related Projects</a></li>
+					<li id="n-Testimonials"><a href="/Testimonials">Testimonials</a></li>
+					<li id="n-Donate"><a href="/Donate">Donate</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /navigation -->
+
+<!-- ideas? -->
+<div class="portal" id='p-ideas.3F'>
+	<h5>ideas?</h5>
+	<div class="body">
+				<ul>
+					<li id="n-Contributing"><a href="/Contributing">Contributing</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /ideas? -->
+
+<!-- quick links -->
+<div class="portal" id='p-quick_links'>
+	<h5>quick links</h5>
+	<div class="body">
+				<ul>
+					<li id="n-Silent-installers"><a href="/Category:Silent_Installers">Silent installers</a></li>
+					<li id="n-All-categories"><a href="/Special:Categories">All categories</a></li>
+					<li id="n-All-pages"><a href="/Special:AllPages">All pages</a></li>
+				</ul>
+			</div>
+</div>
+
+<!-- /quick links -->
+
+<!-- SEARCH -->
+
+<!-- /SEARCH -->
+
+<!-- TOOLBOX -->
+<div class="portal" id="p-tb">
+	<h5>Toolbox</h5>
+	<div class="body">
+		<ul>
+
+					<li id="t-whatlinkshere"><a href="/Special:WhatLinksHere/Disable_/_enable_keyboard_and_mouse_in_Linux">What links here</a></li>
+						<li id="t-recentchangeslinked"><a href="/Special:RecentChangesLinked/Disable_/_enable_keyboard_and_mouse_in_Linux">Related changes</a></li>
+																																										<li id="t-specialpages"><a href="/Special:SpecialPages">Special pages</a></li>
+									<li id="t-print"><a href="/index.php?title=Disable_/_enable_keyboard_and_mouse_in_Linux&amp;printable=yes" rel="alternate">Printable version</a></li>
+						<li id="t-permalink"><a href="/index.php?title=Disable_/_enable_keyboard_and_mouse_in_Linux&amp;oldid=7854">Permanent link</a></li>
+				<li><a href="/Neckermann">Neckermann</a></li>
+<li><a href="/Vrijuit">Vrijuit</a></li>
+
+		</ul>
+	</div>
+</div>
+
+
+<!-- /TOOLBOX -->
+
+<!-- LANGUAGES -->
+
+<!-- /LANGUAGES -->
+			</div>
+			<div id="mw-right-banner-panel" class="noprint" style="display:none;">
+<script type="text/javascript"><!--
+google_ad_client = "ca-pub-0787350498492105";
+/* wpkg.org - 160x600 */
+google_ad_slot = "5660897372";
+google_ad_width = 160;
+google_ad_height = 600;
+//-->
+</script>
+<script type="text/javascript"
+src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+</script>
+				<script type="text/javascript">
+					function getScreenWidth() {
+					  var myWidth = 0, myHeight = 0;
+					  if( typeof( window.innerWidth ) == 'number' ) {
+						//Non-IE
+						myWidth = window.innerWidth;
+						myHeight = window.innerHeight;
+					  } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+						//IE 6+ in 'standards compliant mode'
+						myWidth = document.documentElement.clientWidth;
+						myHeight = document.documentElement.clientHeight;
+					  } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+						//IE 4 compatible
+						myWidth = document.body.clientWidth;
+						myHeight = document.body.clientHeight;
+					  }
+						return myWidth;
+					  //window.alert( 'Width = ' + myWidth );
+					 // window.alert( 'Height = ' + myHeight );
+					}
+					if(1024 < getScreenWidth()) {
+						var bannerPanel = document.getElementById('mw-right-banner-panel');
+						bannerPanel.style.display = 'block';
+						document.getElementById('content').style.marginRight = '10em';
+					}
+				</script>
+			</div>
+		<!-- /panel -->
+		<!-- footer -->
+		<div id="footer">
+											<ul id="footer-info">
+																	<li id="footer-info-lastmod"> This page was last modified on 12 March 2010, at 16:30.</li>
+															</ul>
+																	<div style="clear:both"></div>
+		</div>
+		<!-- /footer -->
+		
+<script src="/load.php?debug=false&amp;lang=en&amp;modules=startup&amp;only=scripts&amp;skin=vector&amp;*"></script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.config.set({"wgCanonicalNamespace": "", "wgCanonicalSpecialPageName": false, "wgNamespaceNumber": 0, "wgPageName": "Disable_/_enable_keyboard_and_mouse_in_Linux", "wgTitle": "Disable / enable keyboard and mouse in Linux", "wgAction": "view", "wgArticleId": 2300, "wgIsArticle": true, "wgUserName": null, "wgUserGroups": ["*"], "wgCurRevisionId": 7854, "wgCategories": ["Non-WPKG related"], "wgBreakFrames": false, "wgRestrictionEdit": [], "wgRestrictionMove": []});
+}
+</script>
+<script>if ( window.mediaWiki ) {
+	mediaWiki.loader.load(["mediawiki.util", "mediawiki.legacy.wikibits", "mediawiki.legacy.ajax"]);
+	mediaWiki.loader.go();
+}
+</script>
+
+<script>if ( window.mediaWiki ) {
+	mediaWiki.user.options.set({"ccmeonemails":0,"cols":80,"contextchars":50,"contextlines":5,"date":"default","diffonly":0,"disablemail":0,"disablesuggest":0,"editfont":"default","editondblclick":0,"editsection":1,"editsectiononrightclick":0,"enotifminoredits":0,"enotifrevealaddr":0,"enotifusertalkpages":1,"enotifwatchlistpages":0,"extendwatchlist":0,"externaldiff":0,"externaleditor":0,"fancysig":0,"forceeditsummary":0,"gender":"unknown","hideminor":0,"hidepatrolled":0,"highlightbroken":1,"imagesize":2,"justify":0,"math":1,"minordefault":0,"newpageshidepatrolled":0,"nocache":0,"noconvertlink":0,"norollbackdiff":0,"numberheadings":0,"previewonfirst":0,"previewontop":1,"quickbar":1,"rcdays":7,"rclimit":50,"rememberpassword":0,"rows":25,"searchlimit":20,"showhiddencats":0,"showjumplinks":1,"shownumberswatching":1,"showtoc":1,"showtoolbar":1,"skin":"vector","stubthreshold":0,"thumbsize":2,"underline":2,"uselivepreview":0,"usenewrc":0,"watchcreations":0,"watchdefault":0,"watchdeletion":0,
+	"watchlistdays":3,"watchlisthideanons":0,"watchlisthidebots":0,"watchlisthideliu":0,"watchlisthideminor":0,"watchlisthideown":0,"watchlisthidepatrolled":0,"watchmoves":0,"wllimit":250,"variant":"en","language":"en","searchNs0":true,"searchNs1":false,"searchNs2":false,"searchNs3":false,"searchNs4":false,"searchNs5":false,"searchNs6":false,"searchNs7":false,"searchNs8":false,"searchNs9":false,"searchNs10":false,"searchNs11":false,"searchNs12":false,"searchNs13":false,"searchNs14":false,"searchNs15":false});;mediaWiki.loader.state({"user.options":"ready"});
+}
+</script>		<!-- fixalpha -->
+		<script type="text/javascript"> if ( window.isMSIE55 ) fixalpha(); </script>
+		<!-- /fixalpha -->
+		<!-- Served in 0.050 secs. -->			</body>
+<!-- Cached 20130320130739 -->
+</html>

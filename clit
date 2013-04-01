@@ -1,0 +1,16 @@
+#!/bin/sh
+
+
+# switch on/off da mouse
+
+
+
+ON_OFF=${1:-1}
+
+#joystick == default (13)
+DEV_NO=${2:-13}
+
+echo "setting dev.no $DEV_NO to $ON_OFF."
+
+DISPLAY=:0 
+xinput set-int-prop $DEV_NO "Device Enabled" 8 $ON_OFF
