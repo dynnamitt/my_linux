@@ -7,8 +7,8 @@
 
 ON_OFF=${1:-1}
 
-#joystick == default (13)
-DEV_NO=${2:-13}
+#joystick == default (12)
+DEV_NO=${2:-12}
 
 echo "setting dev.no $DEV_NO to $ON_OFF."
 

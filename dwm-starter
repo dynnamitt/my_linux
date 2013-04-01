@@ -12,11 +12,11 @@ do
     sleep 1m
 done &
 
+export DISPLAY=:0
 # kill the tocuhpad(11)
-DISPLAY=:1 xinput set-int-prop 11 "Device Enabled" 8 0
-# kill the clit(13)
-DISPLAY=:1 xinput set-int-prop 1333Device Enabled" 8 0
+xinput set-int-prop 11 "Device Enabled" 8 0
+# kill the lenovo-clit(12)
+xinput set-int-prop 12 "Device Enabled" 8 0
 
 
-
 exec dwm
