@@ -26,6 +26,8 @@
       `(("." . ,(concat user-emacs-directory "backup/")))
       tramp-backup-directory-alist backup-directory-alist)
 
+(add-to-list 'auto-mode-alist '("COMMIT_EDITMSG$" . diff-mode))
+
 (setenv "ERGOEMACS_KEYBOARD_LAYOUT" "us")
 (load "~/.emacs.d/ergoemacs-keybindings-5.3.9/ergoemacs-mode")
 (ergoemacs-mode 1)
