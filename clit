@@ -5,7 +5,7 @@
 
 
 # on=1, off=0
-ON_OFF=${1:-1}
+ON_OFF=${1:-0}
 
 #mousepad == 11
 #joystick == 13
