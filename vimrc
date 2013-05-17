@@ -4,6 +4,7 @@
 " 
 "           http://amix.dk/blog,
 "
+"
 " ubersaver
 cmap w!! w !sudo tee % >/dev/null
 
@@ -21,6 +22,7 @@ syntax on
 filetype plugin indent on
 
 set vb " visualbell!
+
 
 " Set mapleader
 let mapleader = ","
@@ -55,7 +57,7 @@ set mouse=a
 set title
 
 " Hugefont for blind bat
-set gfn=Monospace\ 12
+set gfn=Ubuntu\ Mono\ 13
 
 " C stuff
 " ctags mapping
@@ -86,6 +88,7 @@ set statusline=%F%m%r%h%w\ (%Y)\ [Fmt=%{&ff}]\ [row:%03l\ col:%03v][%p%%]\ [LEN=
 set laststatus=2
 
 
+set showcmd
 " -----------------------
 " cursorline
 " -----------------------
@@ -94,6 +97,8 @@ if version >= 700
   " now set it up to change the CURSOR line based on mode
   au InsertEnter * set nocursorline
   au InsertLeave * set cursorline 
+   au InsertEnter * hi StatusLine guibg=orange
+  au InsertLeave * hi StatusLine guibg=white 
 endif
 
 " -------------------------
@@ -157,14 +162,6 @@ noremap <C-l>          :browse ol<CR>
 vnoremap <C-l>         <Esc>:browse ol<CR>
 inoremap <C-l>         <Esc>:browse ol<CR>
 
-" paragr-mov
-" why THE FUCK! no response?!
-map <C-7> {
-map <C-0> }
-" these ok:
-map å {
-map æ }
-
 " cut n paste
 "vmap <C-c> y
 "vmap <C-x> d
@@ -209,4 +206,9 @@ set shiftwidth=4
 set expandtab
 
 set textwidth=120
+
+" FULL SCREEN IN GVIM
+set guioptions-=M
+set guioptions-=m
+set guioptions-=T
 
