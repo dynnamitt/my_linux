@@ -1,4 +1,5 @@
 "
+execute pathogen#infect()
 " 
 "            stuff taken from here and there
 " 
@@ -77,6 +78,7 @@ imap <F5> <Esc>:%!astyle --mode=c -p -U -w -k2 -O -j -A10<CR>
 set t_Co=256
 " colorscheme nightflight2
 colo desert
+colo solarized
 " colo fruity 
 " colo elflord
 " colo night_kdm
@@ -213,4 +215,3 @@ set guioptions-=M
 set guioptions-=m
 set guioptions-=T
 
-execute pathogen#infect()
