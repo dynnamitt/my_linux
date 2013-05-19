@@ -57,7 +57,8 @@ set mouse=a
 set title
 
 " Hugefont for blind bat
-set gfn=Ubuntu\ Mono\ 13
+"set gfn=Ubuntu\ Mono\ 13
+set gfn=PragmataPro\ 13
 
 " C stuff
 " ctags mapping
@@ -212,3 +213,4 @@ set guioptions-=M
 set guioptions-=m
 set guioptions-=T
 
+execute pathogen#infect()

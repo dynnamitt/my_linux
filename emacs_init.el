@@ -30,4 +30,4 @@
 
 (setenv "ERGOEMACS_KEYBOARD_LAYOUT" "us")
 (load "~/.emacs.d/ergoemacs-keybindings-5.3.9/ergoemacs-mode")
-(ergoemacs-mode 1)
+;; (ergoemacs-mode 1)
