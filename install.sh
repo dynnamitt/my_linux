@@ -25,6 +25,15 @@ else
     echo ".oh-my-zsh clone skipped."
 fi
 
+# fonts
+
+echo "Vil nå innstallere fonter:"
+sudo mkdir -p /usr/share/fonts/truetype/myfonts
+sudo cp -v ~/sync1/fonts/**/*?tf /usr/share/fonts/truetype/myfonts
+sudo fc-cache
+
+
+
 # VIM 
 mkdir -p ~/.vim/autoload ~/.vim/bundle; \
 curl -Sso ~/.vim/autoload/pathogen.vim \
@@ -32,6 +41,10 @@ curl -Sso ~/.vim/autoload/pathogen.vim \
 cd ~/.vim/bundle;\
     git clone git://github.com/tpope/vim-sensible.git;\
     git clone git://github.com/altercation/vim-colors-solarized.git;
+    git clone git://github.com/tpope/vim-unimpaired.git;
+    git clone git://github.com/tpope/vim-repeat.git;
+    git clone git://github.com/tpope/vim-surround.git;
+
 
 rm -f $HOME/.vimrc && ln -s $HOME/.my_linux/vimrc $HOME/.vimrc 
 rm -f $HOME/.Xresources && ln -s $HOME/.my_linux/Xresources $HOME/.Xresources
@@ -54,5 +67,5 @@ __STOP__
 fi
 
 # SUDO section for DWM exec script
-echo "No skal me legge inn et dwm-start-script i /usr/local/bin"
+echo "Vil nå innstallere dwm-starter script:"
 sudo cp $HOME/.my_linux/dwm-starter /usr/local/bin/dwm-starter
