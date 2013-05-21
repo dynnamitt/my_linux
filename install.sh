@@ -25,6 +25,14 @@ else
     echo ".oh-my-zsh clone skipped."
 fi
 
+# VIM 
+mkdir -p ~/.vim/autoload ~/.vim/bundle; \
+curl -Sso ~/.vim/autoload/pathogen.vim \
+    https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+cd ~/.vim/bundle;\
+    git clone git://github.com/tpope/vim-sensible.git;\
+    git clone git://github.com/altercation/vim-colors-solarized.git;
+
 rm -f $HOME/.vimrc && ln -s $HOME/.my_linux/vimrc $HOME/.vimrc 
 rm -f $HOME/.Xresources && ln -s $HOME/.my_linux/Xresources $HOME/.Xresources
 rm -f $HOME/.Xdefaults && ln -s $HOME/.my_linux/Xresources $HOME/.Xdefaults

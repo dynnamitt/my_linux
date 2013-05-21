@@ -4,11 +4,14 @@
 # switch on/off da mouse
 
 
+# on=1, off=0
+ON_OFF=${1:-0}
 
-ON_OFF=${1:-1}
+#mousepad == 11
+#joystick == 13
+DEV_NO=${2:-11}
 
-#joystick == default (12)
-DEV_NO=${2:-12}
+echo "usage :\n  clit <1|0> <11|13|n>\n\n"
 
 echo "setting dev.no $DEV_NO to $ON_OFF."
 
