@@ -77,8 +77,8 @@ imap <F5> <Esc>:%!astyle --mode=c -p -U -w -k2 -O -j -A10<CR>
 " ---------------------
 set t_Co=256
 " colorscheme nightflight2
-colo desert
-" colo solarized
+"colo desert
+ colo solarized
 " colo fruity 
 " colo elflord
 " colo night_kdm
@@ -101,20 +101,19 @@ if version >= 700
   au InsertEnter * set nocursorline
   au InsertLeave * set cursorline 
    au InsertEnter * hi StatusLine guibg=orange
-  au InsertLeave * hi StatusLine guibg=white 
+au InsertLeave * hi StatusLine guibg=white 
 endif
 
 " -------------------------
 " whitespace magico
 " ---------------------------
-set list
+"set list
 
 " Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
 "
 " Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸\ ,eol:┓
-"
+set listchars=tab:▸\ ,eol:┐
 
 
 
@@ -180,8 +179,7 @@ nmap <leader>f :find<cr>
 
 
 " Turn on WiLd menu
-set wildmenu
-set wildmode=list:longest
+"set wildmode=list:longest
 
 " Always show current position
 set ruler
