@@ -45,6 +45,9 @@ cd ~/.vim/bundle;
     git clone git://github.com/tpope/vim-repeat.git;
     git clone git://github.com/tpope/vim-surround.git;
     git clone https://github.com/Shutnik/jshint2.vim.git;
+    svn checkout http://web-indent.googlecode.com/svn/trunk/ web-indent-read-only
+
+    # TODO: only clone/co if nonExistant ELSE update !!!!
 
 rm -f $HOME/.vimrc && ln -s $HOME/.my_linux/vimrc $HOME/.vimrc 
 rm -f $HOME/.Xresources && ln -s $HOME/.my_linux/Xresources $HOME/.Xresources
