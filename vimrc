@@ -49,9 +49,20 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 autocmd FileType sh set omnifunc=shcomplete#CompleteSH
 
+" Faaancy commenterr
 autocmd FileType javascript,php,c,java,go map <leader>ccb I//  <Esc>A  //<Esc>yyp0llv$hhhr-yykPjj
 autocmd FileType python,ruby,sh,zsh,bash,m4,make map <leader>ccb I#  <Esc>A  #<Esc>yyp0lv$hhr-yykPjj
 
+" JSHint
+nnoremap <silent><F1> :JSHint<CR>
+inoremap <silent><F1> <C-O>:JSHint<CR>
+vnoremap <silent><F1> :JSHint<CR>
+cnoremap <F1> JSHint
+
+" JSHint onOpen .js 
+autocmd! BufWinEnter * if &filetype == "javascript" | silent JSHint | endif
+" JSHint justBeforeSave .js
+autocmd! BufWritePost * if &filetype == "javascript" | silent JSHint | endif 
 
 set nocompatible
 set mouse=a
@@ -79,6 +90,7 @@ set t_Co=256
 " colorscheme nightflight2
 "colo desert
  colo solarized
+ set background=dark
 " colo fruity 
 " colo elflord
 " colo night_kdm
@@ -88,8 +100,8 @@ set t_Co=256
 " statusline
 " -----------------------
 set statusline=%F%m%r%h%w\ (%Y)\ [Fmt=%{&ff}]\ [row:%03l\ col:%03v][%p%%]\ [LEN=%L]\ %{strftime(\"%y.%m.%d-%H:%M\",getftime(expand(\"%:p\")))}
-set laststatus=2
 
+set laststatus=2
 
 set showcmd
 " -----------------------
@@ -100,8 +112,8 @@ if version >= 700
   " now set it up to change the CURSOR line based on mode
   au InsertEnter * set nocursorline
   au InsertLeave * set cursorline 
-   au InsertEnter * hi StatusLine guibg=orange
-au InsertLeave * hi StatusLine guibg=white 
+"   au InsertEnter * hi StatusLine guibg=orange
+ au InsertLeave * hi StatusLine guibg=white 
 endif
 
 " -------------------------

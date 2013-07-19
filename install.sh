@@ -38,13 +38,13 @@ sudo fc-cache
 mkdir -p ~/.vim/autoload ~/.vim/bundle; \
 curl -Sso ~/.vim/autoload/pathogen.vim \
     https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-cd ~/.vim/bundle;\
-    git clone git://github.com/tpope/vim-sensible.git;\
+cd ~/.vim/bundle;
+    git clone git://github.com/tpope/vim-sensible.git;
     git clone git://github.com/altercation/vim-colors-solarized.git;
     git clone git://github.com/tpope/vim-unimpaired.git;
     git clone git://github.com/tpope/vim-repeat.git;
     git clone git://github.com/tpope/vim-surround.git;
-
+    git clone https://github.com/Shutnik/jshint2.vim.git;
 
 rm -f $HOME/.vimrc && ln -s $HOME/.my_linux/vimrc $HOME/.vimrc 
 rm -f $HOME/.Xresources && ln -s $HOME/.my_linux/Xresources $HOME/.Xresources
