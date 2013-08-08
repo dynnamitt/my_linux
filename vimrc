@@ -159,12 +159,14 @@ inoremap <C-Down>  <Esc>gt
 map gf :tabnew <cfile><CR>
 
 " buff help
-map <S-C-b> <Esc>:bn<cr>
-map! <S-C-b> <Esc>:bn<cr>
-imap <S-C-b> <Esc>:bn<cr>
-noremap <S-C-d>   :bdel<CR>
-vnoremap <S-C-d>  <Esc>:bdel<CR>
-inoremap <S-C-d>  <Esc>:bdel<CR>
+set wildcharm=<C-Z>
+nnoremap <F10> :b <C-Z>
+"map <C-S-b> <Esc>:bn<cr>
+"map! <C-S-b> <Esc>:bn<cr>
+"imap <C-S-b> <Esc>:bn<cr>
+"noremap <C-S-d>   :bdel<CR>
+"vnoremap <C-S-d>  <Esc>:bdel<CR>
+"inoremap <C-S-d>  <Esc>:bdel<CR>
 
 " Fast saving
 " NB! Read this: http://sealence.x10hosting.com/wordpress/?p=28 
