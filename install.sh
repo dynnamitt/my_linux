@@ -27,9 +27,16 @@ function fix_zsh {
         echo ".oh-my-zsh clone skipped... syncing.."
         (cd ~/.oh-my-zsh && git pull)
     fi
-
-    # dont DO if not needed !
-    chsh -s `chsh -l | grep zsh | head -n1`
+    current_sh=`grep $USERNAME /etc/passwd | awk 'BEGIN { FS = ":" } ; { print $7 }'`
+    zsh_avail=`chsh -l | grep zsh | head -n1`
+    if [ -z $zsh_avail ];then 
+        echo "zsh is not installed !!!"
+        return 1
+    elif [ $current_sh = $zsh_avail ];then
+        echo current shell is $current_sh
+    else
+        chsh -s $zsh_avail
+    fi
 }
 
 function fix_fonts {

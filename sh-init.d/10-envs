@@ -15,7 +15,7 @@ fi
 export SAXON=~/apps/saxon/saxon9.jar
 
 
-
+export EDITOR=vim
 
 
 
