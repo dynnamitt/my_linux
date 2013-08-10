@@ -41,7 +41,7 @@ function fix_zsh {
 
 function fix_fonts {
     font_src=~/sync1/fonts/**/*?tf
-    if [ -f $font_src ]
+    if [ -d ~/sync1/fonts ]
     then
         echo "installing fonts.. "
         sudo mkdir -p /usr/share/fonts/truetype/myfonts
