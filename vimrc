@@ -70,7 +70,10 @@ set title
 
 " Hugefont for blind bat
 "set gfn=Ubuntu\ Mono\ 13
-set gfn=PragmataPro\ 13
+"set gfn=PragmataPro\ 13
+" MS Consolas !!
+set gfn=Consolas\ 14
+"
 
 " C stuff
 " ctags mapping
