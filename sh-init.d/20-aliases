@@ -3,7 +3,7 @@
 #alias grep="grep --color=auto"
 #alias ls="ls --color=auto"
 #alias l='ls -lhF'
-
+alias nmapall="nmap -sP 192.168.1.0/24"
 alias ll="ls -lhp"
 
 alias trgopkg="tree $GOPATH/pkg -L 4"
