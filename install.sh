@@ -96,6 +96,7 @@ fix_fonts
 vim_pathogen
 vim_plugin git://github.com/tpope/vim-sensible.git vim-sensible
 vim_plugin git://github.com/altercation/vim-colors-solarized.git vim-colors-solarized
+vim_plugin https://github.com/scrooloose/nerdtree nerdtree
 vim_plugin git://github.com/tpope/vim-unimpaired.git vim-unimpaired
 vim_plugin git://github.com/tpope/vim-repeat.git vim-repeat
 vim_plugin git://github.com/tpope/vim-surround.git vim-surround
