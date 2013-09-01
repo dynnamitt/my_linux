@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 alias echo='echo -e'
 echo "\n ▪ super simple automagic setup... \n"
@@ -27,15 +27,27 @@ function fix_zsh {
         echo ".oh-my-zsh clone skipped... syncing.."
         (cd ~/.oh-my-zsh && git pull)
     fi
-    current_sh=`grep $USERNAME /etc/passwd | awk 'BEGIN { FS = ":" } ; { print $7 }'`
-    zsh_avail=`chsh -l | grep zsh | head -n1`
+
+    USERNAME=$(id -un)
+
+
+
+    current_sh=$(grep $USERNAME /etc/passwd |\
+        awk 'BEGIN { FS = ":" } ; { print $7 }')
+
+    echo current shell : $current_sh  
+
+    zsh_avail=`cat /etc/shells | grep zsh | head -n1`
+    echo availiable zsh is $zsh_avail 
+
     if [ -z $zsh_avail ];then 
         echo "zsh is not installed !!!"
         return 1
     elif [ $current_sh = $zsh_avail ];then
         echo current shell is $current_sh
     else
-        chsh -s $zsh_avail
+        sudo chsh -s $zsh_avail
+	echo zsh was set
     fi
 }
 
@@ -116,7 +128,7 @@ then
 else
     #make hooks
     cat << __STOP__ >> ~/.zshrc
-for file in \~/.my_linux/sh-init.d/*
+for file in ~/.my_linux/sh-init.d/*
 do
     source \$file
 done
