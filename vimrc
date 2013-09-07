@@ -68,6 +68,17 @@ set nocompatible
 set mouse=a
 set title
 
+
+" keyssssssss
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+
+" dont skip wrapped parts of line
+nnoremap j gj
+nnoremap k gk
+
 " Hugefont for blind bat
 "set gfn=Ubuntu\ Mono\ 13
 "set gfn=PragmataPro\ 13
@@ -145,7 +156,8 @@ set hlsearch
 set incsearch
 set ignorecase 
 set smartcase
-noremap <F3> :set hlsearch!<CR>
+noremap <F3> :set nohlsearch<CR>
+nmap <silent> ,/  :nohlsearch<CR>
 noremap <F4>   :%s/
 vnoremap <F4>  <Esc>:%s/
 inoremap <F4>  <Esc>:%s/
