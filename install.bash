@@ -1,7 +1,6 @@
 #!/bin/bash
 
-alias echo='echo -e'
-echo "\n ▪ super simple automagic setup... \n"
+echo -e "\n ▪ super simple automagic setup... \n"
 
 # Makes it possible to run via curl <url>|sh
 function fix_me {
