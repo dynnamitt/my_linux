@@ -124,7 +124,7 @@ endif
 " -----------------------
 " statusline
 " -----------------------
-set statusline=%F%m%r%h%w\ (%Y)\ [Fmt=%{&ff}]\ [row:%03l\ col:%03v][%p%%]\ [LEN=%L]\ %{strftime(\"%y.%m.%d-%H:%M\",getftime(expand(\"%:p\")))}
+set statusline=%{strftime(\"%y.%m.%d-%H:%M\",getftime(expand(\"%:p\")))}\ \|\ %F%m%r%h%w\ (%Y)\ [Fmt=%{&ff}]\ [row:%03l\ col:%03v][%p%%]\ [LEN=%L]
 
 set laststatus=2
 
@@ -144,13 +144,14 @@ endif
 " -------------------------
 " whitespace magico
 " ---------------------------
-"set list
+set list
 
 " Shortcut to rapidly toggle `set list`
 nmap <leader>l :set list!<CR>
 "
 " Use the same symbols as TextMate for tabstops and EOLs
-set listchars=tab:▸\ ,eol:┐
+set listchars=tab:▸\ 
+
 
 
 
