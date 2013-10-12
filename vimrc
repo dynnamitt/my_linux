@@ -124,7 +124,7 @@ endif
 " -----------------------
 " statusline
 " -----------------------
-set statusline=%{strftime(\"%y.%m.%d-%H:%M\",getftime(expand(\"%:p\")))}\ \|\ %F%m%r%h%w\ (%Y)\ [Fmt=%{&ff}]\ [row:%03l\ col:%03v][%p%%]\ [LEN=%L]
+set statusline=%{strftime(\"%y.%m.%d-%H:%M\",getftime(expand(\"%:p\")))}\ \|\ Fmt=%{&ff}\ \|\|\ %F%m%r%h%w\ (%Y)\ row:%03l\ col:%03v[%p%%]\ LEN=%L
 
 set laststatus=2
 
@@ -242,9 +242,9 @@ au BufRead,BufNewFile *.go set filetype=go
   
 " Indenting and tab
 set smartindent
-set tabstop=4
-set softtabstop=4
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 set expandtab
 
 set textwidth=120
