@@ -1,7 +1,12 @@
 My supercharged .dotfiles
 
-Install:
+Install all:
 
-    curl -L https://github.com/dynnamitt/my_linux/raw/master/install.sh | sh
+    # sudo curl -L https://github.com/dynnamitt/my_linux/raw/master/install.sh | sh
+    
 
-Beware: there will be sudo required to move a script into /usr/local/bin !
+Only vim :
+
+    a) Download vimrc + vim-pimper.bash to ~/.my_linux/
+    b) # ~/.my_linux/vim-pimper.bash
+
