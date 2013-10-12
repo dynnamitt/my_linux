@@ -63,38 +63,7 @@ function fix_fonts {
     fi
 }
 
-function vim_pathogen {
-    echo "fetching vim-pathogen..."
-    mkdir -p ~/.vim/autoload ~/.vim/bundle
-    curl -Sso ~/.vim/autoload/pathogen.vim \
-        https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
-}
-
-function vim_plugin {
-    
-    echo "fetching vim plugin: $1" 
-    cvs=${3-git}
-    cvs_sync=pull
-    cvs_clone=clone
-    if [ $cvs = svn ]; then
-        cvs_sync=update
-        cvs_clone=checkout
-    fi
-
-    (
-    cd ~/.vim/bundle
-    if [ -d $2/.git ] || [ -d $2/.svn ]
-    then
-        # existing
-        cd $2
-        $cvs $cvs_sync
-    else
-        # needs clone !
-        $cvs $cvs_clone $1 $2
-    fi
-    )
-}
-            
+           
 
 # ---------------------------------
 #
@@ -104,18 +73,10 @@ function vim_plugin {
 fix_me
 fix_zsh
 fix_fonts
-vim_pathogen
-vim_plugin git://github.com/tpope/vim-sensible.git vim-sensible
-vim_plugin git://github.com/altercation/vim-colors-solarized.git vim-colors-solarized
-vim_plugin https://github.com/scrooloose/nerdtree nerdtree
-vim_plugin git://github.com/tpope/vim-unimpaired.git vim-unimpaired
-vim_plugin git://github.com/tpope/vim-repeat.git vim-repeat
-vim_plugin git://github.com/tpope/vim-surround.git vim-surround
-vim_plugin https://github.com/Shutnik/jshint2.vim.git jshint2.vim
-vim_plugin http://web-indent.googlecode.com/svn/trunk/ web-indent svn
+
+source vim-pimper.bash
 
 # symlinking
-rm -f ~/.vimrc && ln -s ~/.my_linux/vimrc ~/.vimrc 
 rm -f ~/.Xresources && ln -s ~/.my_linux/Xresources ~/.Xresources
 rm -f ~/.Xdefaults && ln -s ~/.my_linux/Xresources ~/.Xdefaults
 rm -f ~/.xinitrc && ln -s ~/.my_linux/xinitrc ~/.xinitrc
