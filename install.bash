@@ -74,7 +74,7 @@ fix_me
 fix_zsh
 fix_fonts
 
-source vim-pimper.bash
+source ~/.my_linux/vim-pimper.bash
 
 # symlinking
 rm -f ~/.Xresources && ln -s ~/.my_linux/Xresources ~/.Xresources
