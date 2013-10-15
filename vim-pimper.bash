@@ -44,6 +44,7 @@ vim_plugin https://github.com/scrooloose/nerdtree nerdtree
 vim_plugin git://github.com/tpope/vim-unimpaired.git vim-unimpaired
 vim_plugin git://github.com/tpope/vim-repeat.git vim-repeat
 vim_plugin git://github.com/tpope/vim-surround.git vim-surround
+vim_plugin git@github.com:tpope/vim-commentary.git
 vim_plugin https://github.com/Shutnik/jshint2.vim.git jshint2.vim
 vim_plugin https://github.com/kchmck/vim-coffee-script.git
 
