@@ -38,6 +38,7 @@ au FileType xslt setlocal foldmethod=syntax
 au FileType xhtml setlocal foldmethod=syntax
 au FileType html setlocal foldmethod=syntax
 noremap <Leader>v  :!clear;xmllint --noout --loaddtd --xinclude --postvalid %
+noremap <Leader>x :1,$ !xmllint --format %<CR>
 
 " Ctrl X O  ->
 autocmd FileType python set omnifunc=pythoncomplete#Complete
@@ -170,16 +171,16 @@ vnoremap <F4>  <Esc>:%s/
 inoremap <F4>  <Esc>:%s/
 
 " Tab help
-nmap <leader>t :tabnew<cr>
-map <C-t> <Esc>:tabnew<space>
-noremap <C-Up>   gT
-vnoremap <C-Up>  <Esc>gT
-inoremap <C-Up>  <Esc>gT
-noremap <C-Down>   gt
-vnoremap <C-Down>  <Esc>gt
-inoremap <C-Down>  <Esc>gt
+" nmap <leader>t :tabnew<cr>
+" map <C-t> <Esc>:tabnew<space>
+" noremap <C-Up>   gT
+" vnoremap <C-Up>  <Esc>gT
+" inoremap <C-Up>  <Esc>gT
+" noremap <C-Down>   gt
+" vnoremap <C-Down>  <Esc>gt
+" inoremap <C-Down>  <Esc>gt
 
-map gf :tabnew <cfile><CR>
+"map gf :tabnew <cfile><CR>
 
 " buff help
 set wildcharm=<C-Z>
