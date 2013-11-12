@@ -11,11 +11,15 @@ function vim_pathogen {
 }
 
 function vim_plugin {
+
+    local url=$1
+    local basename_no_suffix=$(basename $url | sed -e 's/\.[^\.]*$//') 
     
-    echo "fetching vim plugin: $1" 
-    cvs=${3-git}
-    cvs_sync=pull
-    cvs_clone=clone
+    echo "fetching vim plugin: $url" 
+    local cvs=${2:-git}
+    local cvs_sync=pull
+    local cvs_clone=clone
+    
     if [ $cvs = svn ]; then
         cvs_sync=update
         cvs_clone=checkout
@@ -23,14 +27,14 @@ function vim_plugin {
 
     (
     cd ~/.vim/bundle
-    if [ -d $2/.git ] || [ -d $2/.svn ]
+    if [ -d $basename_no_suffix/.git ] || [ -d $basename_no_suffix/.svn ]
     then
         # existing
-        cd $2
+        cd $basename_no_suffix
         $cvs $cvs_sync
     else
         # needs clone !
-        $cvs $cvs_clone $1 $2
+        $cvs $cvs_clone $url $basename_no_suffix
     fi
     )
 }
@@ -38,14 +42,14 @@ function vim_plugin {
 vim_pathogen
 
 echo 'loading/updating all my plugins ... '
-vim_plugin git://github.com/tpope/vim-sensible.git vim-sensible
-vim_plugin git://github.com/altercation/vim-colors-solarized.git vim-colors-solarized
-vim_plugin https://github.com/scrooloose/nerdtree nerdtree
-vim_plugin git://github.com/tpope/vim-unimpaired.git vim-unimpaired
-vim_plugin git://github.com/tpope/vim-repeat.git vim-repeat
-vim_plugin git://github.com/tpope/vim-surround.git vim-surround
-vim_plugin git@github.com:tpope/vim-commentary.git
-vim_plugin https://github.com/Shutnik/jshint2.vim.git jshint2.vim
+vim_plugin git://github.com/tpope/vim-sensible.git 
+vim_plugin git://github.com/altercation/vim-colors-solarized.git 
+vim_plugin https://github.com/scrooloose/nerdtree 
+vim_plugin git://github.com/tpope/vim-unimpaired.git 
+vim_plugin git://github.com/tpope/vim-repeat.git 
+vim_plugin git://github.com/tpope/vim-surround.git 
+vim_plugin git://github.com/tpope/vim-commentary.git
+vim_plugin https://github.com/Shutnik/jshint2.vim.git 
 vim_plugin https://github.com/kchmck/vim-coffee-script.git
 
-vim_plugin http://web-indent.googlecode.com/svn/trunk/ web-indent svn
+vim_plugin http://web-indent.googlecode.com/svn/trunk/ svn

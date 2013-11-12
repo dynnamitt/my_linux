@@ -54,10 +54,10 @@ autocmd FileType sh set omnifunc=shcomplete#CompleteSH
 autocmd FileType javascript,php,c,java,go map <leader>ccb I//  <Esc>A  //<Esc>yyp0llv$hhhr-yykPjj
 autocmd FileType python,ruby,sh,zsh,bash,m4,make map <leader>ccb I#  <Esc>A  #<Esc>yyp0lv$hhr-yykPjj
 " NerdTree
-nnoremap <silent><F9> :NERDTree<CR>
-inoremap <silent><F9> <C-O>:NERDTree<CR>
-vnoremap <silent><F9> :NERDTree<CR>
-cnoremap <F9> NERDTree
+nnoremap <silent><F9> :NERDTreeToggle<CR>
+inoremap <silent><F9> <C-O>:NERDTreeToggle<CR>
+vnoremap <silent><F9> :NERDTreeToggle<CR>
+cnoremap <F9> NERDTreeToggle
 
 
 " JSHint
