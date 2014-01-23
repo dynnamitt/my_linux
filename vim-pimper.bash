@@ -13,8 +13,10 @@ function vim_pathogen {
 function vim_plugin {
 
     local url=$1
-    local basename_no_suffix=$(basename $url | sed -e 's/\.[^\.]*$//') 
-    
+    local base_no_suffix=$(basename $url | sed -e 's/\.[^\.]*$//') 
+    local dirname=${3:-${base_no_suffix}}
+   
+    echo  --- $dirname ---
     echo "fetching vim plugin: $url" 
     local cvs=${2:-git}
     local cvs_sync=pull
@@ -27,14 +29,16 @@ function vim_plugin {
 
     (
     cd ~/.vim/bundle
-    if [ -d $basename_no_suffix/.git ] || [ -d $basename_no_suffix/.svn ]
+    if [ -d $dirname/.git ] || [ -d $dirname/.svn ]
     then
         # existing
-        cd $basename_no_suffix
+        (
+        cd $dirname
         $cvs $cvs_sync
+        )
     else
         # needs clone !
-        $cvs $cvs_clone $url $basename_no_suffix
+        $cvs $cvs_clone $url $dirname
     fi
     )
 }
@@ -51,5 +55,5 @@ vim_plugin git://github.com/tpope/vim-surround.git
 vim_plugin git://github.com/tpope/vim-commentary.git
 vim_plugin https://github.com/Shutnik/jshint2.vim.git 
 vim_plugin https://github.com/kchmck/vim-coffee-script.git
-
-vim_plugin http://web-indent.googlecode.com/svn/trunk/ svn
+vim_plugin git://github.com/digitaltoad/vim-jade.git
+vim_plugin http://web-indent.googlecode.com/svn/trunk/ svn web-indent
