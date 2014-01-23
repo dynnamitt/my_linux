@@ -77,10 +77,10 @@ fix_fonts
 source ~/.my_linux/vim-pimper.bash
 
 # symlinking
-rm -f ~/.Xresources && ln -s ~/.my_linux/Xresources ~/.Xresources
-rm -f ~/.Xdefaults && ln -s ~/.my_linux/Xresources ~/.Xdefaults
-rm -f ~/.xinitrc && ln -s ~/.my_linux/xinitrc ~/.xinitrc
-rm -f ~/.xbindkeyrc && ln -s ~/.my_linux/xbindkeyrc ~/.xbindkeyrc
+# rm -f ~/.Xresources && ln -s ~/.my_linux/Xresources ~/.Xresources
+# rm -f ~/.Xdefaults && ln -s ~/.my_linux/Xresources ~/.Xdefaults
+# rm -f ~/.xinitrc && ln -s ~/.my_linux/xinitrc ~/.xinitrc
+# rm -f ~/.xbindkeyrc && ln -s ~/.my_linux/xbindkeyrc ~/.xbindkeyrc
 
 # SHELL hookup
 if grep -c .my_linux/sh-init.d ~/.zshrc 
