@@ -51,15 +51,17 @@ function fix_zsh {
 }
 
 function fix_fonts {
-    font_src=~/sync1/fonts/**/*?tf
-    if [ -d ~/sync1/fonts ]
+    if find ~/sync1/fonts/ -iname '*tf' &>/dev/null
     then
         echo "installing fonts.. "
         sudo mkdir -p /usr/share/fonts/truetype/myfonts
-        sudo cp -v $font_src /usr/share/fonts/truetype/myfonts
+        for font in $(find ~/sync1/fonts/ -iname '*tf')
+        do
+          sudo cp -v $font /usr/share/fonts/truetype/myfonts
+        done
         sudo fc-cache
     else 
-        echo "skipping copying of files: $font_src."
+        echo "skipping copying of donts"
     fi
 }
 
