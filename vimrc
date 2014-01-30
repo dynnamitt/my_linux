@@ -110,7 +110,7 @@ imap <F5> <Esc>:%!astyle --mode=c -p -U -w -k2 -O -j -A10<CR>
 set t_Co=256
 
 if !has('gui_running')
-  colo solarized
+  colo blue
  set background=dark
 else
  colo solarized
