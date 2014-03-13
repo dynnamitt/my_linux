@@ -99,5 +99,5 @@ __STOP__
 fi
 
 # SUDO section for DWM exec script
-echo "Copying dwm-starter script... "
-sudo cp ~/.my_linux/dwm-starter /usr/local/bin/dwm-starter
+#echo "Copying dwm-starter script... "
+#sudo cp ~/.my_linux/dwm-starter /usr/local/bin/dwm-starter
