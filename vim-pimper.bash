@@ -58,3 +58,4 @@ vim_plugin https://github.com/kchmck/vim-coffee-script.git
 vim_plugin git://github.com/digitaltoad/vim-jade.git
 vim_plugin http://web-indent.googlecode.com/svn/trunk/ svn web-indent
 vim_plugin https://github.com/wlangstroth/vim-racket
+vim_plugin https://github.com/amdt/vim-niji
