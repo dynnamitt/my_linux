@@ -1,0 +1,14 @@
+#! /bin/make -f
+
+DESTDIR=~/.config/awesome
+PROJECT=copycat-killer/awesome-copycats
+
+all: $(DESTDIR)
+	cd $(DESTDIR) && \
+    ( git pull; \
+    git submodule init ; \
+    git submodule update; )
+
+$(DESTDIR):
+	git clone https://github.com/${PROJECT}.git $@
+
