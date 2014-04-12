@@ -7,14 +7,14 @@ PROJECT=copycat-killer/awesome-copycats
 # $(swap_dialog)
 define swap_dialog
 	echo ; \
-	echo "see https://github.com/copycat-killer/awesome-copycats" ; \
+	echo "see https://github.com/$(PROJECT)" ; \
 	echo ; $(themes) | cat -n ; echo ; \
 	read -p "Choose a new theme: " num; \
-		NEW_THEME=$$($(themes) | head -n$${num} | tail -n1 ) ; \
-		if [ ! -z "$${NEW_THEME}" ] ; then  \
-		 cp $${NEW_THEME} rc.lua ; \
-		 echo "Theme is now $${NEW_THEME}"; \
-		else echo " !! Aborted. " ; fi
+	NEW_THEME=$$($(themes) | head -n$${num} | tail -n1 ) ; \
+	if [ ! -z "$${NEW_THEME}" ] ; then  \
+	 cp $${NEW_THEME} rc.lua ; \
+	 echo "Theme is now $${NEW_THEME}"; \
+	else echo " !! Aborted. " ; fi
 endef
 
 # $(themes)
@@ -24,11 +24,10 @@ themes=ls -1 rc.lua*
 
 all: $(DESTDIR)
 	cd $(DESTDIR) && \
-    git pull; \
-    git submodule init ; \
-    git submodule update; \
-		$(swap_dialog)
+	git pull; \
+	git submodule init ; \
+	git submodule update; \
+	$(swap_dialog)
 
 $(DESTDIR):
 	git clone https://github.com/${PROJECT}.git $@
-
