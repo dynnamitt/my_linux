@@ -20,7 +20,10 @@ inoremap <F2>  <Esc>:edit!<CR>
 set rtp+=$GOROOT/misc/vim
 
 syntax on
-filetype plugin indent on
+set nocompatible
+filetype plugin on 
+filetype indent on
+
 
 set vb " visualbell!
 
@@ -41,14 +44,15 @@ noremap <Leader>v  :!clear;xmllint --noout --loaddtd --xinclude --postvalid %
 noremap <Leader>x :1,$ !xmllint --format %<CR>
 
 " Ctrl X O  ->
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType sh set omnifunc=shcomplete#CompleteSH
+set omnifunc=syntaxcomplete#Complete
+" autocmd FileType python set omnifunc=pythoncomplete#Complete
+" autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+" autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+" autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+" autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+" autocmd FileType c set omnifunc=ccomplete#Complete
+" autocmd FileType sh set omnifunc=shcomplete#CompleteSH
 
 " Faaancy commenterr
 autocmd FileType javascript,php,c,java,go map <leader>ccb I//  <Esc>A  //<Esc>yyp0llv$hhhr-yykPjj
@@ -71,7 +75,6 @@ autocmd! BufWinEnter * if &filetype == "javascript" | silent JSHint | endif
 " JSHint justBeforeSave .js
 autocmd! BufWritePost * if &filetype == "javascript" | silent JSHint | endif 
 
-set nocompatible
 set mouse=a
 set title
 
