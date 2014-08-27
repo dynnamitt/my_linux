@@ -34,6 +34,10 @@ let g:mapleader = ","
 
 set modeline
 
+" coffeescript
+""autocmd BufWritePost,FileWritePost *.coffee silent !coffee -c <afile>
+
+
 " XML 
 "let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
@@ -111,21 +115,17 @@ imap <F5> <Esc>:%!astyle --mode=c -p -U -w -k2 -O -j -A10<CR>
 " color 
 " ---------------------
 set t_Co=256
-
-if !has('gui_running')
-  "colo blue
- colo solarized
- set background=dark
-else
- colo solarized
- set background=dark
-endif
+colo desert
+" if !has('gui_running')
+"   "colo blue
+"  colo solarized
+"  set background=dark
+" else
+"  colo solarized
+"  set background=dark
+" endif
 
 let g:niji_matching_filetypes = ['lisp', 'scheme', 'clojure','racket']
-" colo fruity 
-" colo elflord
-" colo night_kdm
-" colo blue
 
 " -----------------------
 " statusline
