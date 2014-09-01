@@ -7,7 +7,7 @@ function vim_pathogen {
     echo "fetching vim-pathogen..."
     mkdir -p ~/.vim/autoload ~/.vim/bundle
     curl -Sso ~/.vim/autoload/pathogen.vim \
-        https://raw.github.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+        https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 }
 
 function vim_plugin {
