@@ -5,7 +5,6 @@ rm -f ~/.vimrc && ln -s ~/.my_linux/vimrc ~/.vimrc
 function vim_pathogen {
     
     echo "fetching vim-pathogen..."
-    mkdir -p ~/.vim/autoload ~/.vim/bundle
     curl -Sso ~/.vim/autoload/pathogen.vim \
         https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
 }
@@ -43,6 +42,13 @@ function vim_plugin {
     )
 }
 
+# MAIN
+#
+#
+#
+
+mkdir -p ~/.vim/autoload ~/.vim/bundle ~/.vim/colors
+
 vim_pathogen
 
 echo 'loading/updating all my plugins ... '
@@ -59,3 +65,8 @@ vim_plugin git://github.com/digitaltoad/vim-jade.git
 vim_plugin http://web-indent.googlecode.com/svn/trunk/ svn web-indent
 vim_plugin https://github.com/wlangstroth/vim-racket
 vim_plugin https://github.com/amdt/vim-niji
+ 
+# clarity colo
+curl -Sso ~/.vim/colors/clarity.vim \
+  http://www.vim.org/scripts/download_script.php?src_id=7316
+
