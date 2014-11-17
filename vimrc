@@ -6,7 +6,20 @@ execute pathogen#infect()
 "           http://amix.dk/blog,
 "
 "
+
+
+
+" Like bufdo but restore the current buffer.
+function! BufDo(command)
+  let currBuff=bufnr("%")
+  execute 'bufdo ' . a:command
+  execute 'buffer ' . currBuff
+endfunction
+com! -nargs=+ -complete=command Bufdo call BufDo(<q-args>)
+
+
 " ubersaver
+
 cmap w!! w !sudo tee % >/dev/null
 
 set matchpairs+=<:>
@@ -44,7 +57,7 @@ au FileType xml setlocal foldmethod=syntax
 au FileType xslt setlocal foldmethod=syntax
 au FileType xhtml setlocal foldmethod=syntax
 au FileType html setlocal foldmethod=syntax
-noremap <Leader>v  :!clear;xmllint --noout --loaddtd --xinclude --postvalid %
+noremap <Leader>V  :!clear;xmllint --noout --loaddtd --xinclude --postvalid %
 noremap <Leader>x :1,$ !xmllint --format %<CR>
 
 " Ctrl X O  ->
@@ -97,7 +110,7 @@ nnoremap k gk
 "set gfn=Ubuntu\ Mono\ 13
 "set gfn=PragmataPro\ 13
 " MS Consolas !!
-set gfn=Consolas\ 14
+set gfn=Consolas\ 12
 "
 
 " C stuff
@@ -190,20 +203,20 @@ inoremap <F4>  <Esc>:%s/
 " buff help
 set wildcharm=<C-Z>
 nnoremap <F10> :b <C-Z>
-"map <C-S-b> <Esc>:bn<cr>
-"map! <C-S-b> <Esc>:bn<cr>
-"imap <C-S-b> <Esc>:bn<cr>
-"noremap <C-S-d>   :bdel<CR>
-"vnoremap <C-S-d>  <Esc>:bdel<CR>
-"inoremap <C-S-d>  <Esc>:bdel<CR>
+map <Leader>s :sbuffer<space>
+map <Leader>v :vert sb<space>
+
 
 " Fast saving
 " NB! Read this: http://sealence.x10hosting.com/wordpress/?p=28 
 " ( deactive Ctrl-S default behaviour in xterms )
-noremap <C-S>          :update<CR>
-vnoremap <C-S>         <Esc>:update<CR>
-inoremap <C-S>         <Esc>:update<CR>
-"map <leader>w :w!<cr>
+noremap <C-s>          :update<CR>
+vnoremap <C-s>         <Esc>:update<CR>
+inoremap <C-s>         <Esc>:update<CR>
+" save all
+noremap <C-a>          :BufDo execute "normal! @a" | update<CR>
+vnoremap <C-a>         <Esc>:BufDo execute "normal! @a" | update<CR>
+inoremap <C-a>         <Esc>:BufDo execute "normal! @a" | update<CR>
 
 " oldfiles TDOD FIX
 set viminfo='20,<50,s10,h
