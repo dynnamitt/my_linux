@@ -143,7 +143,7 @@ let g:niji_matching_filetypes = ['lisp', 'scheme', 'clojure','racket']
 " -----------------------
 " statusline
 " -----------------------
-set statusline=%{strftime(\"%y.%m.%d-%H:%M\",getftime(expand(\"%:p\")))}\ \|\ Fmt=%{&ff}\ \|\|\ %F%m%r%h%w\ (%Y)\ row:%03l\ col:%03v[%p%%]\ LEN=%L
+set statusline=\|\|\ %F%m%r%h%w\ (%Y)\ row:%03l\ col:%03v[%p%%]\ LEN=%L
 
 set laststatus=2
 
@@ -159,6 +159,13 @@ if version >= 700
 "   au InsertEnter * hi StatusLine guibg=orange
  au InsertLeave * hi StatusLine guibg=white 
 endif
+augroup CursorLine
+  au!
+  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+  au WinLeave * setlocal nocursorline
+augroup END
+
+set guicursor+=n-v-c:blinkon0
 
 " -------------------------
 " whitespace magico
