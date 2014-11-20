@@ -158,12 +158,16 @@ if version >= 700
   au InsertLeave * set cursorline 
 "   au InsertEnter * hi StatusLine guibg=orange
  au InsertLeave * hi StatusLine guibg=white 
+ au VimEnter,WinEnter,BufWinEnter * stopinsert
+
 endif
-augroup CursorLine
-  au!
-  au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-  au WinLeave * setlocal nocursorline
-augroup END
+
+" no need:
+" augroup CursorLine
+"   au!
+"   au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+"   au WinLeave * setlocal nocursorline
+" augroup END
 
 set guicursor+=n-v-c:blinkon0
 
