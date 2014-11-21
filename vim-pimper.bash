@@ -65,6 +65,7 @@ vim_plugin git://github.com/digitaltoad/vim-jade.git
 vim_plugin http://web-indent.googlecode.com/svn/trunk/ svn web-indent
 vim_plugin https://github.com/wlangstroth/vim-racket
 vim_plugin https://github.com/amdt/vim-niji
+vim_plugin https://github.com/othree/xml.vim.git
  
 # clarity colo
 curl -Sso ~/.vim/colors/clarity.vim \
