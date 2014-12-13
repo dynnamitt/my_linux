@@ -1,5 +1,6 @@
 #!/bin/sh
 
+alias steal_site="wget --mirror --convert-links --adjust-extension --page-requisites --no-parent"
 #alias grep="grep --color=auto"
 #alias ls="ls --color=auto"
 #alias l='ls -lhF'
