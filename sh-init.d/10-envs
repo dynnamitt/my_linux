@@ -7,7 +7,7 @@ stty stop ^-
 
 export GOPATH=~/gocode
 
-export PATH=$PATH:~/bin:~/apps
+export PATH=$PATH:~/bin:~/apps:~/.cabal/bin
 
 if [ -z "$JAVA_HOME" ]; then
   export JAVA_HOME="/usr"
