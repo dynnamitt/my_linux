@@ -53,7 +53,7 @@ vim_pathogen
 
 echo 'loading/updating all my plugins ... '
 vim_plugin git://github.com/tpope/vim-sensible.git 
-vim_plugin git://github.com/altercation/vim-colors-solarized.git 
+# vim_plugin git://github.com/altercation/vim-colors-solarized.git 
 vim_plugin https://github.com/scrooloose/nerdtree 
 vim_plugin git://github.com/tpope/vim-unimpaired.git 
 vim_plugin git://github.com/tpope/vim-repeat.git 
@@ -61,11 +61,13 @@ vim_plugin git://github.com/tpope/vim-surround.git
 vim_plugin git://github.com/tpope/vim-commentary.git
 vim_plugin https://github.com/Shutnik/jshint2.vim.git 
 vim_plugin https://github.com/kchmck/vim-coffee-script.git
-vim_plugin git://github.com/digitaltoad/vim-jade.git
+# vim_plugin git://github.com/digitaltoad/vim-jade.git
 vim_plugin http://web-indent.googlecode.com/svn/trunk/ svn web-indent
 vim_plugin https://github.com/wlangstroth/vim-racket
 vim_plugin https://github.com/amdt/vim-niji
 vim_plugin https://github.com/othree/xml.vim.git
+vim_plugin git@github.com:moll/vim-node.git
+vim_plugin git@github.com:vim-scripts/taglist.vim.git
  
 # clarity colo
 curl -Sso ~/.vim/colors/clarity.vim \
