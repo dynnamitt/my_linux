@@ -1,4 +1,6 @@
-My supercharged .dotfiles
+My supercharged .dotfiles 
+
+!! USE AT OWN RISK !!
 
 Install all:
 
@@ -9,4 +11,3 @@ Only vim :
 
     a) Download vimrc + vim-pimper.bash to ~/.my_linux/
     b) # ~/.my_linux/vim-pimper.bash
-
