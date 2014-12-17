@@ -118,8 +118,8 @@ set gfn=Consolas\ 12
 "" from http://amix.dk/blog/viewEntry/19329
 map <F7> :TlistToggle<CR>
 imap <F7> <Esc>:TlistToggle<CR>
-map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-imap <F8> <Esc>:!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+map <F8> :!make tags<CR>
+imap <F8> <Esc>:!make tags<CR>
 map <F5> :%!astyle --mode=c -p -U -w -k2 -O -j -A10<CR>
 imap <F5> <Esc>:%!astyle --mode=c -p -U -w -k2 -O -j -A10<CR>
 
