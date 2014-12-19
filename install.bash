@@ -76,6 +76,9 @@ fix_me
 fix_zsh
 fix_fonts
 
+# ctags
+cp _ctags ~/.ctags
+
 source ~/.my_linux/vim-pimper.bash
 
 # symlinking
