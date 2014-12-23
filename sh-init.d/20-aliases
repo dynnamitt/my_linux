@@ -5,7 +5,8 @@ alias steal_site="wget --mirror --convert-links --adjust-extension --page-requis
 #function
 inotify_delay_cmd() {
   while true; do 
-    inotifywait -r -e create -e delete -e modify --exclude '^\./\..+' .
+    inotifywait -r -e create -e delete -e modify \
+      --exclude '/\..+' .
     "$@"
   done
 }
