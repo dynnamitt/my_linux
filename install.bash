@@ -79,6 +79,9 @@ fix_fonts
 # ctags
 ln -s ~/.my_linux/_ctags ~/.ctags
 
+#emacs
+ln -s ~/.my_linux/_emacs ~/.emacs
+
 source ~/.my_linux/vim-pimper.bash
 
 # symlinking

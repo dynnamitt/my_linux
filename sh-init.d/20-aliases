@@ -43,6 +43,9 @@ alias xl='xmllint --noout --loaddtd --xinclude --postvalid'
 # uberfast img viewer
 alias thum="feh -g 640x480 -d -S filename"
 
+alias vim="emacs -nw"
+alias emacsnw="emacs -nw"
+
 # funcs
 
 function xslt2(){
