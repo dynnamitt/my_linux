@@ -20,13 +20,12 @@
 (setq inhibit-splash-screen t
       initial-scratch-message nil)
 
-;; Don't clutter up directories with files~
-(setq backup-directory-alist `(("." . ,(expand-file-name
-                                    (concat "~/" ".emacsbak")))))
-
-;; Don't clutter with #files either
-(setq auto-save-file-name-transforms
-      `((".*" ,(expand-file-name (concat "~/" ".emacsbak")))))
+;;; backup/autosave  anti-clutter
+(defvar backup-dir (expand-file-name "~/.emacs.d/backup/"))
+(defvar autosave-dir (expand-file-name "~/.emacs.d/autosave/"))
+(setq backup-directory-alist (list (cons ".*" backup-dir)))
+(setq auto-save-list-file-prefix autosave-dir)
+(setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
 ;; PLUGINS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
