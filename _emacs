@@ -27,10 +27,13 @@
 (setq auto-save-list-file-prefix autosave-dir)
 (setq auto-save-file-name-transforms `((".*" ,autosave-dir t)))
 
-;; PLUGINS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-(add-to-list 'load-path "~/.emacs.d/vendor")
+;; PLUGINS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+(add-to-list 'load-path "~/.emacs.d/vendor") ;; needed?
+
 (require 'coffee-mode)
+  (setq tab-width 2)
 (require 'projectile)
 (require 'auto-save-buffers-enhanced)
   (auto-save-buffers-enhanced t)
