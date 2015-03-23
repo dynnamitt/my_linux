@@ -20,6 +20,8 @@
 
 ; packs
 (defvar k/packages '(
+		     
+		     auto-save-buffers-enhanced
 		     projectile
 		     ido-vertical-mode
 		     ac-slime
@@ -136,7 +138,8 @@
 ; ido settings
 (ido-mode t)
 (ido-vertical-mode)
-;; (setq ido-everywhere t)(setq ido-use-faces t)
+(setq ido-everywhere t)
+(setq ido-use-faces t)
 
 ;; smex
 (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
@@ -145,6 +148,9 @@
 ; auto-compl
 (require 'auto-complete-config)
 (ac-config-default)
+
+; auto-save active
+(auto-save-buffers-enhanced t)
 
 ; keybind
 (global-set-key (kbd "RET") 'newline-and-indent)
