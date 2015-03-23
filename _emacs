@@ -85,8 +85,6 @@
 ; y over yes
 (defalias 'yes-or-no-p 'y-or-n-p)
 
-
-
 ; misc NICE
 (setq tab-width 2
       indent-tabs-mode nil
@@ -97,6 +95,35 @@
       visible-bell t)
 
 (show-paren-mode t)
+
+; CLEAN UP w C-c n(uke?) and C-x M-t (abelishioush?)
+(defun untabify-buffer ()
+  (interactive)
+  (untabify (point-min) (point-max)))
+
+(defun indent-buffer ()
+  (interactive)
+  (indent-region (point-min) (point-max)))
+
+(defun cleanup-buffer ()
+  "Perform a bunch of operations on the whitespace content of a buffer."
+  (interactive)
+  (indent-buffer)
+  (untabify-buffer)
+  (delete-trailing-whitespace))
+
+(defun cleanup-region (beg end)
+  "Remove tmux artifacts from region."
+  (interactive "r")
+  (dolist (re '("\\\\│\·*\n" "\W*│\·*"))
+    (replace-regexp re "" nil beg end)))
+
+(global-set-key (kbd "C-x M-t") 'cleanup-region)
+(global-set-key (kbd "C-c n") 'cleanup-buffer)
+
+(setq-default show-trailing-whitespace t)
+
+
 
 ; no temp files
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
@@ -115,6 +142,10 @@
 (setq smex-save-file (expand-file-name ".smex-items" user-emacs-directory))
 (smex-initialize)
 
+; auto-compl
+(require 'auto-complete-config)
+(ac-config-default)
+
 ; keybind
 (global-set-key (kbd "RET") 'newline-and-indent)
 (global-set-key (kbd "C-;") 'comment-or-uncomment-region)
@@ -124,5 +155,39 @@
 (global-set-key (kbd "C--") 'text-scale-decrease)
 
 (global-set-key (kbd "M-x") 'smex)
-(global-set-key (kbd "M-X") 'smex-major-mode-commands)		
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
+;;;;;; filetypes
+
+; yml
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+
+; www
+(add-to-list 'auto-mode-alist '("\\.hbs$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.handlebar$" . web-mode))
+
+; coffee
+(defun coffee-custom ()
+  "coffee-mode-hook"
+  (make-local-variable 'tab-width)
+  (set 'tab-width 2))
+(add-hook 'coffee-mode-hook 'coffee-custom)
+
+; javascript
+(defun js-custom ()
+  "js-mode-hook"
+  (setq js-indent-level 2))
+
+(add-hook 'js-mode-hook 'js-custom)
+
+; markdown
+(add-to-list 'auto-mode-alist '("\\.md$" . markdown-mode))
+(add-to-list 'auto-mode-alist '("\\.mdown$" . markdown-mode))
+(add-hook 'markdown-mode-hook
+          (lambda ()
+            (visual-line-mode t)
+            (writegood-mode t)
+            (flyspell-mode t)))
+(setq markdown-command "pandoc --smart -f markdown -t html")
+;; (setq markdown-css-path (expand-file-name "markdown.css" abedra/vendor-dir))
