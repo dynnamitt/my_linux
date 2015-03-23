@@ -78,8 +78,10 @@
 ; clipbard-wild x-xorg compat
 (setq x-select-enable-clipboard t)
 
+; revert when file is altered
+(global-auto-revert-mode t)
  
-; file endings visible
+; EOF visible
 (setq-default indicate-empty-lines t)
 (when (not indicate-empty-lines)
   (toggle-indicate-empty-lines))
