@@ -199,3 +199,8 @@
             (flyspell-mode t)))
 (setq markdown-command "pandoc --smart -f markdown -t html")
 ;; (setq markdown-css-path (expand-file-name "markdown.css" abedra/vendor-dir))
+
+;; ANOYING dh-make BUGFIX
+(add-hook 'makefile-mode-hook
+          (function (lambda ()
+                      (fset 'makefile-warn-suspicious-lines 'ignore))))
