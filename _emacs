@@ -20,7 +20,6 @@
 
 ; packs
 (defvar k/packages '(
-		     
 		     auto-save-buffers-enhanced
 		     projectile
 		     ido-vertical-mode
@@ -56,7 +55,6 @@
 		     yaml-mode)
   "Default packages")
 
-				      
 ; curl down and install
 (defun k/packages-installed-p ()
   (loop for pkg in k/packages
@@ -126,8 +124,6 @@
 (global-set-key (kbd "C-c n") 'cleanup-buffer)
 
 (setq-default show-trailing-whitespace t)
-
-
 
 ; no temp files
 (setq backup-directory-alist `((".*" . ,temporary-file-directory)))
@@ -204,3 +200,22 @@
 (add-hook 'makefile-mode-hook
           (function (lambda ()
                       (fset 'makefile-warn-suspicious-lines 'ignore))))
+
+
+;; --------------------- over n out
+
+
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(column-number-mode t)
+ '(show-paren-mode t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:family "Ubuntu Mono" :foundry "unknown" :slant normal :weight normal :height 143 :width normal)))))

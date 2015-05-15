@@ -50,6 +50,8 @@ set modeline
 " coffeescript
 ""autocmd BufWritePost,FileWritePost *.coffee silent !coffee -c <afile>
 
+" NGX xtra
+au BufRead,BufNewFile */nginx/*.conf set ft=nginx
 
 " XML 
 "let g:xml_syntax_folding=1

@@ -1,0 +1,42 @@
+#!/bin/sh
+
+vim_pathogen() {
+    
+    echo "fetching vim-pathogen..."
+    curl -Sso ~/.vim/autoload/pathogen.vim \
+        https://raw.githubusercontent.com/tpope/vim-pathogen/master/autoload/pathogen.vim
+}
+
+vim_plugin() {
+
+    url=$1
+    base_no_suffix=$(basename $url | sed -e 's/\.[^\.]*$//') 
+    local _dirname=${3:-${base_no_suffix}}
+   
+    echo  --- $dirname ---
+    echo "fetching vim plugin: $url" 
+    cvs=${2:-git}
+    cvs_sync=pull
+    cvs_clone=clone
+    
+    if [ $cvs = svn ]
+    then
+        cvs_sync=update
+        cvs_clone=checkout
+    fi
+
+    (
+    cd ~/.vim/bundle
+    if [ -d $dirname/.git ] || [ -d $dirname/.svn ]
+    then
+        # existing
+        (
+        cd $dirname
+        $cvs $cvs_sync
+        )
+    else
+        # needs clone !
+        $cvs $cvs_clone $url $dirname
+    fi
+    )
+}
