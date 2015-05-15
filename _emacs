@@ -20,6 +20,7 @@
 
 ; packs
 (defvar k/packages '(
+		     nginx-mode
 		     auto-save-buffers-enhanced
 		     projectile
 		     ido-vertical-mode
@@ -162,6 +163,9 @@
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
 ;;;;;; filetypes
+
+; Ngnix
+(add-to-list 'auto-mode-alist '("*/nginx/*.conf" . nginx-mode)) 
 
 ; yml
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
