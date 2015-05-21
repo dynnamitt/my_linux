@@ -1,5 +1,6 @@
 #!/bin/sh
 
+alias ack="ack-grep"
 alias steal_site="wget --mirror --convert-links --adjust-extension --page-requisites --no-parent"
 
 #function
