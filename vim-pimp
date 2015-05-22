@@ -27,7 +27,7 @@ vim_plugin git@github.com:othree/xml.vim.git
 vim_plugin git@github.com:moll/vim-node.git
 vim_plugin git@github.com:vim-scripts/taglist.vim.git
 vim_plugin git@github.com:evanmiller/nginx-vim-syntax.git
-
+vim_plugin https://github.com/mileszs/ack.vim.git
 echo
 echo " >> some colours ..."
 
