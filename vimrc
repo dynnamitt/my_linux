@@ -52,6 +52,7 @@ set modeline
 
 " NGX xtra
 au BufRead,BufNewFile */nginx/*.conf set ft=nginx
+au BufRead,BufNewFile */ngx/*.conf set ft=nginx
 
 " XML 
 "let g:xml_syntax_folding=1
@@ -61,6 +62,9 @@ au FileType xhtml setlocal foldmethod=syntax
 au FileType html setlocal foldmethod=syntax
 noremap <Leader>V  :!clear;xmllint --noout --loaddtd --xinclude --postvalid %
 noremap <Leader>x :1,$ !xmllint --format %<CR>
+au BufRead,BufNewFile *.hbs set ft=html
+au BufRead,BufNewFile *.handlebars set ft=html
+au BufRead,BufNewFile *.handlebar set ft=html
 
 " Ctrl X O  ->
 set omnifunc=syntaxcomplete#Complete
