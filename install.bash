@@ -82,7 +82,7 @@ ln -s ~/.my_linux/_ctags ~/.ctags
 #emacs
 ln -s ~/.my_linux/_emacs ~/.emacs
 
-source ~/.my_linux/vim-pimper.bash
+source ~/.my_linux/vim-pimp
 
 # symlinking
 # rm -f ~/.Xresources && ln -s ~/.my_linux/Xresources ~/.Xresources
