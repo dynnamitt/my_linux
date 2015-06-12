@@ -103,6 +103,8 @@ set title
 
 
 " keyssssssss
+nmap <S-Enter> O<Esc>j
+nmap <CR> o<Esc>k
 map <up> <nop>
 map <down> <nop>
 map <left> <nop>
