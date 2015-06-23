@@ -11,32 +11,32 @@ vim_plugin() {
 
     url=$1
     base_no_suffix=$(basename $url | sed -e 's/\.[^\.]*$//') 
-    local _dirname=${3:-${base_no_suffix}}
+    _dirname_=${3:-${base_no_suffix}}
    
-    echo  --- $dirname ---
-    echo "fetching vim plugin: $url" 
+    printf "\n\n  --- $_dirname_ --- \n"
+    printf "fetching vim plugin: $url\n" 
     cvs=${2:-git}
     cvs_sync=pull
     cvs_clone=clone
     
-    if [ $cvs = svn ]
+    if test $cvs = svn
     then
         cvs_sync=update
         cvs_clone=checkout
     fi
 
     (
-    cd ~/.vim/bundle
-    if [ -d $dirname/.git ] || [ -d $dirname/.svn ]
+    cd $HOME/.vim/bundle
+    if test -f "$_dirname_/.git/index" || test -d "$_dirname_/.svn" 
     then
-        # existing
+        echo " >> sync.."
         (
-        cd $dirname
+        cd $_dirname_
         $cvs $cvs_sync
         )
     else
-        # needs clone !
-        $cvs $cvs_clone $url $dirname
+        echo " >> clone/checkout.."
+        $cvs $cvs_clone $url $_dirname_
     fi
     )
 }
