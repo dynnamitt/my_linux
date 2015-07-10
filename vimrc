@@ -50,6 +50,13 @@ set modeline
 " coffeescript
 ""autocmd BufWritePost,FileWritePost *.coffee silent !coffee -c <afile>
 
+
+" FT
+
+" systemd (more or less SH)
+au BufRead,BufNewFile *.service set ft=sh
+au BufRead,BufNewFile *.service.m4 set ft=sh
+
 " NGX xtra
 au BufRead,BufNewFile */nginx/*.conf set ft=nginx
 au BufRead,BufNewFile */ngx/*.conf set ft=nginx
