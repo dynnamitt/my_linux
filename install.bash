@@ -79,8 +79,11 @@ fix_fonts
 # ctags
 ln -s ~/.my_linux/_ctags ~/.ctags
 
-#emacs
+# emacs
 ln -s ~/.my_linux/_emacs ~/.emacs
+
+# ghci
+ln -s ~/.my_linux/ghci.conf ~/.ghc/ghci.conf
 
 source ~/.my_linux/vim-pimp
 
