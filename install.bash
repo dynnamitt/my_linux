@@ -83,7 +83,7 @@ ln -s ~/.my_linux/_ctags ~/.ctags
 ln -s ~/.my_linux/_emacs ~/.emacs
 
 # ghci
-ln -s ~/.my_linux/ghci.conf ~/.ghc/ghci.conf
+ln -s ~/.my_linux/ghci.conf ~/.ghci
 
 source ~/.my_linux/vim-pimp
 
