@@ -63,10 +63,10 @@ au BufRead,BufNewFile */ngx/*.conf set ft=nginx
 
 " XML 
 "let g:xml_syntax_folding=1
-au FileType xml setlocal foldmethod=syntax
-au FileType xslt setlocal foldmethod=syntax
-au FileType xhtml setlocal foldmethod=syntax
-au FileType html setlocal foldmethod=syntax
+" au FileType xml setlocal foldmethod=syntax
+" au FileType xslt setlocal foldmethod=syntax
+" au FileType xhtml setlocal foldmethod=syntax
+" au FileType html setlocal foldmethod=syntax
 noremap <Leader>V  :!clear;xmllint --noout --loaddtd --xinclude --postvalid %
 noremap <Leader>x :1,$ !xmllint --format %<CR>
 au BufRead,BufNewFile *.hbs set ft=html
@@ -123,8 +123,7 @@ nnoremap k gk
 
 " Hugefont for blind bat
 "set gfn=Ubuntu\ Mono\ 13
-
-set gfn=WenQuanYi\ Micro\ Hei\ Mono\ 13
+set gfn=WenQuanYi\ Micro\ Hei\ Mono\ 10
 "set gfn=PragmataPro\ 13
 
 " MS Consolas !!
