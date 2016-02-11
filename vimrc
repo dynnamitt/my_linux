@@ -250,6 +250,9 @@ noremap <C-a>          :BufDo execute "normal! @a" | update<CR>
 vnoremap <C-a>         <Esc>:BufDo execute "normal! @a" | update<CR>
 inoremap <C-a>         <Esc>:BufDo execute "normal! @a" | update<CR>
 
+" autosave if buff-leave
+:au FocusLost * silent! wa
+
 " oldfiles TDOD FIX
 set viminfo='20,<50,s10,h
 noremap <C-l>          :browse ol<CR>
