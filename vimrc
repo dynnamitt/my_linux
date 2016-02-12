@@ -1,11 +1,47 @@
 "
-execute pathogen#infect()
-" 
-"            stuff taken from here and there
-" 
-"           http://amix.dk/blog,
-"
-"
+
+" new vim-plug fancy joy
+call plug#begin('~/.vim/plugged')
+
+  Plug 'scrooloose/nerdtree', {'on':'NERDTreeToggle'} " F9
+  Plug 'tpope/vim-sensible' " essentials!
+  Plug 'tpope/vim-unimpaired' " [q ]q ]a ]b ..
+  Plug 'tpope/vim-repeat' " . sanity!
+  Plug 'tpope/vim-surround' " cs.'   on .word. -> 'word'
+  Plug 'tpope/vim-commentary' " gc / gcc
+  Plug 'ryanoasis/vim-devicons' " unicode-flashy
+  Plug 'vim-airline/vim-airline' " 2D statusbar
+  Plug 'ctrlpvim/ctrlp.vim' " FuzzyFind ala emacs
+
+  " ft
+  Plug 'Shutnik/jshint2.vim', {'for':['js','json']}
+  Plug 'pangloss/vim-javascript', {'for':['js','json']}
+  Plug 'kchmck/vim-coffee-script', {'for':'coffee'}
+  Plug 'wlangstroth/vim-racket', {'for':['scheme','racket']}
+  Plug 'evanmiller/nginx-vim-syntax' 
+  Plug 'ekalinin/Dockerfile.vim'
+  Plug 'moll/vim-node'
+
+  Plug 'ninja/sky' " colo
+  Plug 'vim-airline/vim-airline-themes' " colo PLENTY!
+
+call plug#end()
+
+" ----- airline
+" Recommended: remove powerline separaters (text can't be transparent).
+let g:airline_powerline_fonts = 1
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline#extensions#tabline#left_sep=''
+let g:airline#extensions#tabline#left_alt_sep=''
+
+" Recommended: simplify mode label to a single character.
+let g:airline_mode_map = {'__': '-', 'n': 'N', 'i': 'I', 'R': 'R', 'c': 'C', 'v': 'V', 'V': 'V', '': 'V', 's': 'S', 'S': 'S', '': 'S'}
+
+
+
+"      stuff taken from here and there
+"         http://amix.dk/blog,
 
 
 
