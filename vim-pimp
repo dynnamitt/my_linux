@@ -6,7 +6,14 @@ mv ~/.vimrc ~/._vimrc.backup && ln -s ~/.my_linux/vimrc ~/.vimrc
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-echo ' >> vim-plug conf'd ok . '
+(
+cd /tmp;
+git clone git@github.com:powerline/fonts.git powerline-fonts;
+cd powerline-fonts;
+./install.sh;
+)
+
+echo " >> vim-plug + powerline-fonts ok . "
 
 # vim_plugin git://github.com/tpope/vim-sensible.git 
 # vim_plugin https://github.com/scrooloose/nerdtree 

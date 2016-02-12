@@ -21,24 +21,19 @@ call plug#begin('~/.vim/plugged')
   Plug 'evanmiller/nginx-vim-syntax' 
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'moll/vim-node'
+  Plug 'chrisbra/csv.vim'
 
   Plug 'ninja/sky' " colo
   Plug 'vim-airline/vim-airline-themes' " colo PLENTY!
 
 call plug#end()
 
-" ----- airline
-" Recommended: remove powerline separaters (text can't be transparent).
+" airline/powerline
 let g:airline_powerline_fonts = 1
-let g:airline_left_sep=''
-let g:airline_right_sep=''
-let g:airline#extensions#tabline#left_sep=''
-let g:airline#extensions#tabline#left_alt_sep=''
-
-" Recommended: simplify mode label to a single character.
-let g:airline_mode_map = {'__': '-', 'n': 'N', 'i': 'I', 'R': 'R', 'c': 'C', 'v': 'V', 'V': 'V', '': 'V', 's': 'S', 'S': 'S', '': 'S'}
-
-
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
 
 "      stuff taken from here and there
 "         http://amix.dk/blog,
@@ -158,8 +153,9 @@ nnoremap j gj
 nnoremap k gk
 
 " Hugefont for blind bat
+set gfn=Fira\ Mono\ For\ Powerline\ 10
 "set gfn=Ubuntu\ Mono\ 13
-set gfn=WenQuanYi\ Micro\ Hei\ Mono\ 10
+"set gfn=WenQuanYi\ Micro\ Hei\ Mono\ 10
 "set gfn=PragmataPro\ 13
 
 " MS Consolas !!
