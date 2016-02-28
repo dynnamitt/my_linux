@@ -12,32 +12,43 @@ call plug#begin('~/.vim/plugged')
   Plug 'ryanoasis/vim-devicons' " unicode-flashy
   Plug 'vim-airline/vim-airline' " 2D statusbar
   Plug 'ctrlpvim/ctrlp.vim' " FuzzyFind ala emacs
+  Plug 'calebsmith/vim-lambdify' " lamda zippr visual
 
   " ft
   Plug 'Shutnik/jshint2.vim', {'for':['js','json']}
   Plug 'pangloss/vim-javascript', {'for':['js','json']}
   Plug 'kchmck/vim-coffee-script', {'for':'coffee'}
   Plug 'wlangstroth/vim-racket', {'for':['scheme','racket']}
+  Plug 'sukima/xmledit'
   Plug 'evanmiller/nginx-vim-syntax' 
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'moll/vim-node'
   Plug 'chrisbra/csv.vim'
 
   Plug 'ninja/sky' " colo just for dark term
+  Plug 'nanotech/jellybeans.vim' " colo dark
+  Plug 'AlessandroYorba/Sierra' "colo dark
   Plug 'vim-airline/vim-airline-themes' " colo PLENTY!
 
 call plug#end()
 
 " airline/powerline
+let g:airline_theme='molokai'
+" took out 'trailing' below;
+let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]  
+
+
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 
+" minor color tweaks
+let g:sierra_Midnight = 1
+
 "      stuff taken from here and there
 "         http://amix.dk/blog,
-
 
 
 " Like bufdo but restore the current buffer.
@@ -177,7 +188,8 @@ imap <F5> <Esc>:%!astyle --mode=c -p -U -w -k2 -O -j -A10<CR>
 " color 
 " ---------------------
 set t_Co=256
-colo desert
+colo jellybeans " was desert
+
 " if !has('gui_running')
 "   "colo blue
 "  colo solarized
