@@ -23,7 +23,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'moll/vim-node'
   Plug 'chrisbra/csv.vim'
 
-  Plug 'ninja/sky' " colo
+  Plug 'ninja/sky' " colo just for dark term
   Plug 'vim-airline/vim-airline-themes' " colo PLENTY!
 
 call plug#end()
