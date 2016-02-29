@@ -14,8 +14,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'ctrlpvim/ctrlp.vim' " FuzzyFind ala emacs
 
   " ft
-  Plug 'Shutnik/jshint2.vim', {'for':['js','json']}
-  Plug 'pangloss/vim-javascript', {'for':['js','json']}
+  Plug 'Shutnik/jshint2.vim', {'for':'javascript'}
+  Plug 'pangloss/vim-javascript', {'for':'javascript'}
   Plug 'kchmck/vim-coffee-script', {'for':'coffee'}
   Plug 'wlangstroth/vim-racket', {'for':['scheme','racket']}
   Plug 'sukima/xmledit'
@@ -86,6 +86,11 @@ set vb " visualbell!
 let mapleader = ","
 let g:mapleader = ","
 
+
+" Build aka make
+noremap <Leader>b :w<CR>:silent make! \| vertical cwindow
+
+
 set modeline
 
 " coffeescript
@@ -93,6 +98,7 @@ set modeline
 
 
 " FT
+
 
 " systemd (more or less SH)
 au BufRead,BufNewFile *.service set ft=sh
