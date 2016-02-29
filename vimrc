@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'ryanoasis/vim-devicons' " unicode-flashy
   Plug 'vim-airline/vim-airline' " 2D statusbar
   Plug 'ctrlpvim/ctrlp.vim' " FuzzyFind ala emacs
+  Plug 'calebsmith/vim-lambdify' " lamda zippr visual
 
   " ft
   Plug 'Shutnik/jshint2.vim', {'for':'javascript'}
@@ -24,7 +25,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'moll/vim-node'
   Plug 'chrisbra/csv.vim'
 
-  Plug 'ninja/sky' " colo term
+  Plug 'ninja/sky' " colo just for dark term
   Plug 'nanotech/jellybeans.vim' " colo dark
   Plug 'AlessandroYorba/Sierra' "colo dark
   Plug 'vim-airline/vim-airline-themes' " colo PLENTY!
