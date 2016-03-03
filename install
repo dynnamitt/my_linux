@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
 echo -e "\n ▪ super simple automagic setup... \n"
 
 # Makes it possible to run via curl <url>|sh
-function fix_me {
+fix_me() {
     # Clone if needed
     #
     if [ ! -d ~/.my_linux/.git ]
@@ -16,7 +16,7 @@ function fix_me {
 }
 
 
-function fix_zsh {
+fix_zsh() {
     # ZSH
     if [ ! -d ~/.oh-my-zsh/.git ]
     then
@@ -28,8 +28,6 @@ function fix_zsh {
     fi
 
     USERNAME=$(id -un)
-
-
 
     current_sh=$(grep $USERNAME /etc/passwd |\
         awk 'BEGIN { FS = ":" } ; { print $7 }')
@@ -46,23 +44,25 @@ function fix_zsh {
         echo current shell is $current_sh
     else
         sudo chsh -s $zsh_avail
-	echo zsh was set
+	      echo zsh was set
     fi
 }
 
-function fix_fonts {
-    if find ~/sync1/fonts/ -iname '*tf' &>/dev/null
+fonts_ () {
+  find ~/sync1/fonts ./fonts -iname '*tf' -printf '"%p"\n'
+}
+
+fix_fonts() {
+    if fonts_ &>/dev/null
     then
-        echo "installing fonts.. "
-        sudo mkdir -p /usr/share/fonts/truetype/myfonts
-        for font in $(find ~/sync1/fonts/ -iname '*tf')
-        do
-          sudo cp -v $font /usr/share/fonts/truetype/myfonts
-        done
-        sudo fc-cache
+      echo
+      echo " > installing fonts.. "
+      fonts_ | xargs -I '{}'  cp -v {} ~/.local/share/fonts
     else 
         echo "skipping copying of donts"
     fi
+    echo " >."
+    echo
 }
 
            
