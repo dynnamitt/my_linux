@@ -24,6 +24,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'moll/vim-node'
   Plug 'chrisbra/csv.vim'
+  Plug 'mustache/vim-mustache-handlebars'
 
   Plug 'ninja/sky' " colo just for dark term
   Plug 'nanotech/jellybeans.vim' " colo dark
@@ -117,9 +118,9 @@ au BufRead,BufNewFile */ngx/*.conf set ft=nginx
 " au FileType html setlocal foldmethod=syntax
 noremap <Leader>V  :!clear;xmllint --noout --loaddtd --xinclude --postvalid %
 noremap <Leader>x :1,$ !xmllint --format %<CR>
-au BufRead,BufNewFile *.hbs set ft=html
-au BufRead,BufNewFile *.handlebars set ft=html
-au BufRead,BufNewFile *.handlebar set ft=html
+" au BufRead,BufNewFile *.hbs set ft=html
+" au BufRead,BufNewFile *.handlebars set ft=html
+" au BufRead,BufNewFile *.handlebar set ft=html
 
 " Ctrl X O  ->
 set omnifunc=syntaxcomplete#Complete
