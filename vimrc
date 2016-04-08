@@ -13,12 +13,14 @@ call plug#begin('~/.vim/plugged')
   Plug 'vim-airline/vim-airline' " 2D statusbar
   Plug 'ctrlpvim/ctrlp.vim' " FuzzyFind ala emacs
   Plug 'calebsmith/vim-lambdify' " lamda zippr visual
+  Plug 'moll/vim-bbye' " cleaner :bdelete
 
   " ft
   Plug 'Shutnik/jshint2.vim', {'for':'javascript'}
   Plug 'pangloss/vim-javascript', {'for':'javascript'}
   Plug 'kchmck/vim-coffee-script', {'for':'coffee'}
   Plug 'wlangstroth/vim-racket', {'for':['scheme','racket']}
+  Plug 'gkz/vim-ls'
   Plug 'sukima/xmledit'
   Plug 'evanmiller/nginx-vim-syntax' 
   Plug 'ekalinin/Dockerfile.vim'
@@ -256,7 +258,6 @@ set listchars=tab:▸\
 
 
 
-
 " -------------------
 " searching
 " -------------------
@@ -288,7 +289,7 @@ set wildcharm=<C-Z>
 nnoremap <F10> :b <C-Z>
 map <Leader>s :sbuffer<space>
 map <Leader>v :vert sb<space>
-
+nnoremap <Leader>q :Bdelete<CR>
 
 " Fast saving
 " NB! Read this: http://sealence.x10hosting.com/wordpress/?p=28 
