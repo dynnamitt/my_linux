@@ -3,15 +3,16 @@
 " new vim-plug fancy joy
 call plug#begin('~/.vim/plugged')
 
-  Plug 'scrooloose/nerdtree', {'on':'NERDTreeToggle'} " F9
+  Plug 'scrooloose/nerdtree' " F9
+  Plug 'Xuyuanp/nerdtree-git-plugin' " a bit sad.............
   Plug 'tpope/vim-sensible' " essentials!
   Plug 'tpope/vim-unimpaired' " [q ]q ]a ]b ..
   Plug 'tpope/vim-repeat' " . sanity!
   Plug 'tpope/vim-surround' " cs.'   on .word. -> 'word'
   Plug 'tpope/vim-commentary' " gc / gcc
-  Plug 'ryanoasis/vim-devicons' " unicode-flashy
-  Plug 'vim-airline/vim-airline' " 2D statusbar
   Plug 'ctrlpvim/ctrlp.vim' " FuzzyFind ala emacs
+  Plug 'vim-airline/vim-airline' " 2D statusbar
+  Plug 'ryanoasis/vim-devicons' " unicode-flashy
   Plug 'calebsmith/vim-lambdify' " lamda zippr visual
   Plug 'moll/vim-bbye' " cleaner :bdelete
 
@@ -53,6 +54,20 @@ let g:sierra_Midnight = 1
 "      stuff taken from here and there
 "         http://amix.dk/blog,
 
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 'on'
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
 
 " Like bufdo but restore the current buffer.
 function! BufDo(command)
