@@ -3,15 +3,16 @@
 " new vim-plug fancy joy
 call plug#begin('~/.vim/plugged')
 
-  Plug 'scrooloose/nerdtree', {'on':'NERDTreeToggle'} " F9
+  Plug 'scrooloose/nerdtree' " F9
+  Plug 'Xuyuanp/nerdtree-git-plugin' " a bit sad.............
   Plug 'tpope/vim-sensible' " essentials!
   Plug 'tpope/vim-unimpaired' " [q ]q ]a ]b ..
   Plug 'tpope/vim-repeat' " . sanity!
   Plug 'tpope/vim-surround' " cs.'   on .word. -> 'word'
   Plug 'tpope/vim-commentary' " gc / gcc
-  Plug 'ryanoasis/vim-devicons' " unicode-flashy
-  Plug 'vim-airline/vim-airline' " 2D statusbar
   Plug 'ctrlpvim/ctrlp.vim' " FuzzyFind ala emacs
+  Plug 'vim-airline/vim-airline' " 2D statusbar
+  Plug 'ryanoasis/vim-devicons' " unicode-flashy
   Plug 'calebsmith/vim-lambdify' " lamda zippr visual
   Plug 'moll/vim-bbye' " cleaner :bdelete
 
@@ -53,6 +54,43 @@ let g:sierra_Midnight = 1
 "      stuff taken from here and there
 "         http://amix.dk/blog,
 
+let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
+let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ "Unknown"   : "?"
+    \ }
+
+
+" NERDTress File highlighting
+function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
+exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
+exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
+endfunction
+
+au VimEnter * call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#151515')
+au VimEnter * call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#151515')
+au VimEnter * call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#151515')
+au VimEnter * call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#151515')
+au VimEnter * call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#151515')
+au VimEnter * call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#151515')
+au VimEnter * call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#151515')
+au VimEnter * call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#151515')
+au VimEnter * call NERDTreeHighlightFile('handlebars', 'yellow', 'none', 'yellow', '#151515')
+au VimEnter * call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#151515')
+au VimEnter * call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#151515')
+au VimEnter * call NERDTreeHighlightFile('js', 'Red', 'none', 'red', '#151515')
+au VimEnter * call NERDTreeHighlightFile('coffee', 'Red', 'none', '#ffa500', '#151515')
+au VimEnter * call NERDTreeHighlightFile('rb', 'Red', 'none', '#ffa500', '#151515')
+au VimEnter * call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#151515')
 
 " Like bufdo but restore the current buffer.
 function! BufDo(command)
@@ -177,7 +215,6 @@ set gfn=Fura\ Mono\ for\ Powerline\ 10
 "set gfn=Ubuntu\ Mono\ 13
 "set gfn=WenQuanYi\ Micro\ Hei\ Mono\ 10
 "set gfn=PragmataPro\ 13
-
 " MS Consolas !!
 "set gfn=Consolas\ 12
 "
