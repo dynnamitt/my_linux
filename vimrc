@@ -173,7 +173,7 @@ nnoremap j gj
 nnoremap k gk
 
 " Hugefont for blind bat
-set gfn=Fura\ Mono\ for\ Powerline\ 11
+set gfn=Fura\ Mono\ for\ Powerline\ 10
 "set gfn=Ubuntu\ Mono\ 13
 "set gfn=WenQuanYi\ Micro\ Hei\ Mono\ 10
 "set gfn=PragmataPro\ 13
