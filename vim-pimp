@@ -6,29 +6,6 @@ mv ~/.vimrc ~/._vimrc.backup && ln -s ~/.my_linux/vimrc ~/.vimrc
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# (
-# cd /tmp;
-# git clone git@github.com:powerline/fonts.git powerline-fonts;
-# cd powerline-fonts;
-# ./install.sh;
-# )
-
-echo " >> vim-plug + powerline-fonts ok . "
-
-# vim_plugin git://github.com/tpope/vim-sensible.git 
-# vim_plugin https://github.com/scrooloose/nerdtree 
-# vim_plugin git://github.com/tpope/vim-unimpaired.git 
-# vim_plugin git://github.com/tpope/vim-repeat.git 
-# vim_plugin git://github.com/tpope/vim-surround.git 
-# vim_plugin git://github.com/tpope/vim-commentary.git
-# vim_plugin https://github.com/Shutnik/jshint2.vim.git 
-# vim_plugin https://github.com/kchmck/vim-coffee-script.git
-# vim_plugin http://web-indent.googlecode.com/svn/trunk/ svn web-indent
-# vim_plugin https://github.com/wlangstroth/vim-racket
-# vim_plugin git@github.com:othree/xml.vim.git
-# vim_plugin git@github.com:moll/vim-node.git
-# vim_plugin git@github.com:vim-scripts/taglist.vim.git
-# vim_plugin git@github.com:evanmiller/nginx-vim-syntax.git
-# vim_plugin https://github.com/mileszs/ack.vim.git
-# vim_plugin git@github.com:kien/ctrlp.vim.git
-# vim_plugin git@github.com:ekalinin/Dockerfile.vim.git
+echo " >> vim-plugs ok."
+echo
+echo "  run ./install to activate powerline-fonts. "
