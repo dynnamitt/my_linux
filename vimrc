@@ -32,7 +32,9 @@ call plug#begin('~/.vim/plugged')
   Plug 'ninja/sky' " colo just for dark term
   Plug 'nanotech/jellybeans.vim' " colo dark
   Plug 'AlessandroYorba/Sierra' "colo dark
+  Plug 'vim-scripts/Sift' " colo dark
   Plug 'vim-airline/vim-airline-themes' " colo PLENTY!
+
 
 call plug#end()
 
