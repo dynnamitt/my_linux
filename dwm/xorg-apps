@@ -1,7 +1,6 @@
-#/bin/zsh
+#!/bin/sh
 
-# keyboard
-setxkbmap no
+dmenu_run -fn "-*-fixed-*-r-*-*-*-150-*-*-*-*-iso10646-*" -nb "#444" -nf "#eee"
 
 # cutt n paste
 autocutsel &
