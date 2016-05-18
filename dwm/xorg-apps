@@ -6,5 +6,5 @@ dmenu_run -fn "-*-fixed-*-r-*-*-*-150-*-*-*-*-iso10646-*" -nb "#444" -nf "#eee"
 autocutsel &
 
 # background
-feh --bg-center ~/sync1/wallpapers/185255-2560x1600.jpg
+feh --bg-center ~/sync1/graphic/evil_dead_regeneration_01_1680x1050.jpg
 
