@@ -1,11 +1,13 @@
 #!/bin/sh
 
 # if avail:
-lxkeymap -a
+# lxkeymap -a
+
 # otherwise:
-# setxkbmap -rules evdev -model evdev -layout us -variant altgr-intl
+setxkbmap -rules evdev -model evdev -layout us -variant altgr-intl
 
 
+# loop and monitor battery... EACH minute
 while true
 do
     xsetroot -name "$(date +"%F %R") /// $(acpi -b|awk 'sub(/,/,"") {print "batt:" $4}')"
@@ -15,8 +17,8 @@ done &
 export DISPLAY=:0
 # kill the tocuhpad(11)
 xinput set-int-prop 11 "Device Enabled" 8 0
+
+
 # kill the lenovo-clit(12)
+# ---------------------------------A
 xinput set-int-prop 12 "Device Enabled" 8 0
-
-
-exec dwm

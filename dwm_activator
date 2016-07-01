@@ -1,0 +1,5 @@
+#!/bin/sh
+ln -s ~/.my_linux/xinitrc ~/.xinitrc
+ln -s ~/.my_linux/xinitrc ~/.xsession
+
+sudo apt-get install feh dwm dmenu autocutsel
