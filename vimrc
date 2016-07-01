@@ -53,6 +53,10 @@ let g:airline_symbols.space = "\ua0"
 " minor color tweaks
 let g:sierra_Midnight = 1
 
+" missing filetypes COMMENTARY
+autocmd FileType apache setlocal commentstring=#\ %s
+autocmd FileType nginx setlocal commentstring=#\ %s
+
 "      stuff taken from here and there
 "         http://amix.dk/blog,
 
@@ -151,6 +155,7 @@ au BufRead,BufNewFile *.service.m4 set ft=sh
 " NGX xtra
 au BufRead,BufNewFile */nginx/*.conf set ft=nginx
 au BufRead,BufNewFile */ngx/*.conf set ft=nginx
+au BufRead,BufNewFile *.conf set ft=nginx
 
 " XML 
 "let g:xml_syntax_folding=1
@@ -177,7 +182,7 @@ set omnifunc=syntaxcomplete#Complete
 
 " Faaancy commenterr
 autocmd FileType javascript,php,c,java,go map <leader>ccb I//  <Esc>A  //<Esc>yyp0llv$hhhr-yykPjj
-autocmd FileType python,ruby,sh,zsh,bash,m4,make map <leader>ccb I#  <Esc>A  #<Esc>yyp0lv$hhr-yykPjj
+autocmd FileType python,ruby,sh,zsh,coffee,bash,m4,make,nginx,apache map <leader>ccb I#  <Esc>A  #<Esc>yyp0lv$hhr-yykPjj
 " NerdTree
 nnoremap <silent><F9> :NERDTreeToggle<CR>
 inoremap <silent><F9> <C-O>:NERDTreeToggle<CR>
@@ -268,8 +273,7 @@ set cursorline
 if version >= 700
   " now set it up to change the CURSOR line based on mode
   au InsertEnter * set nocursorline
-  au InsertLeave * set cursorline 
-"   au InsertEnter * hi StatusLine guibg=orange
+  au InsertLeave,BufWinEnter * set cursorline 
  au InsertLeave * hi StatusLine guibg=white 
  au VimEnter,WinEnter,BufWinEnter * stopinsert
 
