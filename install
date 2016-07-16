@@ -85,7 +85,7 @@ ln -s ~/.my_linux/_emacs ~/.emacs
 # ghci
 ln -s ~/.my_linux/ghci.conf ~/.ghci
 
-source ~/.my_linux/vim-pimp
+. ~/.my_linux/vim-pimp
 
 # symlinking
 # rm -f ~/.Xresources && ln -s ~/.my_linux/Xresources ~/.Xresources
