@@ -58,9 +58,9 @@ fonts_ () {
 fix_fonts() {
     echo
     echo " > installing fonts.. "
-    fonts_ | xargs -I '{}'  cp -v {} ~/.local/share/fonts
-    echo "MIGHT need passwd to 'sudo fc-cache'"
-    sudo fc-cache -fv
+    mkdir -p ~/.local/share/fonts
+    fonts_ | xargs -I '{}'  cp -v {} ~/.local/share/fonts/
+    fc-cache
     echo " >."
     echo
 }
