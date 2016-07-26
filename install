@@ -43,24 +43,24 @@ fix_zsh() {
     elif [ $current_sh = $zsh_avail ];then
         echo current shell is $current_sh
     else
-        sudo chsh -s $zsh_avail
-	      echo zsh was set
+      echo "MIGHT need passwd to 'sudo chsh'"
+      sudo chsh -s $zsh_avail
+	    echo zsh was set
     fi
 }
 
 fonts_ () {
-  find ~/sync1/fonts ./fonts -iname '*tf' -printf '"%p"\n'
+  find ~/sync1/fonts -iname '*tf' -printf '"%p"\n' 2>/dev/null
+  find ./fonts -iname '*tf' -printf '"%p"\n' 2>/dev/null
+  exit 0
 }
 
 fix_fonts() {
-    if fonts_ &>/dev/null
-    then
-      echo
-      echo " > installing fonts.. "
-      fonts_ | xargs -I '{}'  cp -v {} ~/.local/share/fonts
-    else 
-        echo "skipping copying of donts"
-    fi
+    echo
+    echo " > installing fonts.. "
+    fonts_ | xargs -I '{}'  cp -v {} ~/.local/share/fonts
+    echo "MIGHT need passwd to 'sudo fc-cache'"
+    sudo fc-cache -fv
     echo " >."
     echo
 }
