@@ -34,6 +34,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'AlessandroYorba/Sierra' "colo dark
   Plug 'vim-scripts/Sift' " colo dark
   Plug 'vim-airline/vim-airline-themes' " colo PLENTY!
+  Plug 'fcpg/vim-fahrenheit' "browny
 
 
 call plug#end()
