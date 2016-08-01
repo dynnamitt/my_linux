@@ -242,7 +242,7 @@ imap <F5> <Esc>:%!astyle --mode=c -p -U -w -k2 -O -j -A10<CR>
 " color 
 " ---------------------
 set t_Co=256
-colo sift " was jellybeans , was desert
+colo fahrenheit " sift , jellybeans , desert
 
 " if !has('gui_running')
 "   "colo blue
