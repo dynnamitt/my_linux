@@ -13,9 +13,6 @@ inotify_delay_cmd() {
 }
 
 
-#alias grep="grep --color=auto"
-#alias ls="ls --color=auto"
-#alias l='ls -lhF'
 alias nmapall="nmap -sP 192.168.1.0/24"
 alias ll="ls -lhp"
 
@@ -71,3 +68,5 @@ xrandr --newmode "1920x1080_60.00" 148.35 1920 2008 2052 2200 1080 1084 1089 112
 xrandr --addmode VGA1 1920x1080_60.00
 xrandr --output VGA1 --mode 1920x1080_60.00
 }
+
+alias dc=docker-compose

@@ -242,7 +242,7 @@ imap <F5> <Esc>:%!astyle --mode=c -p -U -w -k2 -O -j -A10<CR>
 " color 
 " ---------------------
 set t_Co=256
-colo fahrenheit " sift , jellybeans , desert
+colo jellybeans " fahrenheit  sift , jellybeans , desert
 
 " if !has('gui_running')
 "   "colo blue
@@ -310,7 +310,7 @@ set hlsearch
 set incsearch
 set ignorecase 
 set smartcase
-noremap <F3> :set nohlsearch<CR>
+noremap <F3>:if (hlstate == 0) \| nohlsearch \| else \| set hlsearch \| endif \| let hlstate=1-hlstate<cr>
 nmap <silent> ,/  :nohlsearch<CR>
 noremap <F4>   :%s/
 vnoremap <F4>  <Esc>:%s/
