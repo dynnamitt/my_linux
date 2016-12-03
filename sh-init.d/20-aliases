@@ -28,7 +28,11 @@ alias mytags='gcc -M *.[ch] | sed -e "s/^.*\:\s//" |\
  sed -e "s/ /\n/g" | ctags -R -L -'
 
 # git
-alias ssweep='for f in *; do [ -d "$f/.git" ] && ( cd $f; echo -e "$PWD\n----------------" ; git status -s; echo -e "\n\n"; ); done'
+alias ssweep='for f in *; do [ -d "$f/.git" ] &&\
+  ( cd $f; echo "==== $(basename $PWD) <> $(git_current_branch) =====" ; git status -s; echo; ); done'
+alias gstdirs='ssweep'
+alias ggldirs="parallel \
+  '(printf \"===== {} =====\n\n\";cd {};git fetch; git pull;)' ::: \$(dirname **/.git)"
 alias gd='git diff'
 alias grm='git rm'
 alias gmv='git mv'
