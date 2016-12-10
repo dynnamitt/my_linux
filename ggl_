@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+
+echo "--> $(basename $1)"
+
+cd $1
+git fetch 2>&1 | sed 's/^/    /'
+git pull 2>&1 | sed 's/^/    /'
+
+echo ".."
