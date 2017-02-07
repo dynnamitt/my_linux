@@ -21,6 +21,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'pangloss/vim-javascript', {'for':'javascript'}
   Plug 'kchmck/vim-coffee-script', {'for':'coffee'}
   Plug 'wlangstroth/vim-racket', {'for':['scheme','racket']}
+  Plug 'ElmCast/elm-vim', {'for':'elm'}
   Plug 'gkz/vim-ls'
   Plug 'sukima/xmledit'
   Plug 'evanmiller/nginx-vim-syntax' 
