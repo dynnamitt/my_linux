@@ -32,7 +32,7 @@ alias indent='sed "s/^/    /"'
 alias ssweep='for f in *; do [ -d "$f/.git" ] &&\
   ( cd $f; echo "==== $(basename $PWD) [$(git_current_branch)] =====" ; git status -s 2>&2 |indent; ); done'
 alias gstdirs='ssweep'
-alias ggldirs="for r in */.git; do (cd $r/..; ggl); done"
+alias ggldirs='for r in */.git; do (cd $r/..; ggl); done'
 alias gd='git diff'
 alias grm='git rm'
 alias gmv='git mv'
