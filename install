@@ -1,9 +1,9 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 echo -e "\n ▪ super simple automagic setup... \n"
 
 # Makes it possible to run via curl <url>|sh
-fix_me() {
+fix_this() {
     # Clone if needed
     #
     if [ ! -d ~/.my_linux/.git ]
@@ -13,6 +13,22 @@ fix_me() {
         echo ".my_linux clone skipped... syncing.."
         (cd ~/.my_linux && git pull)
     fi
+}
+
+fix_debian_dev_pkgs(){
+
+if [ command -v apt > /dev/null ]; then
+  sudo apt install silversearcher-ag git subversion nodejs-legacy \
+  npm terminator python-pip zsh xsltproc
+  # python
+  sudo pip install --upgrade pip
+  sudo pip install aws docker-compose
+  # nodejs
+  sudo npm i -g mocha-cli coffeescript jshint
+else
+  echo "Not DEBIAN, skipping pkgs..."
+fi
+  
 }
 
 
@@ -72,7 +88,8 @@ fix_fonts() {
 #                main
 #
 # ---------------------------------
-fix_me
+fix_this
+fix_debian_dev_pkgs
 fix_zsh
 fix_fonts
 
@@ -106,3 +123,5 @@ do
 done
 __STOP__
 fi
+
+echo 'In vim please execute :PlugInstall'
