@@ -44,7 +44,7 @@ fix_zsh() {
         echo current shell is $current_sh
     else
       echo "MIGHT need passwd to 'sudo chsh'"
-      sudo chsh -s $zsh_avail
+      sudo chsh -s $zsh_avail $(whoami)
 	    echo zsh was set
     fi
 }
