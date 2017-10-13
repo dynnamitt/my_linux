@@ -17,7 +17,8 @@ fix_this() {
 
 fix_debian_dev_pkgs(){
 
-if [ command -v apt > /dev/null ]; then
+if command -v apt > /dev/null
+then
   sudo apt install silversearcher-ag git subversion nodejs-legacy \
   npm terminator python-pip zsh xsltproc
   # python
@@ -61,7 +62,7 @@ fix_zsh() {
     else
       echo "MIGHT need passwd to 'sudo chsh'"
       sudo chsh -s $zsh_avail $(whoami)
-	    echo zsh was set
+	    echo "zsh was setup, logout to get it !"
     fi
 }
 
