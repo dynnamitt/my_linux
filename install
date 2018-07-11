@@ -19,13 +19,13 @@ fix_debian_dev_pkgs(){
 
 if command -v apt > /dev/null
 then
-  sudo apt install silversearcher-ag git subversion nodejs-legacy \
-  npm terminator python-pip zsh xsltproc
+  sudo apt install silversearcher-ag git subversion \
+  nodejs terminator python-pip zsh xsltproc
   # python
   sudo pip install --upgrade pip
-  sudo pip install aws docker-compose
+  ##sudo pip install aws docker-compose
   # nodejs
-  sudo npm i -g mocha-cli coffeescript jshint
+  ##sudo npm i -g mocha-cli coffeescript jshint
 else
   echo "Not DEBIAN, skipping pkgs..."
 fi
@@ -64,6 +64,20 @@ fix_zsh() {
       sudo chsh -s $zsh_avail $(whoami)
 	    echo "zsh was setup, logout to get it !"
     fi
+    
+	# zsh xtras
+	if grep -c .my_linux/sh-init.d ~/.zshrc 
+	then
+	    echo "my sh-init.d hooks hooked up!"
+	else
+	    #make hooks
+	    cat << __STOP__ >> ~/.zshrc
+for file in ~/.my_linux/sh-init.d/*
+do
+    source \$file
+done
+__STOP__
+	fi
 }
 
 fonts_ () {
@@ -91,7 +105,7 @@ fix_fonts() {
 # ---------------------------------
 fix_this
 fix_debian_dev_pkgs
-fix_zsh
+#fix_zsh
 fix_fonts
 
 # ctags
@@ -111,18 +125,5 @@ ln -s ~/.my_linux/ghci.conf ~/.ghci
 # rm -f ~/.xinitrc && ln -s ~/.my_linux/xinitrc ~/.xinitrc
 # rm -f ~/.xbindkeyrc && ln -s ~/.my_linux/xbindkeyrc ~/.xbindkeyrc
 
-# SHELL hookup
-if grep -c .my_linux/sh-init.d ~/.zshrc 
-then
-    echo "my sh-init.d hooks hooked up!"
-else
-    #make hooks
-    cat << __STOP__ >> ~/.zshrc
-for file in ~/.my_linux/sh-init.d/*
-do
-    source \$file
-done
-__STOP__
-fi
 
 echo 'In vim please execute :PlugInstall'
