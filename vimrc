@@ -17,10 +17,11 @@ call plug#begin('~/.vim/plugged')
   Plug 'moll/vim-bbye' " cleaner :bdelete
 
   " ft
+  Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
   Plug 'Shutnik/jshint2.vim', {'for':'javascript'}
   Plug 'pangloss/vim-javascript', {'for':'javascript'}
-  Plug 'kchmck/vim-coffee-script', {'for':'coffee'}
-  Plug 'wlangstroth/vim-racket', {'for':['scheme','racket']}
+  "#Plug 'kchmck/vim-coffee-script', {'for':'coffee'}
+  "#Plug 'wlangstroth/vim-racket', {'for':['scheme','racket']}
   Plug 'ElmCast/elm-vim', {'for':'elm'}
   Plug 'gkz/vim-ls'
   Plug 'sukima/xmledit'
