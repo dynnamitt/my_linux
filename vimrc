@@ -3,6 +3,7 @@
 " new vim-plug fancy joy
 call plug#begin('~/.vim/plugged')
 
+  Plug 'nathanaelkane/vim-indent-guides'
   Plug 'scrooloose/nerdtree' " F9
   Plug 'Xuyuanp/nerdtree-git-plugin' " a bit sad.............
   Plug 'tpope/vim-sensible' " essentials!
@@ -25,7 +26,7 @@ call plug#begin('~/.vim/plugged')
   Plug 'ElmCast/elm-vim', {'for':'elm'}
   Plug 'gkz/vim-ls'
   Plug 'sukima/xmledit'
-  Plug 'evanmiller/nginx-vim-syntax' 
+ " Plug 'evanmiller/nginx-vim-syntax' 
   Plug 'ekalinin/Dockerfile.vim'
   Plug 'moll/vim-node'
   Plug 'chrisbra/csv.vim'
@@ -46,6 +47,7 @@ let g:airline_theme='molokai'
 " took out 'trailing' below;
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]  
 
+let g:indent_guides_enable_on_vim_startup = 1
 
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
