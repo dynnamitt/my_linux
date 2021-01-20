@@ -68,7 +68,7 @@ autocmd FileType nginx setlocal commentstring=#\ %s
 let g:WebDevIconsNerdTreeBeforeGlyphPadding = ''
 let g:WebDevIconsNerdTreeAfterGlyphPadding = ''
 let g:WebDevIconsNerdTreeGitPluginForceVAlign = 1
-let g:NERDTreeIndicatorMapCustom = {
+let g:NERDTreeGitStatusIndicatorMapCustom = {
     \ "Modified"  : "✹",
     \ "Staged"    : "✚",
     \ "Untracked" : "✭",
@@ -246,7 +246,7 @@ imap <F5> <Esc>:%!astyle --mode=c -p -U -w -k2 -O -j -A10<CR>
 " color 
 " ---------------------
 set t_Co=256
-colo jellybeans " fahrenheit  sift , jellybeans , desert
+"colo jellybeans " fahrenheit  sift , jellybeans , desert
 
 " if !has('gui_running')
 "   "colo blue
