@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# https://2buntu.com/articles/1436/mounting-bin-and-iso-files-in-linux/
+
 if [ -z $1 ]
 then
   echo "no iso path given"
@@ -9,10 +11,16 @@ fi
 src=$(realpath $1)
 
 segm1=$(basename $(dirname $src))
-segm2=$(basename $src)
+segm2=${2:-$(basename $src)}
 
-mkdir -p ~/mnt/iso/$segm1/$segm2
-sudo mount -o loop $1 ~/mnt/iso/$segm1/$segm2
+dest=$segm1/$segm2
 
-ls -d ~/mnt/iso/$segm1/$segm2
-# https://2buntu.com/articles/1436/mounting-bin-and-iso-files-in-linux/
+printf "dest = ~/mnt/iso/$dest, ok? (ctrl+c to exit) "
+read x
+
+
+mkdir -p ~/mnt/iso/$dest
+sudo mount -o loop $1 ~/mnt/iso/$dest
+
+ls -d ~/mnt/iso/$dest
+
