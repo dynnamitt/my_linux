@@ -15,3 +15,4 @@ mkdir -p ~/mnt/iso/$segm1/$segm2
 sudo mount -o loop $1 ~/mnt/iso/$segm1/$segm2
 
 ls -d ~/mnt/iso/$segm1/$segm2
+# https://2buntu.com/articles/1436/mounting-bin-and-iso-files-in-linux/
