@@ -14,7 +14,7 @@ inotify_delay_cmd() {
 
 
 alias nmapall="nmap -sP 192.168.1.0/24"
-alias ll="ls -lhp"
+alias ll="ls --color -lhp"
 
 alias trgopkg="tree $GOPATH/pkg -L 4"
 alias u='du -h --max-depth=1'
@@ -33,7 +33,6 @@ alias ssweep='for f in *; do [ -d "$f/.git" ] &&\
   ( cd $f; echo "==== $(basename $PWD) [$(git_current_branch)] =====" ; git status -s 2>&2 |indent; ); done'
 alias gstdirs='ssweep'
 alias ggldirs='for r in */.git; do (cd $r/..; ggl); done'
-alias gd='git diff'
 alias grm='git rm'
 alias gmv='git mv'
 alias ds-gl='git log -25 --no-merges --pretty=format:"%h - %an, %ar : %s"'
@@ -49,7 +48,7 @@ alias emacsnw="emacs -nw"
 
 # funcs
 
-function xslt2(){
+xslt2(){
   
   if [ -z $1 ] || [ -z $2 ]; then
     echo "usage: xslt2 stylesheet src [params]" >&2 
@@ -67,7 +66,7 @@ function xslt2(){
 
 }
 
-function vga1max(){
+vga1max(){
 xrandr --newmode "1920x1080_60.00" 148.35 1920 2008 2052 2200 1080 1084 1089 1125 +hsync +vsync
 xrandr --addmode VGA1 1920x1080_60.00
 xrandr --output VGA1 --mode 1920x1080_60.00
