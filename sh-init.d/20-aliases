@@ -1,4 +1,11 @@
 #!/bin/sh
+
+# kubectl
+
+alias kc="kubectl --context"
+
+
+
 alias lports="sudo lsof -i -P -n | grep LISTEN"
 alias ack="ack-grep"
 alias steal_site="wget --mirror --convert-links --adjust-extension --page-requisites --no-parent"
