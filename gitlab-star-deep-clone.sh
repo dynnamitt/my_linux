@@ -8,8 +8,8 @@ GL_TOKEN=$(cat ~/.gitlab_token)
 
 # UID from username ARG1 on command-line
 USER_NAME=${1:-kjetil.midtlie}
-UID=$(curl "https://gitlab.com/api/v4/users?private_token=$GL_TOKEN&username=$USER_NAME" | jq -r '.[0]|.id')
+UID__=$(curl "https://gitlab.com/api/v4/users?private_token=$GL_TOKEN&username=$USER_NAME" | jq -r '.[0]|.id')
 
-curl "https://gitlab.com/api/v4/users/$UID/starred_projects?private_token=$GL_TOKEN" \
+curl "https://gitlab.com/api/v4/users/$UID__/starred_projects?private_token=$GL_TOKEN" \
    | jq -r '.[] | .ssh_url_to_repo + "\t" + .path_with_namespace' \
    | parallel --colsep '\t' git clone {1} {2}
