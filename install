@@ -15,20 +15,30 @@ fix_this() {
     fi
 }
 
+
+CATPP_VER=v2.1.0
+
+fix_tmux_deps() {
+    mkdir -p ~/.tmux/plugins
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+    mkdir -p ~/.config/tmux/plugins/catppuccin
+    git clone -b $CATPP_VER https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+}
+
 fix_debian_dev_pkgs(){
 
-if command -v apt > /dev/null
-then
-  sudo apt install silversearcher-ag git subversion \
-  nodejs terminator python-pip zsh xsltproc
-  # python
-  sudo pip install --upgrade pip
-  ##sudo pip install aws docker-compose
-  # nodejs
-  ##sudo npm i -g mocha-cli coffeescript jshint
-else
-  echo "Not DEBIAN, skipping pkgs..."
-fi
+    if command -v apt > /dev/null
+    then
+      sudo apt install silversearcher-ag git subversion \
+      nodejs terminator python-pip zsh xsltproc
+      # python
+      sudo pip install --upgrade pip
+      ##sudo pip install aws docker-compose
+      # nodejs
+      ##sudo npm i -g mocha-cli coffeescript jshint
+    else
+      echo "Not DEBIAN, skipping pkgs..."
+    fi
   
 }
 
@@ -107,6 +117,10 @@ fix_this
 fix_debian_dev_pkgs
 #fix_zsh
 fix_fonts
+fix_tmux_deps
+
+# tmux
+ln -s ~/.my_linux/tmux.conf ~/.tmux.conf
 
 # ctags
 ln -s ~/.my_linux/_ctags ~/.ctags
