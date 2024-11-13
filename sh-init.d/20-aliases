@@ -5,6 +5,7 @@
 alias kc="kubectl --context"
 alias hc="helm --kube-context"
 alias v="nvim"
+alias tmux_win_name="printf '\033]2;%s\033\\'"
 alias tfin="terraform init -backend-config=tf-init.conf"
 
 alias lports="sudo lsof -i -P -n | grep LISTEN"
@@ -19,7 +20,6 @@ inotify_delay_cmd() {
     "$@"
   done
 }
-
 
 alias nmapall="nmap -sP 192.168.1.0/24"
 alias ll="ls --color -lhp"
@@ -48,7 +48,6 @@ alias ds-gl='git log -25 --no-merges --pretty=format:"%h - %an, %ar : %s"'
 # xmllint
 alias xl='xmllint --noout --loaddtd --xinclude --postvalid'
 
-
 # uberfast img viewer
 alias thum="feh -g 640x480 -d -S filename"
 
@@ -56,7 +55,7 @@ alias emacsnw="emacs -nw"
 
 # funcs
 
-xslt2(){
+xslt2() {
 
   if [ -z $1 ] || [ -z $2 ]; then
     echo "usage: xslt2 stylesheet src [params]" >&2
@@ -65,7 +64,8 @@ xslt2(){
 
   local stylesheet=$1
   local src=$2
-  shift;shift
+  shift
+  shift
 
   # TODO -Dparams as "a bulk"
 
@@ -74,10 +74,10 @@ xslt2(){
 
 }
 
-vga1max(){
-xrandr --newmode "1920x1080_60.00" 148.35 1920 2008 2052 2200 1080 1084 1089 1125 +hsync +vsync
-xrandr --addmode VGA1 1920x1080_60.00
-xrandr --output VGA1 --mode 1920x1080_60.00
+vga1max() {
+  xrandr --newmode "1920x1080_60.00" 148.35 1920 2008 2052 2200 1080 1084 1089 1125 +hsync +vsync
+  xrandr --addmode VGA1 1920x1080_60.00
+  xrandr --output VGA1 --mode 1920x1080_60.00
 }
 
 alias dc=docker-compose
