@@ -42,6 +42,11 @@ fix_debian_dev_pkgs(){
   
 }
 
+lazyvim() {
+	git clone https://github.com/LazyVim/starter ~/.config/nvim
+	rm -rf ~/.config/nvim/.git
+}
+
 
 
 fonts_ () {
@@ -71,6 +76,7 @@ fix_this
 fix_debian_dev_pkgs
 fix_fonts
 fix_tmux_deps
+lazyvim
 
 # tmux
 ln -s ~/.my_linux/tmux.conf ~/.tmux.conf
