@@ -4,8 +4,17 @@
 
 alias kc="kubectl --context"
 alias hc="helm --kube-context"
+
+# oxi
+alias ls=exa
+
+# nvim
 alias v="nvim"
+
+# tmux
 alias tmux_win_name="printf '\033]2;%s\033\\'"
+
+# terra
 alias tfin="terraform init -backend-config=tf-init.conf"
 
 alias lports="sudo lsof -i -P -n | grep LISTEN"

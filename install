@@ -43,52 +43,6 @@ fix_debian_dev_pkgs(){
 }
 
 
-fix_zsh() {
-    # ZSH
-    if [ ! -d ~/.oh-my-zsh/.git ]
-    then
-        git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-        cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
-    else
-        echo ".oh-my-zsh clone skipped... syncing.."
-        (cd ~/.oh-my-zsh && git pull)
-    fi
-
-    USERNAME=$(id -un)
-
-    current_sh=$(grep $USERNAME /etc/passwd |\
-        awk 'BEGIN { FS = ":" } ; { print $7 }')
-
-    echo current shell : $current_sh  
-
-    zsh_avail=`cat /etc/shells | grep zsh | head -n1`
-    echo availiable zsh is $zsh_avail 
-
-    if [ -z $zsh_avail ];then 
-        echo "zsh is not installed !!!"
-        return 1
-    elif [ $current_sh = $zsh_avail ];then
-        echo current shell is $current_sh
-    else
-      echo "MIGHT need passwd to 'sudo chsh'"
-      sudo chsh -s $zsh_avail $(whoami)
-	    echo "zsh was setup, logout to get it !"
-    fi
-    
-	# zsh xtras
-	if grep -c .my_linux/sh-init.d ~/.zshrc 
-	then
-	    echo "my sh-init.d hooks hooked up!"
-	else
-	    #make hooks
-	    cat << __STOP__ >> ~/.zshrc
-for file in ~/.my_linux/sh-init.d/*
-do
-    source \$file
-done
-__STOP__
-	fi
-}
 
 fonts_ () {
   find ~/sync1/fonts -iname '*tf' -printf '"%p"\n' 2>/dev/null
@@ -115,7 +69,6 @@ fix_fonts() {
 # ---------------------------------
 fix_this
 fix_debian_dev_pkgs
-#fix_zsh
 fix_fonts
 fix_tmux_deps
 
