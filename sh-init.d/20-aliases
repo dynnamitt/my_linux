@@ -6,7 +6,7 @@ alias kc="kubectl --context"
 alias hc="helm --kube-context"
 
 # oxi
-alias ls="exa"
+alias ls="exa --icons"
 
 # nvim
 alias v="nvim"
