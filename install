@@ -4,68 +4,63 @@ echo -e "\n ▪ super simple automagic setup... \n"
 
 # Makes it possible to run via curl <url>|sh
 fix_this() {
-    # Clone if needed
-    #
-    if [ ! -d ~/.my_linux/.git ]
-    then
-        git clone git://github.com/dynnamitt/my_linux.git ~/.my_linux
-    else
-        echo ".my_linux clone skipped... syncing.."
-        (cd ~/.my_linux && git pull)
-    fi
+  # Clone if needed
+  #
+  if [ ! -d ~/.my_linux/.git ]; then
+    git clone git://github.com/dynnamitt/my_linux.git ~/.my_linux
+  else
+    echo ".my_linux clone skipped... syncing.."
+    (cd ~/.my_linux && git pull)
+  fi
 }
-
 
 CATPP_VER=v2.1.0
 
 fix_tmux_deps() {
-    mkdir -p ~/.tmux/plugins
-    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-    mkdir -p ~/.config/tmux/plugins/catppuccin
-    git clone -b $CATPP_VER https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+  mkdir -p ~/.tmux/plugins
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  mkdir -p ~/.config/tmux/plugins/catppuccin
+  git clone -b $CATPP_VER https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
 }
 
-fix_debian_dev_pkgs(){
+pkgs() {
 
-    if command -v apt > /dev/null
-    then
-      sudo apt install silversearcher-ag git subversion \
+  if command -v apt >/dev/null; then
+    sudo apt install silversearcher-ag git subversion \
       nodejs terminator python-pip zsh xsltproc
-      # python
-      sudo pip install --upgrade pip
-      ##sudo pip install aws docker-compose
-      # nodejs
-      ##sudo npm i -g mocha-cli coffeescript jshint
-    else
-      echo "Not DEBIAN, skipping pkgs..."
-    fi
-  
+    # python
+    sudo pip install --upgrade pip
+    ##sudo pip install aws docker-compose
+    # nodejs
+    ##sudo npm i -g mocha-cli coffeescript jshint
+  elif command -v pacman >/dev/null; then
+    sudo pacman -S fzf zig exa terminator ripgrep tmux neo neovim
+  else
+    echo "Not my distro(s), skipping pkgs..."
+  fi
+
 }
 
 lazyvim() {
-	git clone https://github.com/LazyVim/starter ~/.config/nvim
-	rm -rf ~/.config/nvim/.git
+  git clone https://github.com/LazyVim/starter ~/.config/nvim
+  rm -rf ~/.config/nvim/.git
 }
 
-
-
-fonts_ () {
+fonts_() {
   find ~/sync1/fonts -iname '*tf' -printf '"%p"\n' 2>/dev/null
   find ./fonts -iname '*tf' -printf '"%p"\n' 2>/dev/null
   exit 0
 }
 
 fix_fonts() {
-    echo
-    echo " > installing fonts.. "
-    mkdir -p ~/.local/share/fonts
-    fonts_ | xargs -I '{}'  cp -v {} ~/.local/share/fonts/
-    fc-cache
-    echo " >."
-    echo
+  echo
+  echo " > installing fonts.. "
+  mkdir -p ~/.local/share/fonts
+  fonts_ | xargs -I '{}' cp -v {} ~/.local/share/fonts/
+  fc-cache
+  echo " >."
+  echo
 }
-
-           
 
 # ---------------------------------
 #
@@ -73,7 +68,7 @@ fix_fonts() {
 #
 # ---------------------------------
 fix_this
-fix_debian_dev_pkgs
+pkgs
 fix_fonts
 fix_tmux_deps
 lazyvim
@@ -97,6 +92,5 @@ ln -s ~/.my_linux/ghci.conf ~/.ghci
 # rm -f ~/.Xdefaults && ln -s ~/.my_linux/Xresources ~/.Xdefaults
 # rm -f ~/.xinitrc && ln -s ~/.my_linux/xinitrc ~/.xinitrc
 # rm -f ~/.xbindkeyrc && ln -s ~/.my_linux/xbindkeyrc ~/.xbindkeyrc
-
 
 echo 'In vim please execute :PlugInstall'

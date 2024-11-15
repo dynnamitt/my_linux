@@ -6,7 +6,7 @@ alias kc="kubectl --context"
 alias hc="helm --kube-context"
 
 # oxi
-alias ls=exa
+alias ls="exa"
 
 # nvim
 alias v="nvim"
@@ -31,7 +31,7 @@ inotify_delay_cmd() {
 }
 
 alias nmapall="nmap -sP 192.168.1.0/24"
-alias ll="ls --color -lhp"
+#alias ll="ls --color -lhp"
 
 alias trgopkg="tree $GOPATH/pkg -L 4"
 alias u='du -h --max-depth=1'
