@@ -42,6 +42,8 @@ pkgs() {
   elif command -v pacman >/dev/null; then
     sudo pacman -S \
       yay \
+      docker \
+      tree \
       fzf \
       zig \
       exa \
@@ -49,7 +51,11 @@ pkgs() {
       ripgrep \
       bat \
       tmux \
-      neovim
+      neovim \
+      jq \
+      yamllint
+    sudo yay -S \
+      tfenv
   else
     echo "Not my distro(s), skipping pkgs..."
   fi
@@ -69,6 +75,9 @@ fonts_() {
 
 fix_fonts() {
   sudo pacman -S $(pacman -Sgq nerd-fonts)
+  # my the way:
+  # FAV is :  0xProto
+  # -------------
 }
 
 # ---------------------------------
@@ -95,7 +104,7 @@ ln -s ~/.my_linux/_emacs ~/.emacs
 # ghci
 ln -s ~/.my_linux/ghci.conf ~/.ghci
 
-. ~/.my_linux/vim-pimp
+# . ~/.my_linux/vim-pimp
 
 # symlinking
 # rm -f ~/.Xresources && ln -s ~/.my_linux/Xresources ~/.Xresources
