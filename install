@@ -40,7 +40,16 @@ pkgs() {
     # nodejs
     ##sudo npm i -g mocha-cli coffeescript jshint
   elif command -v pacman >/dev/null; then
-    sudo pacman -S yay fzf zig exa terminator ripgrep tmux neovim
+    sudo pacman -S \
+      yay \
+      fzf \
+      zig \
+      exa \
+      terminator \
+      ripgrep \
+      bat \
+      tmux \
+      neovim
   else
     echo "Not my distro(s), skipping pkgs..."
   fi
