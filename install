@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-echo -e "\n ▪ super simple automagic setup... \n"
-
 # Makes it possible to run via curl <url>|sh
 fix_this() {
   # Clone if needed
@@ -85,29 +83,39 @@ fix_fonts() {
 #                main
 #
 # ---------------------------------
-fix_this
-pkgs
-git_conf
-fix_fonts
-fix_tmux_deps
-lazyvim
+my_linux() {
+  echo -e "\n ▪ super simple automagic setup... \n"
+  fix_this
+  pkgs
+  git_conf
+  fix_fonts
+  fix_tmux_deps
+  lazyvim
 
-# tmux
-ln -s ~/.my_linux/tmux.conf ~/.tmux.conf
+  # tmux
+  ln -s ~/.my_linux/tmux.conf ~/.tmux.conf
 
-# ctags
-ln -s ~/.my_linux/_ctags ~/.ctags
+  # ctags
+  ln -s ~/.my_linux/_ctags ~/.ctags
 
-# emacs
-ln -s ~/.my_linux/_emacs ~/.emacs
+  # emacs
+  ln -s ~/.my_linux/_emacs ~/.emacs
 
-# ghci
-ln -s ~/.my_linux/ghci.conf ~/.ghci
+  # ghci
+  ln -s ~/.my_linux/ghci.conf ~/.ghci
 
-# . ~/.my_linux/vim-pimp
+  # . ~/.my_linux/vim-pimp
 
-# symlinking
-# rm -f ~/.Xresources && ln -s ~/.my_linux/Xresources ~/.Xresources
-# rm -f ~/.Xdefaults && ln -s ~/.my_linux/Xresources ~/.Xdefaults
-# rm -f ~/.xinitrc && ln -s ~/.my_linux/xinitrc ~/.xinitrc
-# rm -f ~/.xbindkeyrc && ln -s ~/.my_linux/xbindkeyrc ~/.xbindkeyrc
+  # symlinking
+  # rm -f ~/.Xresources && ln -s ~/.my_linux/Xresources ~/.Xresources
+  # rm -f ~/.Xdefaults && ln -s ~/.my_linux/Xresources ~/.Xdefaults
+  # rm -f ~/.xinitrc && ln -s ~/.my_linux/xinitrc ~/.xinitrc
+  # rm -f ~/.xbindkeyrc && ln -s ~/.my_linux/xbindkeyrc ~/.xbindkeyrc
+
+}
+
+if [ ! -z "$1" ]; then
+  my_linux
+else
+  echo "skipped installing all, use argument to trigger."
+fi
