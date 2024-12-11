@@ -12,7 +12,7 @@ fix_this() {
   fi
 }
 
-CATPP_VER=v2.1.0
+CATPP_VER=v2.1.1
 
 fix_tmux_deps() {
   mkdir -p ~/.tmux/plugins
@@ -52,9 +52,12 @@ pkgs() {
       neovim \
       parallel \
       powertop \
+      python \
+      python-pipenv \
+      pyenv \
       jq \
       yamllint
-    sudo yay -S \
+    yay -S \
       tfenv
   else
     echo "Not my distro(s), skipping pkgs..."
