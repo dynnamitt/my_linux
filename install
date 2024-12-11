@@ -50,6 +50,8 @@ pkgs() {
       bat \
       tmux \
       neovim \
+      parallel \
+      powertop \
       jq \
       yamllint
     sudo yay -S \
