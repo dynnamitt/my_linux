@@ -98,6 +98,7 @@ my_linux() {
   fix_tmux_deps
   lazyvim
 
+  ln -s ~/.my_linux/terraformrc ~/.terraformrc # maybe createdir , not tested
   # tmux
   ln -s ~/.my_linux/tmux.conf ~/.tmux.conf
 
