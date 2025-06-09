@@ -77,6 +77,11 @@ fonts_() {
   exit 0
 }
 
+oh_my() {
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+}
+
 fix_fonts() {
   sudo pacman -S $(pacman -Sgq nerd-fonts)
   # my the way:
@@ -92,6 +97,7 @@ fix_fonts() {
 my_linux() {
   echo -e "\n ▪ super simple automagic setup... \n"
   fix_this
+  oh_my
   pkgs
   git_conf
   fix_fonts
