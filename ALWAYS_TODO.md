@@ -2,7 +2,7 @@
 
 ## .zshrc
 
-  - plugins=(git terraform fzf helm python ssh sudo kubectl aws)
+  - plugins=(git terraform fzf helm python ssh sudo kubectl aws azure)
   - EDITOR
   - . ~/.my_linux/sh-init.d/20-aliases
   - ZSH_THEME, and change its value to "powerlevel10k/powerlevel10k".
