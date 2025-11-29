@@ -44,7 +44,7 @@ pkgs() {
       terminator \
       ripgrep \
       bat \
-      tmux \
+      kitty \
       neovim \
       parallel \
       powertop \
@@ -52,11 +52,11 @@ pkgs() {
       python-pipenv \
       pyenv \
       jq \
+      yq \
       yamllint \
       kubectl
-    yay -S \
-      tfenv \
-      k9s
+   yay -S k9s
+ #   tfenv \
   elif command -v brew >/dev/null; then
     brew install \
       git \
@@ -135,7 +135,7 @@ my_linux() {
   pkgs
   git_conf
   fix_fonts
-  fix_tmux_deps
+  #fix_tmux_deps
   lazyvim
 
   ln -s ~/.my_linux/terraformrc ~/.terraformrc # maybe createdir , not tested
