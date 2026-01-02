@@ -1,0 +1,5 @@
+alias fzfpp="fzf --preview 'pistol {}' \
+        --preview-window 'border-sharp' \
+        --bind='ctrl-/:toggle-preview' \
+        --bind='ctrl-u:preview-page-up' \
+        --bind='ctrl-d:preview-page-down'"

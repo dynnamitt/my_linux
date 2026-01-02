@@ -55,8 +55,8 @@ pkgs() {
       yq \
       yamllint \
       kubectl
-   yay -S k9s
- #   tfenv \
+    yay -S k9s piston-bin
+    #   tfenv \
   elif command -v brew >/dev/null; then
     brew install \
       git \
