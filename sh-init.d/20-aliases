@@ -98,3 +98,24 @@ vga1max() {
 }
 
 alias dc=docker-compose
+
+# Maven + fzf: reuse oh-my-zsh mvn plugin completions
+mvnf() {
+  listMavenCompletions
+  local selection
+  selection=$(printf '%s\n' "${reply[@]}" | fzf \
+    --multi \
+    --height 60% \
+    --reverse \
+    --border \
+    --prompt='mvn> ' \
+    --preview 'echo "Run: mvn {}"' \
+    --bind 'ctrl-a:select-all,ctrl-d:deselect-all')
+
+  if [ -n "$selection" ]; then
+    # Combine multiple selections into one command
+    local cmd="mvn $(echo $selection | tr '\n' ' ')"
+    echo "$cmd"
+    print -z "$cmd"  # Put in command line buffer
+  fi
+}
