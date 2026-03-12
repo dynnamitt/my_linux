@@ -115,6 +115,46 @@ NeTEx heavily uses these XSD features that challenge code generation tools:
 - **Abstract types** — base structures that can't be instantiated directly
 - **Circular references** — Vehicle ↔ VehicleType ↔ PassengerCapacity
 
+## Annotations (`xsd:annotation/xsd:documentation`)
+
+NeTEx XSDs are well-documented via annotations. Most types, elements, and attributes carry `xsd:documentation` text describing their purpose.
+
+### Format variations
+
+```xml
+<!-- Plain text (most common) -->
+<xsd:annotation>
+  <xsd:documentation>Type for a SCHEDULED STOP POINT.</xsd:documentation>
+</xsd:annotation>
+
+<!-- With xml:lang attribute -->
+<xsd:annotation>
+  <xsd:documentation xml:lang="en">Type for a SCHEDULED STOP POINT.</xsd:documentation>
+</xsd:annotation>
+```
+
+When parsing with tools like `fast-xml-parser`, the `xml:lang` attribute causes the documentation to become `{ "#text": "...", "@_xml:lang": "en" }` instead of a plain string. Code generators must handle both forms.
+
+### Annotation stripping
+
+Some NeTEx consumers (e.g., `netex-java-model`) strip annotations before processing to reduce file size. This is a legacy practice from JAXB pipelines. For modern code generators that want to propagate documentation, keep annotations intact.
+
+## Type distribution by XSD directory
+
+Analysis of ~3,030 definitions from framework + SIRI (base configuration, no domain parts enabled):
+
+| Category | Source directory | Definitions | % |
+|---|---|---|---|
+| Reusable components | `netex_framework/netex_reusableComponents/` | ~1,363 | 45% |
+| Responsibility/org | `netex_framework/netex_responsibility/` | ~890 | 29% |
+| Generic framework | `netex_framework/netex_genericFramework/` | ~470 | 16% |
+| SIRI | `siri/` + `siri_utility/` | ~167 | 6% |
+| Core (utility/frames/service) | `netex_framework/netex_utility/` + `netex_service/` + root | ~136 | 4% |
+
+Domain parts (Part 1-5) add incremental definitions when enabled. GML produces no standalone type definitions — it only provides namespace resolution schemas.
+
+This distribution matters when splitting generated output into modules: framework code dominates, and the sub-directory structure provides natural category boundaries.
+
 ## Subset selection strategies
 
 When you only need a subset of NeTEx (e.g., just stop places, or just fares), there are two viable approaches:
@@ -122,7 +162,13 @@ When you only need a subset of NeTEx (e.g., just stop places, or just fares), th
 ### A. Synthetic entry point
 Generate a custom aggregator XSD that only includes the parts you need, replacing `netex_all.xsd`. Keep all XSD files present on disk for cross-reference resolution but only process specific aggregators.
 
-### B. Load all, filter output
-Feed all 458 XSD files to the code generator, then filter the output to only keep generated code for the desired parts. Simpler but generates unnecessary intermediate artifacts.
+### B. Load all, filter output (proven approach)
+Load all 458 XSD files through the standard `NeTEx_publication.xsd` entry point (recursive `xs:include`/`xs:import` resolution). Track the source file path for each parsed definition. At output time, apply a filter function (`isEnabledPath(sourceFile)`) to only emit definitions from enabled parts.
+
+**How disabled-part references are handled**: When a type from an enabled part references a type from a disabled part, the disabled type gets a placeholder `{}` definition in the JSON Schema. This compiles as `unknown` in TypeScript, giving type-safe code for enabled parts with graceful degradation for cross-part references.
+
+**`netex_filter_frame.xsd` workaround**: This file has a hard dependency on Part 1 (`netex_line_support.xsd`). The load-all-filter-output approach sidesteps this problem — the Part 1 types are parsed (so no XSD resolution errors) but filtered out of the output if Part 1 is disabled.
+
+This approach is proven: all 458 files are loaded, but only enabled parts produce output. Configuration in `inputs/config.json` controls which parts are enabled via `parts.<key>.enabled` flags. The output slug is derived from enabled optional parts (e.g., `base` when no optional parts are enabled, `network` for Part 1 only, `network+timetable` for Parts 1+2). The recommended package naming convention is `netex-model-VERSION-BRANCH-SLUG` where VERSION and BRANCH come from `config.json`'s `.netex` object (e.g., `netex-model-2.0-next-base`).
 
 Both approaches require all XSD files to be available because cross-references between parts need to resolve during parsing.

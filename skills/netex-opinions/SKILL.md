@@ -25,10 +25,29 @@ See [references/xsd-structure.md](references/xsd-structure.md) for:
 ## Code generation tooling landscape
 
 See [references/tooling-evaluation.md](references/tooling-evaluation.md) for:
-- Evaluation of 7 XSD-to-code tools across languages
+- Evaluation of 8 XSD-to-code tools across languages (including the proven custom converter)
 - Why substitution group support is the key discriminator for NeTEx
 - Risk assessment per tool
 - Recommendations for different target languages
+- Documentation propagation pitfalls (JSON Schema `$ref` + `description`)
+
+## Generation pipeline patterns
+
+See [references/pipeline-patterns.md](references/pipeline-patterns.md) for:
+- Recommended pipeline architecture (load all → filter output)
+- Annotation propagation strategy (`xsd:documentation` → JSDoc/docstrings)
+- Output splitting by XSD source directory (natural module boundaries)
+- Cross-module import resolution approaches
+- Source file tracking and two-pass parsing
+
+## Real data container heuristics
+
+See [references/real-data-containers.md](references/real-data-containers.md) for:
+- How to distinguish top-tier NeTEx entities from structural scaffolding (`_VersionStructure`, `_RelStructure`, etc.)
+- Three converging signals: frame membership, `DataManagedObject` inheritance, substitution groups
+- Machine-applicable classification rules (suffix-based + frame parsing)
+- Why frame XSDs are the authoritative "top-tier entity" registry
+- Implications for code generation (flatten scaffolding, parse frames for entity lists)
 
 ## Key insights
 
@@ -41,3 +60,9 @@ See [references/tooling-evaluation.md](references/tooling-evaluation.md) for:
 4. **Part 4 was never published** — NeTEx skips from Part 3 to Part 5. Not an error.
 
 5. **Cross-references require all files present** — Even when generating for a single part, the full XSD set must be available because parts reference types from other parts and the framework.
+
+6. **XSD annotations are the documentation goldmine** — Most NeTEx types, elements, and attributes have `xsd:annotation/xsd:documentation`. Any code generation pipeline should propagate these to output (JSDoc, docstrings, XML comments). Expect ~3x increase in output volume when annotations are preserved. Many upstream downloads strip annotations for size — keep them.
+
+7. **Type distribution is heavily framework-weighted** — Of ~3,000 base definitions (framework + SIRI only, no domain parts), ~92% come from `netex_framework/` (reusable components: 45%, responsibility: 30%, generic framework: 15%), ~6% from SIRI, ~5% core/service. Domain parts add modest incremental counts. This distribution matters for splitting generated output into manageable modules.
+
+8. **NeTEx XSD naming convention reveals natural module boundaries** — `*_support.xsd` (180 files) defines base types/enums, `*_version.xsd` (198 files) defines concrete elements. The directory structure (`netex_framework/netex_reusableComponents/`, `netex_framework/netex_responsibility/`, etc.) maps cleanly to output module boundaries.

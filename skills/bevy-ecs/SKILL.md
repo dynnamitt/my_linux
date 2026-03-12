@@ -1,6 +1,6 @@
 ---
 name: bevy-ecs
-description: Provides specialized architectural guidance and implementation patterns for building games and applications with the Bevy Entity Component System (ECS) engine.
+description: Architectural guidance and implementation patterns for Bevy ECS — components, systems, relationships, queries, UI, raycasting. Use for any Bevy game/app development including entity relationships and parent-child hierarchies.
 ---
 
 # Bevy Game Development Skill
@@ -146,59 +146,9 @@ pub fn update_health_bar(
 }
 ```
 
-### Idiomatic Option/Result Transforms in Systems
+### Idiomatic Option/Result Transforms
 
-Bevy systems constantly return `Option` and `Result` from queries, resource lookups,
-and entity access. Prefer combinators and `?` over nested `match`/`if let` trees.
-([Effective Rust — Item 5](https://www.lurklurk.org/effective-rust/transform.html))
-
-**Use `?` propagation for guard-heavy helpers:**
-
-```rust
-// Return Option<()> and use ? for early exits
-fn process_hex(grid: &HexGrid, hex: Hex, entities: &HexEntities) -> Option<()> {
-    let &entity = entities.get(&hex)?;        // replaces if-let + return
-    let disc = grid.get(entity).ok()?;        // Result → Option via .ok()
-    disc.is_active().then_some(())?;           // bool guard
-    // ... side effects only if all guards pass
-    Some(())
-}
-```
-
-**Flatten nested `if let` with `.and_then()`:**
-
-```rust
-// BAD: pyramid of doom
-if let Some(res) = opt_res.as_ref() {
-    if let Some(&entity) = res.map.get(&hex) {
-        if let Ok(name) = query.get(entity) {
-            println!("{name}");
-        }
-    }
-}
-
-// GOOD: chained combinators
-if let Some(name) = opt_res.as_ref()
-    .and_then(|r| r.map.get(&hex))
-    .and_then(|&e| query.get(e).ok())
-{
-    println!("{name}");
-}
-```
-
-**Common transforms in Bevy code:**
-
-| Have | Want | Use |
-|------|------|-----|
-| `Option<T>` | `Result<T, E>` | `.ok_or(err)` / `.ok_or_else(\|\| err)` |
-| `Result<T, E>` | `Option<T>` | `.ok()` |
-| `&Option<T>` | `Option<&T>` | `.as_ref()` |
-| `Option<T>` | `T` (or default) | `.unwrap_or(default)` / `.unwrap_or_default()` |
-| `Option<T>` | `Option<U>` | `.map(\|t\| ...)` / `.and_then(\|t\| ...)` |
-| `bool` guard | `Option<()>` | `.then_some(())` for use with `?` |
-
-**Performance:** These combinators are `#[inline]` generics — they compile to identical
-machine code as hand-written `match` expressions, with zero runtime cost.
+See [references/option-result.md](references/option-result.md) — `?` propagation, `.and_then()` flattening, combinator table.
 
 ## Build and Testing Workflow
 
@@ -247,51 +197,9 @@ cargo build --release
 - Visual effects added
 - Major system changes
 
-## UI Development in Bevy
+## UI Development
 
-Bevy uses a flexbox-like layout system. Follow the marker component pattern:
-
-**1. Create marker components:**
-
-```rust
-#[derive(Component)]
-pub struct HealthBar;
-
-#[derive(Component)]
-pub struct ScoreDisplay;
-```
-
-**2. Setup in Startup:**
-
-```rust
-pub fn setup_ui(mut commands: Commands) {
-    commands.spawn((
-        HealthBar,
-        Node {
-            position_type: PositionType::Absolute,
-            left: Val::Px(10.0),
-            top: Val::Px(10.0),
-            width: Val::Px(200.0),
-            height: Val::Px(20.0),
-            ..default()
-        },
-        BackgroundColor(Color::srgba(0.8, 0.2, 0.2, 0.9)),
-    ));
-}
-```
-
-**3. Update in Update:**
-
-```rust
-pub fn update_health_ui(
-    health: Query<&Health, With<Player>>,
-    mut ui: Query<&mut Node, With<HealthBar>>,
-) {
-    if let (Ok(health), Ok(mut node)) = (health.get_single(), ui.get_single_mut()) {
-        node.width = Val::Px(health.percentage() * 200.0);
-    }
-}
-```
+See [references/ui-patterns.md](references/ui-patterns.md) — marker component pattern, setup/update cycle.
 
 ## Incremental Development Strategy
 
@@ -330,6 +238,15 @@ Each phase should have clear success criteria, manual test cases, and user valid
 - **Use change detection:** `Query<&Component, Changed<Component>>`
 - **Filter early:** `Query<&A, (With<B>, Without<C>)>` instead of filtering in loops
 - **Check resource changes:** Return early if resource hasn't changed
+
+## MeshRayCast Gotchas (0.18)
+
+See [references/meshraycast.md](references/meshraycast.md) — backface culling and MAIN_WORLD pitfalls.
+
+## Entity Relationships (0.18)
+
+See [references/relationships.md](references/relationships.md) — ChildOf/Children, custom relationships, spawning, traversal.
+Full API: [references/relationships-api.md](references/relationships-api.md).
 
 ## Common Pitfalls to Avoid
 
