@@ -1,6 +1,6 @@
 ---
 name: bevy-ecs
-description: Architectural guidance and implementation patterns for Bevy ECS — components, systems, relationships, queries, UI, raycasting. Use for any Bevy game/app development including entity relationships and parent-child hierarchies.
+description: Architectural guidance and implementation patterns for Bevy ECS — components, systems, states, observers, relationships, scheduling, queries, assets, UI, raycasting. Use for any Bevy game/app development including entity relationships, state management, and system scheduling.
 ---
 
 # Bevy Game Development Skill
@@ -24,12 +24,6 @@ based on real-world experience building complex Bevy projects.
 - **Collections**: Use `bevy::platform::collections::{HashMap, HashSet}`, not `std` or `bevy::utils`
 - **Text rendering**: Requires the `default_font` feature when using `default-features = false`
 - **Query single**: `query.single()` returns `Result`, use `let Ok(x) = query.single()` pattern
-
-### Bevy 0.17 Breaking Changes
-
-- Material handles now wrapped in `MeshMaterial3d<T>` (not `Handle<T>`)
-- Event system replaced with observer pattern (`commands.trigger()`, `add_observer()`)
-- Color arithmetic operations removed (use component extraction)
 
 ### Consult Bevy Registry Examples First
 
@@ -248,6 +242,22 @@ See [references/meshraycast.md](references/meshraycast.md) — backface culling 
 See [references/relationships.md](references/relationships.md) — ChildOf/Children, custom relationships, spawning, traversal.
 Full API: [references/relationships-api.md](references/relationships-api.md).
 
+## States & State Management (0.18)
+
+See [references/states.md](references/states.md) — SubStates, ComputedStates, state-scoped entities, transition schedules.
+
+## Observers & Lifecycle Hooks (0.18)
+
+See [references/observers.md](references/observers.md) — Trigger-based reactive logic, OnAdd/OnRemove hooks, custom events.
+
+## System Sets & Scheduling
+
+See [references/system-sets.md](references/system-sets.md) — SystemSet grouping, FixedUpdate, run conditions, per-schedule configuration.
+
+## Asset Loading
+
+See [references/assets.md](references/assets.md) — Handle lifecycle, loading states, AssetEvent, custom asset types.
+
 ## Common Pitfalls to Avoid
 
 - Forgetting to register systems in `main.rs`
@@ -256,6 +266,7 @@ Full API: [references/relationships-api.md](references/relationships-api.md).
 - Wrong system ordering (input -> state -> derived -> visual -> UI)
 - Entity queries after despawn (use `if let Ok()` pattern)
 - Material/asset handle confusion (store handles properly)
+- Using events when observers would be simpler (one-shot reactive logic → observer, continuous polling → system)
 
 ## Using Subagents for Complex Features
 
