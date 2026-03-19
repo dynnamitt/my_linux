@@ -1,0 +1,4265 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "x-netex-assembly": "base",
+  "x-netex-sub-graph-root": "VehicleType",
+  "$ref": "#/definitions/VehicleType",
+  "definitions": {
+    "VehicleType": {
+      "description": "A classification of public transport vehicles according to the vehicle scheduling requirements in mode and capacity (e.g. standard bus, double-deck, ...).",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "TransportType_Dummy",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/TransportType_VersionStructure"
+        },
+        {
+          "properties": {
+            "IncludedIn": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/VehicleTypeRefStructure"
+                }
+              ],
+              "description": "Included in definition of VEHICLE."
+            },
+            "ClassifiedAsRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/VehicleModelRefStructure"
+                }
+              ],
+              "description": "Classification of type as being of a particular VEHICLE MODEL."
+            },
+            "facilities": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/serviceFacilitySets_RelStructure"
+                }
+              ],
+              "description": "Facilities of VEHICLE TYPE."
+            },
+            "capacities": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/passengerCapacities_RelStructure"
+                }
+              ],
+              "description": "Break down of Capacities by FARE CLASS."
+            },
+            "Monitored": {
+              "type": "boolean",
+              "description": "Whether real-time data is normally available for the VEHICLE TYPE (this can be the vehicle position, but also the speed, charging level, passenger counting, etc.)."
+            },
+            "LowFloor": {
+              "type": "boolean",
+              "description": "Whether Vehicle is low floor to facilitate access by the mobility impaired."
+            },
+            "HasLiftOrRamp": {
+              "type": "boolean",
+              "description": "Whether vehicle has lift or ramp to facilitate wheelchair access."
+            },
+            "HasHoist": {
+              "type": "boolean",
+              "description": "Whether vehicle has hoist for wheelchair access."
+            },
+            "HoistOperatingRadius": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "Distance from VEHICLE needed to operate hoist."
+            },
+            "BoardingHeight": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "Maximum step height to board. +v1.1"
+            },
+            "GapToPlatform": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "Expected maximal gap between VEHICLE and platform. +v1.1"
+            },
+            "Length": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "The length of a VEHICLE of the type."
+            },
+            "Width": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "The width of a VEHICLE of the type. +v1.1"
+            },
+            "Height": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "The height of a VEHICLE of the type. +v1.1"
+            },
+            "Weight": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WeightType"
+                }
+              ],
+              "description": "The weight of a VEHICLE of the type. +v1.1"
+            },
+            "FirstAxleHeight": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "The height of the first axle of a VEHICLE of the type."
+            },
+            "canCarry": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/passengerCarryingRequirements_RelStructure"
+                }
+              ],
+              "description": "Capacity that VEHICLE TYPE should meet - indicates minimum number of seats of each type."
+            },
+            "canManoeuvre": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/vehicleManoeuvringRequirements_RelStructure"
+                }
+              ],
+              "description": "Manoeuvring capabilities that VEHICLE TYPE should meet."
+            },
+            "satisfiesFacilityRequirements": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/facilityRequirements_RelStructure"
+                }
+              ],
+              "description": "FACILITIES requirements that VEHICLE TYPE should meet."
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["VehicleType_VersionStructure"]
+    },
+    "TransportType_VersionStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        },
+        {
+          "properties": {
+            "Name": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Name of TRANSPORT TYPE."
+            },
+            "ShortName": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Short Name of TRANSPORT TYPE."
+            },
+            "Description": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Description of TRANSPORT TYPE."
+            },
+            "PrivateCode": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/PrivateCode"
+                }
+              ],
+              "description": "DEPRECATED - use privateCodes. -v2.0"
+            },
+            "TransportMode": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/AllPublicTransportModesEnumeration"
+                }
+              ],
+              "description": "PT MODE associated with VEHICLE TYPE. +v1.2.2"
+            },
+            "DeckPlanRef": {
+              "$ref": "#/definitions/DeckPlanRef"
+            },
+            "EuroClass": {
+              "type": "string",
+              "description": "Euroclass of the vehicle type."
+            },
+            "ReversingDirection": {
+              "type": "boolean",
+              "description": "Whether vehicles of the type have a reversing direction."
+            },
+            "SelfPropelled": {
+              "type": "boolean",
+              "description": "Whether vehicles of the type are self-propelled."
+            },
+            "PropulsionTypes": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/PropulsionTypeListOfEnumerations"
+                }
+              ],
+              "description": "List of types of power used +v2.0"
+            },
+            "PropulsionType": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/PropulsionTypeEnumeration"
+                }
+              ],
+              "description": "Type of power used. DEPRECATED -v2.0"
+            },
+            "FuelTypes": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/FuelTypeListOfEnumerations"
+                }
+              ],
+              "description": "The list of types of fuel used by a vehicle of the type. +v2.0"
+            },
+            "MaximumRange": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/DistanceType"
+                }
+              ],
+              "description": "Maximum range between refuelling. +v1.2.2"
+            },
+            "MaximumVelocity": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/SpeedType"
+                }
+              ],
+              "description": "Maximum velocity in m/s. +v2.0.0"
+            },
+            "FuelType": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/FuelTypeEnumeration"
+                }
+              ],
+              "description": "The type of fuel used by a vehicle of the type. DEPRECATED -v2.0"
+            },
+            "TypeOfFuel": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/FuelTypeEnumeration"
+                }
+              ],
+              "description": "The type of fuel used by a vehicle of the type. DEPRECATED NAME 1.2.2. Use FuelType. -v2.0"
+            },
+            "PassengerCapacity": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/PassengerCapacityStructure"
+                }
+              ],
+              "description": "Total Number of passengers that VEHICLE TYPE can carry."
+            }
+          }
+        }
+      ],
+      "description": "Type for a TRANSPORT TYPE.",
+      "x-netex-role": "structure",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd"
+    },
+    "DataManagedObjectStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityInVersionStructure"
+        },
+        {
+          "properties": {
+            "keyList": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/keyList"
+                }
+              ],
+              "description": "A list of alternative Key values for an element."
+            },
+            "privateCodes": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/privateCodes"
+                }
+              ],
+              "description": "A list of private codes that uniquely identifiy the element. May be used for inter-operating with other (legacy) systems. +v2.0"
+            },
+            "Extensions": {
+              "$ref": "#/definitions/Extensions"
+            },
+            "BrandingRef": {
+              "$ref": "#/definitions/BrandingRef"
+            },
+            "responsibilitySetRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ResponsibilitySetIdType"
+                }
+              ],
+              "description": "Reference to RESPONSIBILITY SET for managing the object. If absent, then responsibility is same as for containing context of this object.",
+              "xml": {
+                "attribute": true
+              }
+            }
+          }
+        }
+      ],
+      "description": "Abstract Type for a MANAGED OBJECT.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_responsibility_version.xsd"
+    },
+    "EntityInVersionStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityStructure"
+        },
+        {
+          "properties": {
+            "alternativeTexts": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/alternativeTexts_RelStructure"
+                }
+              ],
+              "description": "Additional Translations of text elements."
+            },
+            "validityConditions": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/validityConditions_RelStructure"
+                }
+              ],
+              "description": "VALIDITY CONDITIONs conditioning entity."
+            },
+            "ValidBetween": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/ValidBetween"
+              }
+            },
+            "dataSourceRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/DataSourceIdType"
+                }
+              ],
+              "description": "Name of source of the data.",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "created": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date ENTITY was first created.",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "changed": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Date ENTITY or version was last changed.",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "modification": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ModificationEnumeration"
+                }
+              ],
+              "description": "Nature of last modification: new, revise, delete, unchanged, delta. Default is \"new\".",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "version": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/VersionIdType"
+                }
+              ],
+              "description": "Version number of entity. The value may be \"any\" or a VERSION number adhering to agreed-upon formatting and interpretation rules (representing, e.g., a number or a date). Consecutive VERSION numbers should be strictly increasing.",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "status": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/StatusEnumeration"
+                }
+              ],
+              "description": "Whether ENTITY is currently in use. Default is \"active\".",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "derivedFromVersionRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/VersionIdType"
+                }
+              ],
+              "description": "Version of this object from which this version of ENTITY was derived.",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "compatibleWithVersionFrameVersionRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/VersionIdType"
+                }
+              ],
+              "description": "Version of frame from with which this version of ENTITY is compatible. Assumes Frame of the same Id as current frame.",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "derivedFromObjectRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ObjectIdType"
+                }
+              ],
+              "description": "Identity of object from which this object of ENTITY was derived. Normally the same.",
+              "xml": {
+                "attribute": true
+              }
+            }
+          }
+        }
+      ],
+      "description": "Type for ENTITY IN VERSION.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_version_version.xsd"
+    },
+    "EntityStructure": {
+      "type": "object",
+      "description": "Type for ENTITY.",
+      "properties": {
+        "nameOfClass": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/NameOfClass"
+            }
+          ],
+          "description": "Name of Class of the ENTITY. Allows reflection. Fixed for each ENTITY type.",
+          "xml": {
+            "attribute": true
+          }
+        },
+        "id": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/ObjectIdType"
+            }
+          ],
+          "description": "Identifier of ENTITY.",
+          "xml": {
+            "attribute": true
+          }
+        }
+      },
+      "x-netex-source": "netex_framework/netex_responsibility/netex_entity_version.xsd"
+    },
+    "NameOfClass": {
+      "type": "string",
+      "description": "Type for name of all classes within NeTEx.",
+      "enum": ["REMOVED"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_entity_support.xsd"
+    },
+    "ObjectIdType": {
+      "type": "string",
+      "description": "Abstract Type for identifier of a NeTEx Object.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_entity_support.xsd"
+    },
+    "alternativeTexts_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/strictContainmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "AlternativeText": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AlternativeText"
+              },
+              "description": "ALTERNATIVE TEXT for a text attribute of Element."
+            }
+          },
+          "required": ["AlternativeText"]
+        }
+      ],
+      "description": "Type for list of ALTERNATIVE TEXTs",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_alternativeText_version.xsd"
+    },
+    "strictContainmentAggregationStructure": {
+      "$ref": "#/definitions/relationshipStructure",
+      "description": "Type for an Implementation of a strict aggregate relationship by value, where the contained element is a child of the parent. A one to many relationship from the source, the containing parent, to the child instance.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_relationship.xsd"
+    },
+    "relationshipStructure": {
+      "type": "object",
+      "description": "Abstract Type for a serialisation of a NeTEx relationship.",
+      "properties": {
+        "id": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/RelationshipId"
+            }
+          ],
+          "description": "Identifier of the relationship.",
+          "xml": {
+            "attribute": true
+          }
+        }
+      },
+      "x-netex-source": "netex_framework/netex_responsibility/netex_relationship.xsd"
+    },
+    "RelationshipId": {
+      "$ref": "#/definitions/NameOfClass",
+      "description": "Type for Identifier of a relationship.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_relationship.xsd"
+    },
+    "AlternativeText": {
+      "description": "Alternative Text. +v1.1",
+      "x-netex-substitutionGroup": "VersionedChild",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_alternativeText_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/VersionedChildStructure"
+        },
+        {
+          "properties": {
+            "DataManagedObjectRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/VersionOfObjectRefStructure"
+                }
+              ],
+              "description": "Object for attribute for which ALTERNATIVE TEXT provides an alias. May be omitted if given by context."
+            },
+            "Text": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Name of the entity."
+            },
+            "attributeName": {
+              "type": "string",
+              "description": "Name of text attribute for which this is the alternative text. Must be an existing attribute name.",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "useForLanguage": {
+              "type": "string",
+              "description": "Name of language for which this is to be used.",
+              "xml": {
+                "attribute": true
+              }
+            },
+            "order": {
+              "type": "integer",
+              "minimum": 1,
+              "description": "Order of name. -v2.0",
+              "xml": {
+                "attribute": true
+              }
+            }
+          },
+          "required": ["Text"]
+        }
+      ],
+      "x-netex-reduced": ["AlternativeText_VersionedChildStructure"]
+    },
+    "VersionedChildStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/EntityInVersionStructure"
+        },
+        {
+          "properties": {
+            "Extensions": {
+              "$ref": "#/definitions/Extensions"
+            }
+          }
+        }
+      ],
+      "description": "Type for VERSIONED CHILD.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_responsibility_version.xsd"
+    },
+    "Extensions": {
+      "description": "User defined Extensions to ENTITY in schema. (Wrapper tag used to avoid problems with handling of optional 'any' by some validators).",
+      "x-netex-source": "netex_framework/netex_utility/netex_utility_xml.xsd",
+      "type": "object",
+      "x-netex-reduced": ["ExtensionsStructure"]
+    },
+    "VersionOfObjectRefStructure": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/definitions/ObjectIdType"
+        },
+        "nameOfRefClass": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/NameOfClass"
+            }
+          ],
+          "description": "Name of Class of the referenced entity. Allows reflection. Fixed for each entity type.",
+          "xml": {
+            "attribute": true
+          }
+        },
+        "modification": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/ModificationEnumeration"
+            }
+          ],
+          "description": "Nature of last modification: new, revise, delete, unchanged.",
+          "xml": {
+            "attribute": true
+          }
+        },
+        "ref": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/ObjectIdType"
+            }
+          ],
+          "description": "Identifier of referenced entity.",
+          "xml": {
+            "attribute": true
+          }
+        },
+        "versionRef": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/VersionIdType"
+            }
+          ],
+          "description": "Identifier of version of referenced entity. For use when reference is External and a specific version is required. Mutually exclusive with version",
+          "xml": {
+            "attribute": true
+          }
+        },
+        "uri": {
+          "type": "string",
+          "format": "uri",
+          "description": "Location of the external entity. +v2.0",
+          "xml": {
+            "attribute": true
+          }
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date reference was first created.",
+          "xml": {
+            "attribute": true
+          }
+        },
+        "changed": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date reference was last changed.",
+          "xml": {
+            "attribute": true
+          }
+        },
+        "version": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/VersionIdType"
+            }
+          ],
+          "description": "Version number of referenced entity.",
+          "xml": {
+            "attribute": true
+          }
+        }
+      },
+      "description": "Type for a versioned reference to a NeTEx Object.",
+      "x-netex-role": "reference",
+      "x-netex-atom": "simpleObj",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_relationship_support.xsd"
+    },
+    "ModificationEnumeration": {
+      "type": "string",
+      "description": "Classification of modification as addition, deletion or revision. Enumerated value.",
+      "enum": ["new", "revise", "delete", "unchanged", "delta"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_version_support.xsd"
+    },
+    "VersionIdType": {
+      "$ref": "#/definitions/ObjectIdType",
+      "description": "A revision identifier (e.g. a number) that should be updated (e.g. increased) each time the unit that is refers to is modified.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_version_support.xsd"
+    },
+    "MultilingualString": {
+      "type": "object",
+      "description": "*Either* use with simple text (as in NeTEx prior to v2.0) or use *only* Text elements within the MultilingualString. The old version (simple text) will be deprecated. As this is a mixed type this is not currently enforced by the schema.",
+      "x-netex-mixed": true,
+      "properties": {
+        "Text": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TextType"
+          }
+        },
+        "lang": {
+          "type": "string",
+          "xml": {
+            "attribute": true
+          }
+        },
+        "textIdType": {
+          "type": "string",
+          "xml": {
+            "attribute": true
+          }
+        }
+      },
+      "x-netex-source": "netex_framework/netex_utility/netex_utility_xml.xsd"
+    },
+    "TextType": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "lang": {
+          "type": "string",
+          "xml": {
+            "attribute": true
+          }
+        },
+        "textIdType": {
+          "type": "string",
+          "xml": {
+            "attribute": true
+          }
+        }
+      },
+      "x-netex-atom": "simpleObj",
+      "x-netex-source": "netex_framework/netex_utility/netex_utility_xml.xsd"
+    },
+    "validityConditions_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/containmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "ValidityConditionRef": {
+              "$ref": "#/definitions/ValidityConditionRef"
+            },
+            "ValidBetween": {
+              "$ref": "#/definitions/ValidBetween"
+            },
+            "ValidityCondition_Dummy": {
+              "$ref": "#/definitions/ValidityCondition_Dummy"
+            }
+          }
+        }
+      ],
+      "description": "A collection of one or more VALIDITY CONDITIONs.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_version.xsd"
+    },
+    "containmentAggregationStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/relationshipStructure"
+        },
+        {
+          "properties": {
+            "modificationSet": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ModificationSetEnumeration"
+                }
+              ],
+              "description": "Whether this is a list of all (revise) or just changes.",
+              "xml": {
+                "attribute": true
+              }
+            }
+          }
+        }
+      ],
+      "description": "Type for an Implementation of an aggregate relationship by reference or value, where the contained element or reference is included in the XML as a child of the parent.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_relationship.xsd"
+    },
+    "ModificationSetEnumeration": {
+      "type": "string",
+      "description": "Classification of modification as addition, deletion, revision or delta only. Enumerated value.",
+      "enum": ["all", "changesOnly"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_relationship.xsd"
+    },
+    "ValidityConditionRef": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ValidityConditionRefStructure"
+        }
+      ],
+      "description": "Reference to a VALIDITY CONDITION.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "VersionOfObjectRef",
+      "x-netex-sg-members": [
+        "AvailabilityConditionRef",
+        "ValidityRuleParameterRef",
+        "ValidityTriggerRef"
+      ],
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_support.xsd"
+    },
+    "ValidityTriggerRef": {
+      "description": "Reference to a VALIDITY TRIGGER An External event defining a VALIDITY CONDITION. E.g. exceptional flow of a river, bad weather, Road closure for works.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "ValidityConditionRef",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_support.xsd",
+      "x-netex-reduced": ["ValidityTriggerRefStructure"]
+    },
+    "ValidityConditionRefStructure": {
+      "$ref": "#/definitions/VersionOfObjectRefStructure",
+      "description": "Type for a reference to a VALIDITY CONDITION.",
+      "x-netex-role": "reference",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_support.xsd"
+    },
+    "ValidityRuleParameterRef": {
+      "description": "Reference to a VALIDITY RULE PARAMETER. A user defined VALIDITY CONDITION used by a rule for selecting versions.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "ValidityConditionRef",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_support.xsd",
+      "x-netex-reduced": ["ValidityRuleParameterRefStructure"]
+    },
+    "AvailabilityConditionRef": {
+      "description": "Reference to an AVAILABILITY CONDITION. A VALIDITY CONDITION defined in terms of temporal attributes.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "ValidityConditionRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_availabilityCondition_support.xsd",
+      "x-netex-reduced": ["AvailabilityConditionRefStructure"]
+    },
+    "ValidBetween": {
+      "$ref": "#/definitions/ValidBetween_VersionStructure",
+      "description": "OPTIMISATION. Simple version of a VALIDITY CONDITION. Comprises a simple period. NO UNIQUENESS CONSTRAINT.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_version.xsd"
+    },
+    "ValidBetween_VersionStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ValidityCondition_VersionStructure"
+        },
+        {
+          "properties": {
+            "FromDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Start date of AVAILABILITY CONDITION."
+            },
+            "ToDate": {
+              "type": "string",
+              "format": "date-time",
+              "description": "End of AVAILABILITY CONDITION. Date is INCLUSIVE."
+            }
+          }
+        }
+      ],
+      "description": "Type for a Simple VALIDITY CONDITION.",
+      "x-netex-role": "structure",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_version.xsd"
+    },
+    "ValidityCondition_VersionStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        },
+        {
+          "properties": {
+            "Name": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Name of VALIDITY CONDITION."
+            },
+            "Description": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Description of VALIDITY CONDITION."
+            },
+            "ConditionedObjectRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/VersionOfObjectRefStructure"
+                }
+              ],
+              "description": "Entity to which condition specifically attaches."
+            },
+            "WithConditionRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ValidityConditionRefStructure"
+                }
+              ],
+              "description": "CONDITION with which this rule is logically ANDed."
+            }
+          }
+        }
+      ],
+      "description": "Types for a VALIDITY CONDITION.",
+      "x-netex-role": "structure",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_version.xsd"
+    },
+    "ValidityCondition_Dummy": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        }
+      ],
+      "description": "Condition used in order to characterise a given VERSION of a VERSION FRAME. A VALIDITY CONDITION consists of a parameter (e.g. date, triggering event, etc) and its type of application (e.g. for, from, until, etc.).",
+      "x-netex-role": "abstract",
+      "x-netex-substitutionGroup": "DataManagedObject",
+      "x-netex-sg-members": [
+        "AvailabilityCondition",
+        "SimpleAvailabilityCondition",
+        "ValidDuring",
+        "ValidityCondition",
+        "ValidityRuleParameter",
+        "ValidityTrigger"
+      ],
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_version.xsd"
+    },
+    "ValidityTrigger": {
+      "description": "External event defining a VALIDITY CONDITION. E.g. exceptional flow of a river, bad weather, Road closure for works.",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "ValidityCondition_Dummy",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ValidityCondition_VersionStructure"
+        },
+        {
+          "properties": {
+            "TriggerObjectRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/VersionOfObjectRefStructure"
+                }
+              ],
+              "description": "Entity on which Trigger is based - Trigger value is taken from it."
+            },
+            "PrivateCode": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/PrivateCode"
+                }
+              ],
+              "description": "DEPRECATED - use privateCodes. -v2.0"
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["ValidityTrigger_VersionStructure"]
+    },
+    "PrivateCode": {
+      "description": "A private code that uniquely identifies the element. May be used for inter-operating with other (legacy) systems.",
+      "x-netex-source": "netex_framework/netex_utility/netex_utility_types.xsd",
+      "properties": {
+        "value": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "description": "Nature of code.",
+          "xml": {
+            "attribute": true
+          }
+        }
+      },
+      "type": "object",
+      "x-netex-atom": "simpleObj",
+      "x-netex-reduced": ["PrivateCodeStructure"]
+    },
+    "ValidityRuleParameter": {
+      "description": "A user defined VALIDITY CONDITION used by a rule for selecting versions. E.g. river level > 1,5 m and bad weather.",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "ValidityCondition_Dummy",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ValidityCondition_VersionStructure"
+        },
+        {
+          "properties": {
+            "RuleObjectRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/VersionOfObjectRefStructure"
+                }
+              ],
+              "description": "Entity on which Rules based - Trigger value is taken from it."
+            },
+            "isValid": {
+              "type": "boolean",
+              "description": "If the referenced element is currently valid."
+            },
+            "AttributeName": {
+              "type": "string",
+              "description": "Name of an Attribute of the referenced ENTITY which provides Trigger value."
+            },
+            "ComparisonOperator": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/RelativeOperatorEnumeration"
+                }
+              ],
+              "description": "Comparison operator to be used when comparing the referenced attribute of to the Attribute Value : EQ, NE,GE, GT, LE,LT (equal, not equal, greater equal, greater than, lower equal, lower than)."
+            },
+            "AttributeValue": {
+              "description": "Value of attribute of ENTITY."
+            },
+            "Method": {
+              "description": "Method for computing an attribute. By default this will be as simple operator. Some systems may support additional means of comparison."
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["ValidityRuleParameter_VersionStructure"]
+    },
+    "RelativeOperatorEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Comparison operations.",
+      "enum": ["EQ", "NE", "GE", "GT", "LE", "LT"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_support.xsd"
+    },
+    "ValidityCondition": {
+      "$ref": "#/definitions/ValidityCondition_VersionStructure",
+      "description": "Condition used in order to characterise a given VERSION of a VERSION FRAME. A VALIDITY CONDITION consists of a parameter (e.g. date, triggering event, etc) and its type of application (e.g. for, from, until, etc.).",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "ValidityCondition_Dummy",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_validityCondition_version.xsd"
+    },
+    "ValidDuring": {
+      "$ref": "#/definitions/ValidDuring_VersionStructure",
+      "description": "OPTIMISATION: Sversion of an AVAILABILITY CONDITION Comprises a simple period and DAY TYPE.",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "ValidityCondition_Dummy",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_availabilityCondition_version.xsd"
+    },
+    "ValidDuring_VersionStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/ValidBetween_VersionStructure"
+        },
+        {
+          "properties": {
+            "timebands": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/timebands_RelStructure"
+                }
+              ],
+              "description": "TIME BANDs for AVAILABILITY CONDITION."
+            },
+            "DayTypeRef": {
+              "$ref": "#/definitions/DayTypeRef"
+            },
+            "DaysOfWeek": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/DaysOfWeekListOfEnumerations"
+                }
+              ],
+              "description": "Days of the week."
+            },
+            "Days": {
+              "type": "string",
+              "pattern": "([Y | N])*",
+              "minLength": 7,
+              "maxLength": 7,
+              "description": "OPTIMIZATION week matrix Y | N, NNNNNNN."
+            }
+          }
+        }
+      ],
+      "description": "Type for a SIMPLE TIMEBAND AVAILABILITY CONDITION.",
+      "x-netex-role": "structure",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_availabilityCondition_version.xsd"
+    },
+    "timebands_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/containmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "TimebandRef": {
+              "$ref": "#/definitions/TimebandRef"
+            },
+            "Timeband": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/Timeband_VersionedChildStructure"
+                }
+              ],
+              "description": "A period in a day, significant for some aspect of public transport, e.g. similar traffic conditions or fare category."
+            }
+          }
+        }
+      ],
+      "description": "Type for a list of TIMEBANDs.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_version.xsd"
+    },
+    "TimebandRef": {
+      "description": "Reference to a TIME BAND.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "VersionOfObjectRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_support.xsd",
+      "x-netex-reduced": ["TimebandRefStructure"]
+    },
+    "Timeband_VersionedChildStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        },
+        {
+          "properties": {
+            "Name": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Name of TIMEBAND."
+            },
+            "StartTime": {
+              "type": "string",
+              "format": "time",
+              "description": "The (inclusive) start time."
+            },
+            "StartEvent": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/TimeOfDayEnumeration"
+                }
+              ],
+              "description": "Event marking start of timeband, e.g., dusk, dawn. +v1.2.2"
+            },
+            "Duration": {
+              "type": "string",
+              "description": "Interval from start at which TIME BAND ends. If omitted, the TIME BAND ends at the end of day."
+            },
+            "DayOffset": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/DayOffsetType"
+                }
+              ],
+              "description": "Number of days after start time that end time is."
+            },
+            "EndTime": {
+              "type": "string",
+              "format": "time",
+              "description": "The (inclusive) end time."
+            },
+            "EndEvent": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/TimeOfDayEnumeration"
+                }
+              ],
+              "description": "Event marking end of timeband, e.g., dusk, dawn. +v1.2.2"
+            }
+          }
+        }
+      ],
+      "description": "Type for a TIMEBAND.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_version.xsd"
+    },
+    "TimeOfDayEnumeration": {
+      "type": "string",
+      "description": "Allowed values for TimeOfDay. +v1.2.2",
+      "enum": ["dawn", "dusk", "noon", "midnight", "curfewStart", "curfewEnd"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "DayOffsetType": {
+      "type": "integer",
+      "description": "Offset in days.",
+      "x-netex-source": "netex_framework/netex_utility/netex_utility_types.xsd"
+    },
+    "DayTypeRef": {
+      "description": "Reference to a DAY TYPE.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "VersionOfObjectRef",
+      "x-netex-sg-members": ["FareDayTypeRef"],
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_support.xsd",
+      "x-netex-reduced": ["DayTypeRefStructure"]
+    },
+    "DaysOfWeekListOfEnumerations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/DayOfWeekEnumeration"
+      },
+      "x-netex-atom": "array",
+      "description": "Allowed values for list of days of the week.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "DayOfWeekEnumeration": {
+      "type": "string",
+      "description": "Allowed values for day of the week.",
+      "enum": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+        "Everyday",
+        "Weekdays",
+        "Weekend",
+        "none"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "SimpleAvailabilityCondition": {
+      "$ref": "#/definitions/ValidDuring_VersionStructure",
+      "description": "Simple version of an AVAILABILITY CONDITION used in order to characterise a given VERSION of a VERSION FRAME. Comprises a simple period and DAY TYPE.",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "ValidityCondition_Dummy",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_availabilityCondition_version.xsd"
+    },
+    "AvailabilityCondition": {
+      "description": "VALIDITY CONDITION stated in terms of DAY TYPES and PROPERTIES OF DAYs.",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "ValidityCondition_Dummy",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_availabilityCondition_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/ValidBetween_VersionStructure"
+        },
+        {
+          "properties": {
+            "IsAvailable": {
+              "type": "boolean",
+              "description": "Whether condition makes resource available or not available. Default is available."
+            },
+            "dayTypes": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/dayTypes_RelStructure"
+                }
+              ],
+              "description": "DAY TYPEs for AVAILABILITY CONDITION."
+            },
+            "ValidDayBits": {
+              "type": "string",
+              "description": "For UIC style encoding of day types String of bits, one for each day in period: whether valid or not valid on the day. Normally there will be a bit for every day between start and end date. If bit is missing, assume available."
+            },
+            "timebands": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/timebands_RelStructure"
+                }
+              ],
+              "description": "TIME BANDs for AVAILABILITY CONDITION."
+            },
+            "operatingDays": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/operatingDays_RelStructure"
+                }
+              ],
+              "description": "OPERATING DAYs for AVAILABILITY CONDITION."
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["AvailabilityCondition_VersionStructure"]
+    },
+    "dayTypes_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/containmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "DayTypeRef": {
+              "$ref": "#/definitions/DayTypeRef"
+            },
+            "DayType_Dummy": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/DayType_Dummy"
+                }
+              ],
+              "description": "A type of day characterized by one or more properties which affect public transport operation. For example: weekday in school holidays."
+            }
+          }
+        }
+      ],
+      "description": "Type for a list of DAY TYPEs.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_version.xsd"
+    },
+    "DayType_Dummy": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        }
+      ],
+      "description": "Dummy Supertype for DAY TYPE.",
+      "x-netex-role": "abstract",
+      "x-netex-substitutionGroup": "DataManagedObject",
+      "x-netex-sg-members": ["DayType", "FareDayType", "OrganisationDayType"],
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_version.xsd"
+    },
+    "OrganisationDayType": {
+      "description": "DAY TYPE defined as being available on days when ORGANISATION is open and requires service.",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "DayType_Dummy",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_otherOrganisation_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DayType_VersionStructure"
+        },
+        {
+          "properties": {
+            "IsServiceDay": {
+              "type": "boolean"
+            },
+            "ServicedOrganisationRef": {
+              "$ref": "#/definitions/ServicedOrganisationRef"
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["OrganisationDayType_VersionStructure"]
+    },
+    "DayType_VersionStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        },
+        {
+          "properties": {
+            "Name": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Name of DAY TYPE."
+            },
+            "ShortName": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Short name of DAY TYPE."
+            },
+            "Description": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Description of DAY TYPE."
+            },
+            "PrivateCode": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/PrivateCode"
+                }
+              ],
+              "description": "DEPRECATED - use privateCodes. -v2.0"
+            },
+            "properties": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/propertiesOfDay_RelStructure"
+                }
+              ],
+              "description": "Properties of the DAY TYPE."
+            },
+            "timebands": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/timebands_RelStructure"
+                }
+              ],
+              "description": "TIMEBANDs for the DAY TYPE."
+            },
+            "EarliestTime": {
+              "type": "string",
+              "format": "time",
+              "description": "Earliest time that day starts."
+            },
+            "DayLength": {
+              "type": "string",
+              "description": "Length of day. Used to work out Latest time that day runs to."
+            }
+          }
+        }
+      ],
+      "description": "Type for a DAY TYPE.",
+      "x-netex-role": "structure",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_version.xsd"
+    },
+    "propertiesOfDay_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/strictContainmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "PropertyOfDay": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PropertyOfDay"
+              }
+            }
+          },
+          "required": ["PropertyOfDay"]
+        }
+      ],
+      "description": "Type for a list of properties of day.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "PropertyOfDay": {
+      "description": "A property which a day may possess, such as school holiday, weekday, summer, winter etc.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd",
+      "properties": {
+        "Name": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/MultilingualString"
+            }
+          ],
+          "description": "Name of PROPERTY OF DAY."
+        },
+        "Description": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/MultilingualString"
+            }
+          ],
+          "description": "Description of PROPERTY OF DAY."
+        },
+        "DaysOfWeek": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/DaysOfWeekListOfEnumerations"
+            }
+          ],
+          "description": "Days of week Monday to Sunday, Everyday. Up to seven allowed. Default is Everyday."
+        },
+        "WeeksOfMonth": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/WeeksOfMonthListOfEnumerations"
+            }
+          ],
+          "description": "Week of Month. (Default is EveryWeek)"
+        },
+        "CountryRef": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/CountryRefStructure"
+            }
+          ],
+          "description": "Reference to COUNTRY for Holiday."
+        },
+        "HolidayTypes": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/HolidayTypesListOfEnumerations"
+            }
+          ],
+          "description": "Type of holiday. Default is Any day."
+        },
+        "Seasons": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/SeasonsListOfEnumerations"
+            }
+          ],
+          "description": "Seasons (Default is Perennially)"
+        },
+        "Tides": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/TidesListOfEnumerations"
+            }
+          ],
+          "description": "Tides. Default is All Tides."
+        },
+        "DayEvent": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/DayEventEnumeration"
+            }
+          ],
+          "description": "Events happening on day."
+        },
+        "Crowding": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/CrowdingEnumeration"
+            }
+          ],
+          "description": "Relative busyness of day."
+        },
+        "MonthOfYear": {
+          "type": "string",
+          "description": "For those day types that occur on the same month every year; a month as a number."
+        },
+        "DayOfMonth": {
+          "type": "string",
+          "description": "For those day types that occur on the same day of the month every year; a a as a number."
+        },
+        "DayOfYear": {
+          "type": "string",
+          "description": "For those day types that occur on the same day every year, month and day,"
+        }
+      },
+      "type": "object",
+      "x-netex-reduced": ["PropertyOfDayStructure"]
+    },
+    "WeeksOfMonthListOfEnumerations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/WeekOfMonthEnumeration"
+      },
+      "x-netex-atom": "array",
+      "description": "Allowed values for List of Weeks of the month.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "WeekOfMonthEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Week of the Month.",
+      "enum": ["1", "2", "3", "4", "5", "EveryWeek"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "CountryRefStructure": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "$ref": "#/definitions/CountryPrincipalityCodeType"
+        },
+        "ref": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/CountryCodeType"
+            }
+          ],
+          "description": "Iso 3166-1 Two Character country code.",
+          "xml": {
+            "attribute": true
+          }
+        },
+        "refPrincipality": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/CountryPrincipalityCodeType"
+            }
+          ],
+          "description": "Iso3166-3 Three character country code",
+          "xml": {
+            "attribute": true
+          }
+        }
+      },
+      "description": "Type for a reference to a Country Identifier.",
+      "x-netex-role": "reference",
+      "x-netex-atom": "simpleObj",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_country_support.xsd"
+    },
+    "CountryPrincipalityCodeType": {
+      "type": "string",
+      "description": "Type for Country Identifier. ISO 3166-2 (3 character ISo code). +v1.1.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_country_support.xsd"
+    },
+    "CountryCodeType": {
+      "description": "Type for Country Identifier. ISO 3166-1 (2 character ISO code).",
+      "minLength": 2,
+      "maxLength": 2,
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_country_support.xsd",
+      "enum": [
+        "ac",
+        "ad",
+        "ae",
+        "af",
+        "ag",
+        "ai",
+        "al",
+        "am",
+        "an",
+        "ao",
+        "aq",
+        "ar",
+        "as",
+        "at",
+        "au",
+        "aw",
+        "az",
+        "ax",
+        "ba",
+        "bb",
+        "bd",
+        "be",
+        "bf",
+        "bg",
+        "bh",
+        "bi",
+        "bj",
+        "bm",
+        "bn",
+        "bo",
+        "br",
+        "bs",
+        "bt",
+        "bv",
+        "bw",
+        "by",
+        "bz",
+        "ca",
+        "cc",
+        "cd",
+        "cf",
+        "cg",
+        "ch",
+        "ci",
+        "ck",
+        "cl",
+        "cm",
+        "cn",
+        "co",
+        "cr",
+        "cs",
+        "cu",
+        "cv",
+        "cx",
+        "cy",
+        "cz",
+        "de",
+        "dj",
+        "dk",
+        "dm",
+        "do",
+        "dz",
+        "ec",
+        "ee",
+        "eg",
+        "eh",
+        "er",
+        "es",
+        "et",
+        "eu",
+        "fi",
+        "fj",
+        "fk",
+        "fm",
+        "fo",
+        "fr",
+        "ga",
+        "gb",
+        "gd",
+        "ge",
+        "gf",
+        "gg",
+        "gh",
+        "gi",
+        "gl",
+        "gm",
+        "gn",
+        "gp",
+        "gq",
+        "gr",
+        "gs",
+        "gt",
+        "gu",
+        "gw",
+        "gy",
+        "hk",
+        "hm",
+        "hn",
+        "hr",
+        "ht",
+        "hu",
+        "id",
+        "ie",
+        "il",
+        "im",
+        "in",
+        "io",
+        "iq",
+        "ir",
+        "is",
+        "it",
+        "je",
+        "jm",
+        "jo",
+        "jp",
+        "ke",
+        "kg",
+        "kh",
+        "ki",
+        "km",
+        "kn",
+        "kp",
+        "kr",
+        "kw",
+        "ky",
+        "kz",
+        "la",
+        "lb",
+        "lc",
+        "li",
+        "lk",
+        "lr",
+        "ls",
+        "lt",
+        "lu",
+        "lv",
+        "ly",
+        "ma",
+        "me",
+        "mc",
+        "md",
+        "mg",
+        "mh",
+        "mk",
+        "ml",
+        "mm",
+        "mn",
+        "mo",
+        "mp",
+        "mq",
+        "mr",
+        "ms",
+        "mt",
+        "mu",
+        "mv",
+        "mw",
+        "mx",
+        "my",
+        "mz",
+        "na",
+        "nc",
+        "ne",
+        "nf",
+        "ng",
+        "ni",
+        "nl",
+        "no",
+        "np",
+        "nr",
+        "nu",
+        "nz",
+        "om",
+        "pa",
+        "pe",
+        "pf",
+        "pg",
+        "ph",
+        "pk",
+        "pl",
+        "pm",
+        "pn",
+        "pr",
+        "ps",
+        "pt",
+        "pw",
+        "py",
+        "qa",
+        "re",
+        "ro",
+        "rs",
+        "ru",
+        "rw",
+        "sa",
+        "sb",
+        "sc",
+        "sd",
+        "se",
+        "sg",
+        "sh",
+        "si",
+        "sj",
+        "sk",
+        "sl",
+        "sm",
+        "sn",
+        "so",
+        "sr",
+        "st",
+        "sv",
+        "sy",
+        "sz",
+        "tc",
+        "td",
+        "tf",
+        "tg",
+        "th",
+        "tj",
+        "tk",
+        "tl",
+        "tm",
+        "tn",
+        "to",
+        "tp",
+        "tr",
+        "tt",
+        "tv",
+        "tw",
+        "tz",
+        "ua",
+        "ug",
+        "uk",
+        "um",
+        "us",
+        "uy",
+        "uz",
+        "va",
+        "vc",
+        "ve",
+        "vg",
+        "vi",
+        "vn",
+        "vu",
+        "wf",
+        "ws",
+        "ye",
+        "yt",
+        "yu",
+        "za",
+        "zm",
+        "zw"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-reduced": ["IanaCountryTldEnumeration"]
+    },
+    "PlaceIdType": {
+      "description": "Type for identifier of a PLACE.",
+      "x-netex-source": "netex_framework/netex_genericFramework/netex_place_support.xsd",
+      "x-netex-reduced": ["ZoneIdType"]
+    },
+    "GroupOfPointsIdType": {
+      "description": "Type for identifier of a GROUP OF POINTs.",
+      "x-netex-source": "netex_framework/netex_genericFramework/netex_pointAndLink_support.xsd",
+      "x-netex-reduced": ["GroupOfEntitiesIdType"]
+    },
+    "HolidayTypesListOfEnumerations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/HolidayTypeEnumeration"
+      },
+      "x-netex-atom": "array",
+      "description": "Allowed values for Weeks of the month.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "HolidayTypeEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Holiday types.",
+      "enum": [
+        "AnyDay",
+        "WorkingDay",
+        "SchoolDay",
+        "NotHoliday",
+        "NotWorkingDay",
+        "NotSchoolDay",
+        "AnyHoliday",
+        "LocalHoliday",
+        "RegionalHoliday",
+        "NationalHoliday",
+        "HolidayDisplacementDay",
+        "EveOfHoliday"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "SeasonsListOfEnumerations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SeasonEnumeration"
+      },
+      "x-netex-atom": "array",
+      "description": "Allowed values for List of Seasons.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "SeasonEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Season.",
+      "enum": ["Spring", "Summer", "Autumn", "Winter", "Perennially"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "TidesListOfEnumerations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TideEnumeration"
+      },
+      "x-netex-atom": "array",
+      "description": "Allowed values for List of Tides.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "TideEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Tides.",
+      "enum": ["HighTide", "LowTide", "NeapTide", "AllTides"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "DayEventEnumeration": {
+      "type": "string",
+      "description": "Allowed values for DAY EVENT.",
+      "enum": ["anyDay", "normalDay", "marketDay", "matchDay", "eventDay"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "CrowdingEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Crowdedness.",
+      "enum": ["veryQuiet", "quiet", "normal", "busy", "veryBusy"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_propertiesOfDay.xsd"
+    },
+    "ServicedOrganisationRef": {
+      "description": "Reference to a SERVICED ORGANISATION.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "OtherOrganisationRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_otherOrganisation_support.xsd",
+      "x-netex-reduced": ["ServicedOrganisationRefStructure"]
+    },
+    "OtherOrganisationRefStructure": {
+      "$ref": "#/definitions/OrganisationRefStructure",
+      "description": "Type for a reference to an OTHER ORGANISATION.",
+      "x-netex-role": "reference",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_otherOrganisation_support.xsd"
+    },
+    "OrganisationRefStructure": {
+      "$ref": "#/definitions/VersionOfObjectRefStructure",
+      "description": "Type for a reference to an ORGANISATION.",
+      "x-netex-role": "reference",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_responsibility_support.xsd"
+    },
+    "DayType": {
+      "$ref": "#/definitions/DayType_VersionStructure",
+      "description": "A type of day characterized by one or more properties which affect public transport operation. For example: weekday in school holidays.",
+      "x-netex-frames": ["ServiceCalendarFrame"],
+      "x-netex-role": "frameMember",
+      "x-netex-substitutionGroup": "DayType_Dummy",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_dayType_version.xsd"
+    },
+    "operatingDays_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/containmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "OperatingDayRef": {
+              "$ref": "#/definitions/OperatingDayRef"
+            },
+            "OperatingDay": {
+              "$ref": "#/definitions/OperatingDay"
+            }
+          }
+        }
+      ],
+      "description": "Type for a list of OPERATING DAYs.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_serviceCalendar_version.xsd"
+    },
+    "OperatingDayRef": {
+      "description": "Reference to an OPERATING DAY.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "VersionOfObjectRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_serviceCalendar_support.xsd",
+      "x-netex-reduced": ["OperatingDayRefStructure"]
+    },
+    "OperatingDay": {
+      "description": "A day of public transport operation in a specific calendar. An OPERATING DAY may last more than 24 hours.",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "DataManagedObject",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_serviceCalendar_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        },
+        {
+          "properties": {
+            "CalendarDate": {
+              "type": "string",
+              "format": "date",
+              "description": "Actual Date of OPERATING DAY. Unique within SERVICE CALENDAR."
+            },
+            "ServiceCalendarRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ServiceCalendarRef"
+                }
+              ],
+              "description": "Reference to parent SERVICE CALENDAR. If given by context, does not need to be given."
+            },
+            "Name": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Name of OPERATING DAY."
+            },
+            "ShortName": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Short name of OPERATING DAY."
+            },
+            "DayNumber": {
+              "type": "integer",
+              "description": "Day Number if different from Id."
+            },
+            "PrivateCode": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/PrivateCode"
+                }
+              ],
+              "description": "DEPRECATED - use privateCodes. -v2.0"
+            },
+            "EarliestTime": {
+              "type": "string",
+              "format": "time",
+              "description": "Earliest time that day starts."
+            },
+            "DayLength": {
+              "type": "string",
+              "description": "Length of day. Used to work out Latest time that day runs to."
+            }
+          },
+          "required": ["CalendarDate"]
+        }
+      ],
+      "x-netex-reduced": ["OperatingDay_VersionStructure"]
+    },
+    "ServiceCalendarRef": {
+      "description": "Reference to a SERVICE CALENDAR.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "VersionOfObjectRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_serviceCalendar_support.xsd",
+      "x-netex-reduced": ["ServiceCalendarRefStructure"]
+    },
+    "DataSourceIdType": {
+      "description": "Type for identifier of a DATA SOURCE.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_entity_support.xsd",
+      "x-netex-reduced": ["TypeOfValueIdType"]
+    },
+    "StatusEnumeration": {
+      "type": "string",
+      "description": "Indicates whether the ENTITY this annotates is available for use. Use of this attribute allows entities to be retired without deleting the details from the dataset.",
+      "enum": ["active", "inactive", "other"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_version_support.xsd"
+    },
+    "keyList": {
+      "description": "A list of alternative Key values for an element.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_responsibility_version.xsd",
+      "properties": {
+        "KeyValue": {
+          "type": "array",
+          "items": {
+            "allOf": [
+              {
+                "$ref": "#/definitions/KeyValueStructure"
+              }
+            ],
+            "description": "Key value pair for Entity."
+          }
+        }
+      },
+      "type": "object",
+      "required": ["KeyValue"],
+      "x-netex-reduced": ["KeyListStructure"]
+    },
+    "KeyValueStructure": {
+      "type": "object",
+      "description": "Type for a Key List.",
+      "properties": {
+        "Key": {
+          "type": "string",
+          "description": "Identifier of value e.g. System."
+        },
+        "Value": {
+          "type": "string",
+          "description": "Value for alternative key."
+        },
+        "typeOfKey": {
+          "type": "string",
+          "description": "Identifier of type of key.",
+          "xml": {
+            "attribute": true
+          }
+        }
+      },
+      "required": ["Key", "Value"],
+      "x-netex-atom": "simpleObj",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_responsibility_version.xsd"
+    },
+    "privateCodes": {
+      "description": "A list of private codes that uniquely identifiy the element. May be used for inter-operating with other (legacy) systems. +v2.0",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_responsibility_version.xsd",
+      "properties": {
+        "PrivateCode": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/PrivateCode"
+          }
+        }
+      },
+      "type": "object",
+      "required": ["PrivateCode"],
+      "x-netex-reduced": ["PrivateCodesStructure"]
+    },
+    "BrandingRef": {
+      "description": "Reference to a BRANDING.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "TypeOfValueRef",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_responsibility_support.xsd",
+      "x-netex-reduced": ["BrandingRefStructure"]
+    },
+    "TypeOfValueRefStructure": {
+      "$ref": "#/definitions/VersionOfObjectRefStructure",
+      "description": "Type for a reference to a TYPE OF VALUE.",
+      "x-netex-role": "reference",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_relationship.xsd"
+    },
+    "ResponsibilitySetIdType": {
+      "$ref": "#/definitions/ObjectIdType",
+      "description": "Type for identifier of a RESPONSIBILITY SET.",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_responsibility_support.xsd"
+    },
+    "AllPublicTransportModesEnumeration": {
+      "type": "string",
+      "description": "PUBLIC TRANSPORT MODE: A MODE used for public transport services (e.g., by bus, by tram, by metro, by train, by ferry, by ship, by shared taxi car, by shared car) under either a CONVENTIONAL MODE OF OPERATION or an ALTERNATIVE MODE OF OPERATION (i.e., excluding a PERSONAL MODE OF OPERATION). Note: Prior to TM 6.2 this was named VEHICLE MODE.",
+      "enum": [
+        "all",
+        "unknown",
+        "bus",
+        "trolleyBus",
+        "tram",
+        "coach",
+        "rail",
+        "intercityRail",
+        "urbanRail",
+        "metro",
+        "air",
+        "water",
+        "cableway",
+        "funicular",
+        "snowAndIce",
+        "taxi",
+        "ferry",
+        "lift",
+        "selfDrive",
+        "anyMode",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_mode_support.xsd"
+    },
+    "DeckPlanRef": {
+      "description": "Reference to a DECK PLAN. +v2.0",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "VersionOfObjectRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_deckPlan_support.xsd",
+      "x-netex-reduced": ["DeckPlanRefStructure"]
+    },
+    "PropulsionTypeListOfEnumerations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PropulsionTypeEnumeration"
+      },
+      "x-netex-atom": "array",
+      "description": "List of allowed values for propulsion type.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"
+    },
+    "PropulsionTypeEnumeration": {
+      "type": "string",
+      "description": "Allowed values for type of power. +v1.2.2",
+      "enum": ["combustion", "electric", "electricAssist", "hybrid", "human", "other"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"
+    },
+    "FuelTypeListOfEnumerations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FuelTypeEnumeration"
+      },
+      "x-netex-atom": "array",
+      "description": "List of allowed values for file type.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_nm_equipmentEnergy_support.xsd"
+    },
+    "FuelTypeEnumeration": {
+      "type": "string",
+      "description": "Allowed values for type of fuel.",
+      "enum": [
+        "battery",
+        "biodiesel",
+        "diesel",
+        "dieselBatteryHybrid",
+        "electricContact",
+        "electricity",
+        "ethanol",
+        "hydrogen",
+        "liquidGas",
+        "tpg",
+        "methane",
+        "naturalGas",
+        "petrol",
+        "petrolBatteryHybrid",
+        "petrolLeaded",
+        "petrolUnleaded",
+        "none",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_nm_equipmentEnergy_support.xsd"
+    },
+    "DistanceType": {
+      "type": "number",
+      "description": "Distance type for long distances. System for Units can e specified on frame (metres) as defined by http://www.ordnancesurvey.co.uk/xml/resource/units.xml#metres.",
+      "x-netex-source": "netex_framework/netex_utility/netex_units.xsd"
+    },
+    "SpeedType": {
+      "type": "number",
+      "description": "Speed type for velocity. System for units can be specified on frame. Normal default is metres per second as defined by http://www.ordnancesurvey.co.uk/xml/resource/units.xml#metres.",
+      "x-netex-source": "netex_framework/netex_utility/netex_units.xsd"
+    },
+    "PassengerCapacityStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        },
+        {
+          "properties": {
+            "FareClass": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/FareClassEnumeration"
+                }
+              ],
+              "description": "Fare class for which capacity is specifyed. Default is any, i.e. capacity is for all FARE CLASSes."
+            },
+            "TotalCapacity": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/NumberOfPassengers"
+                }
+              ],
+              "description": "The total capacity of vehicles of the type. For a requirement this is the minimum needed."
+            },
+            "SeatingCapacity": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/NumberOfPassengers"
+                }
+              ],
+              "description": "The seating capacity of vehicles of the type. For a requirement this is the minimum needed."
+            },
+            "StandingCapacity": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/NumberOfPassengers"
+                }
+              ],
+              "description": "The standing capacity of vehicles of the type. For a requirement this is the minimum needed."
+            },
+            "SpecialPlaceCapacity": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/NumberOfPassengers"
+                }
+              ],
+              "description": "The number of special places on vehicles of the type, e.g. seats for the disabled. For a requirement this is the minimum needed."
+            },
+            "PushchairCapacity": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/NumberOfPassengers"
+                }
+              ],
+              "description": "The number of push chair places on vehicles of the type. For a requirement this is the minimum needed."
+            },
+            "WheelchairPlaceCapacity": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/NumberOfPassengers"
+                }
+              ],
+              "description": "The number of wheelchairs places on vehicles of the type. For a requirement this is the minimum needed."
+            },
+            "PramPlaceCapacity": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/NumberOfPassengers"
+                }
+              ],
+              "description": "The number of places on the vehicle that are suitable for prams. +v2.0"
+            },
+            "BicycleRackCapacity": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/NumberOfPassengers"
+                }
+              ],
+              "description": "The number of bicycle racks on the vehicle. Also non-rack places should be counted here. The name might change in future to BicycleCapacity. +v2.0"
+            }
+          }
+        }
+      ],
+      "description": "Type for a PASSENGER CAPACITY.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd"
+    },
+    "FareClassEnumeration": {
+      "type": "string",
+      "description": "Values for Fare Class Facility.",
+      "enum": [
+        "unknown",
+        "firstClass",
+        "secondClass",
+        "thirdClass",
+        "preferente",
+        "premiumClass",
+        "businessClass",
+        "standardClass",
+        "turista",
+        "economyClass",
+        "any"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_serviceRestrictions_support.xsd"
+    },
+    "NumberOfPassengers": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Number of passengers - capacity.",
+      "x-netex-source": "netex_framework/netex_utility/netex_units.xsd"
+    },
+    "VehicleTypeRefStructure": {
+      "description": "Type for a reference to a VEHICLE TYPE.",
+      "x-netex-role": "reference",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd",
+      "x-netex-reduced": ["TransportTypeRefStructure"]
+    },
+    "VehicleModelRefStructure": {
+      "$ref": "#/definitions/VersionOfObjectRefStructure",
+      "description": "Type for a reference to a VEHICLE MODEL.",
+      "x-netex-role": "reference",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"
+    },
+    "serviceFacilitySets_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/containmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "ServiceFacilitySetRef": {
+              "$ref": "#/definitions/ServiceFacilitySetRef"
+            },
+            "ServiceFacilitySet": {
+              "$ref": "#/definitions/ServiceFacilitySet"
+            }
+          }
+        }
+      ],
+      "description": "SERVICE FACILITY SETs associated with entity.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd"
+    },
+    "ServiceFacilitySetRef": {
+      "description": "Reference to a SERVICE FACILITY SET.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "FacilitySetRef",
+      "x-netex-sg-members": ["RestrictedServiceFacilitySetRef"],
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd",
+      "x-netex-reduced": ["ServiceFacilitySetRefStructure"]
+    },
+    "FacilitySetRefStructure": {
+      "$ref": "#/definitions/VersionOfObjectRefStructure",
+      "description": "Type for a reference to a FACILITY SET.",
+      "x-netex-role": "reference",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "ServiceFacilitySet": {
+      "description": "Service FACILITY. Set of enumerated FACILITY values (Where available names are based on TPEG classifications, augmented with UIC etc.).",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "FacilitySet",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/FacilitySet_VersionStructure"
+        },
+        {
+          "properties": {
+            "accommodations": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/accommodations_RelStructure"
+                }
+              ],
+              "description": "Accommodation available on service."
+            },
+            "onboardStays": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/onboardStays_RelStructure"
+                }
+              ],
+              "description": "Permission to stay on board the service."
+            },
+            "VehicleAccessFacilityList": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/VehicleAccessFacilityList"
+                }
+              ],
+              "description": "List of Vehicle Access FACILITies. +v1.1"
+            },
+            "AccommodationAccessList": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/AccommodationAccessList"
+                }
+              ],
+              "description": "List of ACCOMMODATION Access rights."
+            },
+            "AccommodationFacilityList": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/AccommodationFacilityList"
+                }
+              ],
+              "description": "List of Accommodation FACILITies."
+            },
+            "BoardingPermission": {
+              "$ref": "#/definitions/BoardingPermission"
+            },
+            "BookingProcessFacilityList": {
+              "$ref": "#/definitions/BookingProcessFacilityList"
+            },
+            "CouchetteFacilityList": {
+              "$ref": "#/definitions/CouchetteFacilityList"
+            },
+            "GroupBookingFacility": {
+              "$ref": "#/definitions/GroupBookingFacility"
+            },
+            "LuggageCarriageFacilityList": {
+              "$ref": "#/definitions/LuggageCarriageFacilityList"
+            },
+            "ServiceReservationFacilityList": {
+              "$ref": "#/definitions/ServiceReservationFacilityList"
+            },
+            "UicProductCharacteristicList": {
+              "$ref": "#/definitions/UicProductCharacteristicList"
+            },
+            "UicTrainRate": {
+              "$ref": "#/definitions/UicTrainRate"
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["ServiceFacilitySet_VersionStructure"]
+    },
+    "FacilitySet_VersionStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        },
+        {
+          "properties": {
+            "ProvidedByRef": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/OrganisationRefStructure"
+                }
+              ],
+              "description": "Provider of FACILITY SET."
+            },
+            "Description": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Description of FACILITY SET."
+            },
+            "TypeOfFacilityRef": {
+              "$ref": "#/definitions/TypeOfFacilityRef"
+            },
+            "otherFacilities": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/typesOfEquipment_RelStructure"
+                }
+              ],
+              "description": "Arbitrary user defined Faciliy."
+            },
+            "AccessibilityInfoFacilityList": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/AccessibilityInfoFacilityList"
+                }
+              ],
+              "description": "List of ACCESSIBILITY INFORMATION FACILITies."
+            },
+            "AssistanceFacilityList": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/AssistanceFacilityList"
+                }
+              ],
+              "description": "List of ASSISTANCE FACILITies."
+            },
+            "AccessibilityToolList": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/AccessibilityToolList"
+                }
+              ],
+              "description": "List of TYPEs of ACCESSIBILITY TOOLs."
+            },
+            "CarServiceFacilityList": {
+              "$ref": "#/definitions/CarServiceFacilityList"
+            },
+            "CateringFacilityList": {
+              "$ref": "#/definitions/CateringFacilityList"
+            },
+            "ClimateControlList": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ClimateControlList"
+                }
+              ],
+              "description": "+v2.0"
+            },
+            "FamilyFacilityList": {
+              "$ref": "#/definitions/FamilyFacilityList"
+            },
+            "FareClasses": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/FareClasses"
+                }
+              ],
+              "description": "List of Fare Classes."
+            },
+            "GenderLimitation": {
+              "$ref": "#/definitions/GenderLimitation"
+            },
+            "LightingControlFacilityList": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LightingControlFacilityList"
+                }
+              ],
+              "description": "+v2.0"
+            },
+            "MealFacilityList": {
+              "$ref": "#/definitions/MealFacilityList"
+            },
+            "MedicalFacilityList": {
+              "$ref": "#/definitions/MedicalFacilityList"
+            },
+            "MobilityFacilityList": {
+              "$ref": "#/definitions/MobilityFacilityList"
+            },
+            "NuisanceFacilityList": {
+              "$ref": "#/definitions/NuisanceFacilityList"
+            },
+            "PassengerCommsFacilityList": {
+              "$ref": "#/definitions/PassengerCommsFacilityList"
+            },
+            "PassengerInformationEquipmentList": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/PassengerInformationEquipmentListOfEnumerations"
+                }
+              ],
+              "description": "List of PASSENGER INFORMATION Equipments."
+            },
+            "PassengerInformationFacilityList": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/PassengerInformationFacilityList"
+                }
+              ],
+              "description": "List of PASSENGER INFORMATION FACILITies."
+            },
+            "RetailFacilityList": {
+              "$ref": "#/definitions/RetailFacilityList"
+            },
+            "SafetyFacilityList": {
+              "$ref": "#/definitions/SafetyFacilityList"
+            },
+            "SanitaryFacilityList": {
+              "$ref": "#/definitions/SanitaryFacilityList"
+            },
+            "TicketingFacilityList": {
+              "$ref": "#/definitions/TicketingFacilityList"
+            },
+            "TicketingServiceFacilityList": {
+              "$ref": "#/definitions/TicketingServiceFacilityList"
+            }
+          }
+        }
+      ],
+      "description": "Type for a FACILITY.",
+      "x-netex-role": "structure",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd"
+    },
+    "TypeOfFacilityRef": {
+      "description": "Reference to a TYPE OF FACILITY.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "TypeOfEntityRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd",
+      "x-netex-reduced": ["TypeOfFacilityRefStructure"]
+    },
+    "typesOfEquipment_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/oneToManyRelationshipStructure"
+        },
+        {
+          "properties": {
+            "TypeOfEquipmentRef": {
+              "$ref": "#/definitions/TypeOfEquipmentRef"
+            },
+            "TypeOfEquipment": {
+              "$ref": "#/definitions/TypeOfEquipment"
+            }
+          }
+        }
+      ],
+      "description": "Type for a list of TYPE OF Equipment.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_equipment_version.xsd"
+    },
+    "oneToManyRelationshipStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/relationshipStructure"
+        },
+        {
+          "properties": {
+            "modificationSet": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/ModificationSetEnumeration"
+                }
+              ],
+              "description": "Whether this is a list of all (revise) or just changes.",
+              "xml": {
+                "attribute": true
+              }
+            }
+          }
+        }
+      ],
+      "description": "Type for an Implementation of a one to many relationship . A one to many relationship from the source (one) to the target (many)",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_relationship.xsd"
+    },
+    "TypeOfEquipmentRef": {
+      "description": "Reference to a TYPE OF EQUIPMENT. Some values are defined for EPIAP: \"mobileRamp\" for mobile Ramps, \"permanentRamp\" for permanent installation and \"wheelchairLift\" for a hoist.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "TypeOfEntityRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_equipment_support.xsd",
+      "x-netex-reduced": ["TypeOfEquipmentRefStructure"]
+    },
+    "TypeOfEquipment": {
+      "description": "A classification of a EQUIPMENT according to its functional purpose.",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "TypeOfEntity",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_equipment_version.xsd",
+      "x-netex-reduced": ["TypeOfEquipment_ValueStructure"]
+    },
+    "TypeOfEntity_VersionStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/TypeOfValue_VersionStructure"
+        },
+        {
+          "properties": {
+            "nameOfClassifiedEntityClass": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/NameOfClass"
+                }
+              ],
+              "description": "Name of Class of the ENTITY. Allows reflection. Fixed for each ENTITY type.",
+              "xml": {
+                "attribute": true
+              }
+            }
+          }
+        }
+      ],
+      "description": "Type for a TYPE OFENTITY. Abstract supertype used to define open classifications of value types.",
+      "x-netex-role": "structure",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_typeOfValue_version.xsd"
+    },
+    "TypeOfValue_VersionStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        },
+        {
+          "properties": {
+            "Name": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Name of TYPE OF VALUE."
+            },
+            "ShortName": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Short Name for TYPE OF VALUE."
+            },
+            "Description": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Description of TYPE OF VALUE."
+            },
+            "Image": {
+              "type": "string",
+              "format": "uri",
+              "description": "Default image for TYPE OF VALUE."
+            },
+            "Url": {
+              "type": "string",
+              "format": "uri",
+              "description": "Default URL for TYPE OF VALUE."
+            },
+            "PrivateCode": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/PrivateCode"
+                }
+              ],
+              "description": "DEPRECATED - use privateCodes. -v2.0"
+            }
+          }
+        }
+      ],
+      "description": "Type for a TYPE OF VALUE. Abstract supertype used to define open classifications of value types.",
+      "x-netex-role": "structure",
+      "x-netex-source": "netex_framework/netex_responsibility/netex_typeOfValue_version.xsd"
+    },
+    "AccessibilityInfoFacilityList": {
+      "description": "List of ACCESSIBILITY INFO FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AccessibilityInfoFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["AccessibilityInfoFacilityListOfEnumerations"]
+    },
+    "AccessibilityInfoFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Accessibility Info.",
+      "enum": [
+        "audioInformation",
+        "audioForHearingImpaired",
+        "visualDisplays",
+        "displaysForVisuallyImpaired",
+        "largePrintTimetables",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "AssistanceFacilityList": {
+      "description": "List of ASSISTANCE FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AssistanceFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["AssistanceFacilityListOfEnumerations"]
+    },
+    "AssistanceFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Assistance Facility.",
+      "enum": [
+        "personalAssistance",
+        "boardingAssistance",
+        "wheelchairAssistance",
+        "unaccompaniedMinorAssistance",
+        "wheelchairUse",
+        "conductor",
+        "information",
+        "other",
+        "none",
+        "any"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "AccessibilityToolList": {
+      "description": "List of ACCESSIBILITY TOOLs.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AccessibilityToolEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["AccessibilityToolListOfEnumerations"]
+    },
+    "AccessibilityToolEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Accessibility Tools.",
+      "enum": [
+        "wheelchair",
+        "walkingstick",
+        "audioNavigator",
+        "visualNavigator",
+        "passengerCart",
+        "pushchair",
+        "umbrella",
+        "buggy",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "CarServiceFacilityList": {
+      "description": "List of CAR SERVICE FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CarServiceFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["CarServiceFacilityListOfEnumerations"]
+    },
+    "CarServiceFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Car Service Facility.",
+      "enum": [
+        "unknown",
+        "valetParking",
+        "carWash",
+        "valetCarWash",
+        "carValetClean",
+        "oilChange",
+        "engineWarming",
+        "petrol",
+        "batteryCare",
+        "recharging",
+        "tyreCheck",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "CateringFacilityList": {
+      "description": "List of CATERING FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CateringFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["CateringFacilityListOfEnumerations"]
+    },
+    "CateringFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Catering Facility: TPEG pti_table 23.",
+      "enum": [
+        "bar",
+        "bistro",
+        "buffet",
+        "noFoodAvailable",
+        "noBeveragesAvailable",
+        "restaurant",
+        "firstClassRestaurant",
+        "trolley",
+        "coffeeShop",
+        "hotFoodService",
+        "selfService",
+        "snacks",
+        "foodVendingMachine",
+        "beverageVendingMachine",
+        "miniBar",
+        "breakfastInCar",
+        "mealAtSeat",
+        "other",
+        "unknown"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "ClimateControlList": {
+      "description": "List of CLIMATE CONTROL FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ClimateControlEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["ClimateControlListOfEnumerations"]
+    },
+    "ClimateControlEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Climate Control Facility.",
+      "enum": [
+        "unknown",
+        "none",
+        "airConditioning",
+        "heating",
+        "noConditioning",
+        "windowsCanBeOpened",
+        "sealedWindows",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "FamilyFacilityList": {
+      "description": "List of FAMILY FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FamilyFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["FamilyFacilitiesListOfEnumerations"]
+    },
+    "FamilyFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Family Accommodation.",
+      "enum": ["none", "servicesForChildren", "servicesForArmyFamilies", "nurseryService"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "FareClasses": {
+      "description": "List of FARE CLASSes.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FareClassEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["FareClassListOfEnumerations"]
+    },
+    "GenderLimitation": {
+      "description": "Classification GENDER LIMITATION.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "string",
+      "enum": ["both", "femaleOnly", "maleOnly", "sameSexOnly"],
+      "x-netex-role": "enumeration",
+      "x-netex-reduced": ["GenderLimitationEnumeration"]
+    },
+    "LightingControlFacilityList": {
+      "description": "List of lighting control FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/LightingControlFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["LightingControlFacilityListOfEnumerations"]
+    },
+    "LightingControlFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Lighting Control Facility.",
+      "enum": [
+        "unknown",
+        "none",
+        "tintedWindows",
+        "blinds",
+        "curtains",
+        "dimmableLights",
+        "lightsAlwaysOn",
+        "noNaturalLight",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "MealFacilityList": {
+      "description": "List of MEAL FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MealFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["MealFacilityListOfEnumerations"]
+    },
+    "MealFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Meal Facility.",
+      "enum": ["breakfast", "lunch", "dinner", "snack", "drinks"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "MedicalFacilityList": {
+      "description": "List of MEDICAL FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MedicalFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["MedicalFacilityListOfEnumerations"]
+    },
+    "MedicalFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Medical Service Facility.",
+      "enum": ["unknown", "defibrillator", "alcoholTest", "handSanitiser", "other"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "MobilityFacilityList": {
+      "description": "List of MOBILITY FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/MobilityFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["MobilityFacilityListOfEnumerations"]
+    },
+    "MobilityFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Mobility Facility: TPEG pti_table 23.",
+      "enum": [
+        "unknown",
+        "lowFloor",
+        "stepFreeAccess",
+        "suitableForPushchairs",
+        "suitableForWheelchairs",
+        "suitableForHeaviliyDisabled",
+        "boardingAssistance",
+        "onboardAssistance",
+        "unaccompaniedMinorAssistance",
+        "tactilePlatformEdges",
+        "tactileGuidingStrips",
+        "raisedKerb"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "NuisanceFacilityList": {
+      "description": "List of NUISANCE FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/NuisanceFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["NuisanceFacilityListOfEnumerations"]
+    },
+    "NuisanceFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Nuisance Facility: TPEG pti_table 23.",
+      "enum": [
+        "unknown",
+        "other",
+        "smoking",
+        "noSmoking",
+        "familyArea",
+        "childfreeArea",
+        "animalsAllowed",
+        "noAnimals",
+        "breastfeedingFriendly",
+        "mobilePhoneUseZone",
+        "mobilePhoneFreeZone"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "PassengerCommsFacilityList": {
+      "description": "List of PASSENGER COMMS FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PassengerCommsFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["PassengerCommsFacilityListOfEnumerations"]
+    },
+    "PassengerCommsFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for PASSENGER COMMUNICATIONS FACILITY.",
+      "enum": [
+        "unknown",
+        "freeWifi",
+        "publicWifi",
+        "powerSupplySockets",
+        "telephone",
+        "audioEntertainment",
+        "videoEntertainment",
+        "businessServices",
+        "internet",
+        "postOffice",
+        "postBox",
+        "usbAPowerSocket",
+        "usbCPowerSocket",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "PassengerInformationEquipmentListOfEnumerations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PassengerInformationEquipmentEnumeration"
+      },
+      "x-netex-atom": "array",
+      "description": "List of values for PASSENGER INFORMATION EQUIPMENT.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd"
+    },
+    "PassengerInformationEquipmentEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Passenger Information Equipment.",
+      "enum": [
+        "timetablePoster",
+        "fareInformation",
+        "lineNetworkPlan",
+        "lineTimetable",
+        "stopTimetable",
+        "journeyPlanning",
+        "interactiveKiosk",
+        "informationDesk",
+        "networkStatus",
+        "realTimeDisruptions",
+        "realTimeDepartures",
+        "stationMap",
+        "acousticStationMap",
+        "tactileStationMap",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "PassengerInformationFacilityList": {
+      "description": "List of PASSENGER INFO FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PassengerInformationFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["PassengerInformationFacilityListOfEnumerations"]
+    },
+    "PassengerInformationFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Passenger information facility.",
+      "enum": [
+        "nextStopIndicator",
+        "stopAnnouncements",
+        "passengerInformationDisplay",
+        "realTimeConnections",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "RetailFacilityList": {
+      "description": "List of RETAIL FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/RetailFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["RetailFacilityListOfEnumerations"]
+    },
+    "RetailFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Retail Facility.",
+      "enum": [
+        "unknown",
+        "food",
+        "newspaperTobacco",
+        "recreationTravel",
+        "hygieneHealthBeauty",
+        "fashionAccessories",
+        "bankFinanceInsurance",
+        "cashMachine",
+        "currencyExchange",
+        "tourismService",
+        "photoBooth"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "SafetyFacilityList": {
+      "description": "List of SAFETY FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SafetyFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["SafetyFacilityListOfEnumerations"]
+    },
+    "SafetyFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for SAFETY Facility.",
+      "enum": ["ccTv", "mobileCoverage", "sosPoints", "staffed"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "SanitaryFacilityList": {
+      "description": "List of SANITARY FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/SanitaryFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["SanitaryFacilityListOfEnumerations"]
+    },
+    "SanitaryFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Sanitary Facility Type.",
+      "enum": [
+        "none",
+        "toilet",
+        "washbasin",
+        "wheelchairAccessToilet",
+        "shower",
+        "washingAndChangeFacilities",
+        "babyChange",
+        "wheelchairBabyChange",
+        "shoeShiner",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_serviceRestrictions_support.xsd"
+    },
+    "TicketingFacilityList": {
+      "description": "List of TICKETING FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TicketingFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["TicketingFacilityListOfEnumerations"]
+    },
+    "TicketingFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Ticketing Facility.",
+      "enum": [
+        "unknown",
+        "ticketMachines",
+        "ticketOffice",
+        "ticketOnDemandMachines",
+        "mobileTicketing"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "TicketingServiceFacilityList": {
+      "description": "List of TICKETING SERVICE FACILITies, e.g. purchase, collection. top up.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/TicketingServiceFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["TicketingServiceFacilityListOfEnumerations"]
+    },
+    "TicketingServiceFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed value for Ticketing Service.",
+      "enum": [
+        "purchase",
+        "collection",
+        "cardTopUp",
+        "reservations",
+        "exchange",
+        "refund",
+        "renewal",
+        "excessFares",
+        "other",
+        "all"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_serviceRestrictions_support.xsd"
+    },
+    "accommodations_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/containmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "AccommodationRef": {
+              "$ref": "#/definitions/AccommodationRef"
+            },
+            "Accommodation": {
+              "$ref": "#/definitions/Accommodation"
+            }
+          }
+        }
+      ],
+      "description": "Type for containment in frame of SERVICE FACILITY SETs.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd"
+    },
+    "AccommodationRef": {
+      "description": "Reference to a ACCOMMODATION.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "VersionOfObjectRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd",
+      "x-netex-reduced": ["AccommodationRefStructure"]
+    },
+    "Accommodation": {
+      "description": "Allowed combinations of accommodation.",
+      "x-netex-substitutionGroup": "VersionedChild",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/VersionedChildStructure"
+        },
+        {
+          "properties": {
+            "Name": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Name of Accomodation _v1.1"
+            },
+            "ServiceFacilitySetRef": {
+              "$ref": "#/definitions/ServiceFacilitySetRef"
+            },
+            "FareClass": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/FareClass"
+                }
+              ],
+              "description": "Fare class of ACCOMMODATION."
+            },
+            "ClassOfUseRef": {
+              "$ref": "#/definitions/ClassOfUseRef"
+            },
+            "AccommodationFacility": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/AccommodationFacility"
+                }
+              ],
+              "description": "Type of ACCOMMODATION. . Default is seating."
+            },
+            "CouchetteFacility": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/CouchetteFacility"
+                }
+              ],
+              "description": "Type of Couchette."
+            },
+            "MaximumNumberOfBerths": {
+              "type": "integer"
+            },
+            "BerthFacility": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/BerthFacility"
+                }
+              ],
+              "description": "Classification of BERTH FACILITY."
+            },
+            "ShowerFacility": {
+              "$ref": "#/definitions/SanitaryFacilityEnumeration"
+            },
+            "ToiletFacility": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/SanitaryFacilityEnumeration"
+                }
+              ],
+              "description": "Toilet facilities for ACCOMMODATION."
+            },
+            "GenderLimitation": {
+              "$ref": "#/definitions/GenderLimitation"
+            },
+            "NuisanceFacilityList": {
+              "$ref": "#/definitions/NuisanceFacilityList"
+            },
+            "PassengerCommsFacilityList": {
+              "$ref": "#/definitions/PassengerCommsFacilityList"
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["Accommodation_VersionedChildStructure"]
+    },
+    "FareClass": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/FareClassEnumeration"
+        }
+      ],
+      "description": "Classification of FARE CLASSes.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd"
+    },
+    "ClassOfUseRef": {
+      "description": "Reference to a CLASS OF USE.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "TypeOfValueRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_serviceRestrictions_support.xsd",
+      "x-netex-reduced": ["ClassOfUseRefStructure"]
+    },
+    "AccommodationFacility": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/AccommodationFacilityEnumeration"
+        }
+      ],
+      "description": "Classification of ACCOMMODATION FACILITY type - TPEG pti23.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd"
+    },
+    "AccommodationFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Accommodation Facility.",
+      "enum": [
+        "unknown",
+        "standing",
+        "seating",
+        "sleeper",
+        "singleSleeper",
+        "doubleSleeper",
+        "specialSleeper",
+        "couchette",
+        "singleCouchette",
+        "doubleCouchette",
+        "specialSeating",
+        "recliningSeats",
+        "babyCompartment",
+        "familyCarriage",
+        "recreationArea",
+        "panoramaCoach",
+        "pullmanCoach",
+        "pushchair",
+        "wheelchair"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "CouchetteFacility": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/CouchetteFacilityEnumeration"
+        }
+      ],
+      "description": "Classification of COUCHETTE FACILITY type - TPEG pti23.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd"
+    },
+    "CouchetteFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Couchette Facility: UIc.",
+      "enum": ["unknown", "T2", "T3", "C1", "C2", "C4", "C5", "C6", "wheelchair", "other"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "BerthFacility": {
+      "description": "Classification of BERTHFACILITY type - TPEG pti23.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "string",
+      "enum": ["lower", "middle", "upper", "both", "all"],
+      "x-netex-role": "enumeration",
+      "x-netex-reduced": ["BerthFacilityEnumeration"]
+    },
+    "onboardStays_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/containmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "OnboardStay": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/OnboardStay"
+              }
+            }
+          },
+          "required": ["OnboardStay"]
+        }
+      ],
+      "description": "Type for containment in frame of SERVICE FACILITY SETs.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd"
+    },
+    "OnboardStay": {
+      "description": "Boarding permission to board early or stay on board late.",
+      "x-netex-substitutionGroup": "VersionedChild",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/VersionedChildStructure"
+        },
+        {
+          "properties": {
+            "Name": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Name of ON BOARD STay +v1.1"
+            },
+            "ServiceFacilitySetRef": {
+              "$ref": "#/definitions/ServiceFacilitySetRef"
+            },
+            "FareClass": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/FareClass"
+                }
+              ],
+              "description": "Fare class of Boarding permission."
+            },
+            "ClassOfUseRef": {
+              "$ref": "#/definitions/ClassOfUseRef"
+            },
+            "BoardingPermission": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/BoardingPermission"
+                }
+              ],
+              "description": "Type of Accommodation . Default is seating."
+            },
+            "Period": {
+              "type": "string",
+              "description": "Period allowed for boarding/ alighting before journey start /end."
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["OnboardStay_VersionedChlldStructure"]
+    },
+    "BoardingPermission": {
+      "description": "Classification of BOARDING PERMISSION - UIC 7161 Code list.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "string",
+      "enum": [
+        "normal",
+        "earlyBoardingPossibleBeforeDeparture",
+        "lateAlightingPossibleAfterArrival",
+        "overnightStayOnboardAllowed"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-reduced": ["BoardingPermissionEnumeration"]
+    },
+    "VehicleAccessFacilityList": {
+      "description": "List of VEHICLE ACCESS FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/VehicleAccessFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["VehicleAccessFacilityListOfEnumerations"]
+    },
+    "VehicleAccessFacilityEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Vehicle Access Facility. NB. These are the properties of access to a VEHICLE. +1.1",
+      "enum": [
+        "unknown",
+        "wheelchairLift",
+        "manualRamp",
+        "automaticRamp",
+        "steps",
+        "slidingStep",
+        "narrowEntrance",
+        "validator"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "AccommodationAccessList": {
+      "description": "List of ACCOMMODATION ACCESS.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AccommodationAccessEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["AccommodationAccessListOfEnumerations"]
+    },
+    "AccommodationAccessEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Accommodation Access.",
+      "enum": ["other", "freeSeating", "reservation", "standing"],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "AccommodationFacilityList": {
+      "description": "List of ACCOMMODATION FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AccommodationFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["AccommodationFacilityListOfEnumerations"]
+    },
+    "BookingProcessFacilityList": {
+      "description": "List of BOOKING PROCESS FACILITies UIC 7037 Code list.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/BookingProcessEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["BookingProcessFacilityListOfEnumerations"]
+    },
+    "BookingProcessEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Booking Process UIC 7037 Code list.",
+      "enum": [
+        "productNotAvailable",
+        "productNotBookable",
+        "bookableThroughInternationalSystem",
+        "bookableThroughNationalSystem",
+        "bookableManuallly",
+        "other"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_serviceRestrictions_support.xsd"
+    },
+    "CouchetteFacilityList": {
+      "description": "List of COUCHETTE FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/CouchetteFacilityEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["CouchetteFacilityListOfEnumerations"]
+    },
+    "GroupBookingFacility": {
+      "description": "Classification of GROUP FACILITY type - TPEG pti23.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "string",
+      "enum": [
+        "groupsAllowed",
+        "groupsNotAllowed",
+        "groupsAllowedWithReservation",
+        "groupBookingsRestricted",
+        "unknown"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-reduced": ["GroupBookingEnumeration"]
+    },
+    "LuggageCarriageFacilityList": {
+      "description": "List of LUGGAGE CARRIAGE FACILITies.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/LuggageCarriageEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["LuggageCarriageFacilityListOfEnumerations"]
+    },
+    "LuggageCarriageEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Luggage Carriage Facility.",
+      "enum": [
+        "unknown",
+        "noBaggageStorage",
+        "baggageStorage",
+        "luggageRacks",
+        "skiRacks",
+        "skiRacksOnRear",
+        "extraLargeLuggageRacks",
+        "baggageVan",
+        "noCycles",
+        "cyclesAllowed",
+        "cyclesAllowedInVan",
+        "cyclesAllowedInCarriage",
+        "cyclesAllowedWithReservation",
+        "pushchairsAllowed",
+        "vehicleTransport"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_support.xsd"
+    },
+    "ServiceReservationFacilityList": {
+      "description": "List of RESERVATION FACILITies UIC 7037 Code list.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/ReservationEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["ServiceReservationFacilityListOfEnumerations"]
+    },
+    "ReservationEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Reservation. UIC 7037 Code list.",
+      "enum": [
+        "reservationsCompulsory",
+        "reservationsCompulsoryForGroups",
+        "reservationsCompulsoryForFirstClass",
+        "reservationsCompulsoryFromOriginStation",
+        "reservationsRecommended",
+        "reservationsPossible",
+        "reservationsPossibleOnlyInFirstClass",
+        "reservationsPossibleOnlyInSecondClass",
+        "reservationsPossibleForCertainClasses",
+        "groupBookingRestricted",
+        "noGroupsAllowed",
+        "noReservationsPossible",
+        "wheelchairOnlyReservations",
+        "bicycleReservationsCompulsory",
+        "reservationsSupplementCharged",
+        "unknown"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_serviceRestrictions_support.xsd"
+    },
+    "UicProductCharacteristicList": {
+      "description": "List of UIC Product Characteristics UIC 7139 Code list.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/UicProductCharacteristicEnumeration"
+      },
+      "x-netex-atom": "array",
+      "x-netex-reduced": ["UicProductCharacteristicListOfEnumerations"]
+    },
+    "UicProductCharacteristicEnumeration": {
+      "type": "string",
+      "description": "UIC Product Characteristic UIC 7139 Code list.",
+      "enum": [
+        "tariffCommunVoyageurs",
+        "allInclusivePrice",
+        "eastWestTariff",
+        "trainWithTcvAndMarketPrice",
+        "noPublishedTariff"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facilityUic_support.xsd"
+    },
+    "UicTrainRate": {
+      "description": "Classification of UIC Rate Type FACILITY type - UIC 5163 Code list.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_facility_version.xsd",
+      "type": "string",
+      "enum": [
+        "normal",
+        "discountInTrainOtherThanTGV",
+        "specialFare",
+        "supplement",
+        "noPublishedTariff"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-reduced": ["UicRateTypeEnumeration"]
+    },
+    "passengerCapacities_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/oneToManyRelationshipStructure"
+        },
+        {
+          "properties": {
+            "PassengerCapacityRef": {
+              "$ref": "#/definitions/PassengerCapacityRef"
+            },
+            "PassengerCapacity": {
+              "$ref": "#/definitions/PassengerCapacity"
+            },
+            "PassengerVehicleCapacity": {
+              "$ref": "#/definitions/PassengerVehicleCapacity"
+            }
+          }
+        }
+      ],
+      "description": "Type for a list of PASSENGER and PASSENGER VEHICLE CAPACITies.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd"
+    },
+    "PassengerCapacityRef": {
+      "description": "Reference to a PASSENGER CAPACITY.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "VersionOfObjectRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd",
+      "x-netex-reduced": ["PassengerCapacityRefStructure"]
+    },
+    "PassengerCapacity": {
+      "$ref": "#/definitions/PassengerCapacityStructure",
+      "description": "Total number of passengers that can be carried by a VEHICLE of this type.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd"
+    },
+    "PassengerVehicleCapacity": {
+      "description": "Total number of passenger vehicles s that can be carried by a VEHICLE of this type.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        },
+        {
+          "properties": {
+            "VehicleCategories": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/AllRoadVehicleCategoriesListOfEnumerations"
+                }
+              ],
+              "description": "Vehicle categories for which capacity is specified. Default is allPassengerVehicles i.e. capacity is for all VEHICLE CATEGORIES"
+            },
+            "VehicleCapacity": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/NumberOfVehicles"
+                }
+              ],
+              "description": "The total capacity of passenger VEHICLES of the type. F"
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["PassengerVehicleCapacityStructure"]
+    },
+    "AllRoadVehicleCategoriesListOfEnumerations": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/AllRoadVehicleCategoryEnumeration"
+      },
+      "x-netex-atom": "array",
+      "description": "Allowed values for list of All road Wheeled VEHICLE types.+V2.0",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"
+    },
+    "AllRoadVehicleCategoryEnumeration": {
+      "anyOf": [
+        {
+          "$ref": "#/definitions/PortableVehicleCategoryEnumeration"
+        },
+        {
+          "$ref": "#/definitions/PersonalVehicleCategoryEnumeration"
+        },
+        {
+          "$ref": "#/definitions/CommercialVehicleCategoryEnumeration"
+        }
+      ],
+      "description": "All road vehicle types.",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"
+    },
+    "PortableVehicleCategoryEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Portable VEHICLE types. +V2.0",
+      "enum": [
+        "scooter",
+        "eScooter",
+        "cycle",
+        "pedalCycle",
+        "eCycle",
+        "cargoCycle",
+        "tricycle",
+        "tandem",
+        "moped",
+        "motorcycle",
+        "quadbike",
+        "car",
+        "microCar",
+        "miniCar",
+        "smallCar",
+        "mediumCar",
+        "largeCar",
+        "minivan",
+        "transporter",
+        "van",
+        "snowmobile"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"
+    },
+    "PersonalVehicleCategoryEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Personal VEHICLE types.+V2.0",
+      "enum": [
+        "moped",
+        "motorcycle",
+        "motorcycleWithSidecar",
+        "motorScooter",
+        "twoWheeledVehicle",
+        "threeWheeledVehicle",
+        "car",
+        "microCar",
+        "miniCar",
+        "smallCar",
+        "mediumCar",
+        "passengerCar",
+        "largeCar",
+        "fourWheelDrive",
+        "taxi",
+        "camperCar",
+        "caravan",
+        "carWithTrailer",
+        "carWithCaravan",
+        "minibus",
+        "minivan",
+        "snowmobile",
+        "undefined",
+        "other",
+        "allPassengerVehicles",
+        "all"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"
+    },
+    "CommercialVehicleCategoryEnumeration": {
+      "type": "string",
+      "description": "Allowed values for Wheeled commercial VEHICLE types.",
+      "enum": [
+        "bus",
+        "van",
+        "transporter",
+        "largeVan",
+        "highSidedVehicle",
+        "lightGoodsVehicle",
+        "heavyGoodsVehicle",
+        "agriculturalVehicle",
+        "tanker",
+        "truck",
+        "articulatedVehicle",
+        "largeTrailer",
+        "vehicleWithTrailer",
+        "lightGoodsVehicleWithTrailer",
+        "heavyGoodsVehicleWithTrailer"
+      ],
+      "x-netex-role": "enumeration",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"
+    },
+    "NumberOfVehicles": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Type for Number of Vehicles- capacity.",
+      "x-netex-source": "netex_framework/netex_utility/netex_units.xsd"
+    },
+    "LengthType": {
+      "type": "number",
+      "description": "Length type for short distances. System for Units can be specified on frame. Normally (metres) as defined by http://www.ordnancesurvey.co.uk/xml/resource/units.xml#metres.",
+      "x-netex-source": "netex_framework/netex_utility/netex_units.xsd"
+    },
+    "WeightType": {
+      "type": "number",
+      "description": "Weight type for mass. System for Units can be specified on Frame. Normal default is (kilos) as defined by http://www.ordnancesurvey.co.uk/xml/resource/units.xml#metres.",
+      "x-netex-source": "netex_framework/netex_utility/netex_units.xsd"
+    },
+    "passengerCarryingRequirements_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/containmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "PassengerCarryingRequirementRef": {
+              "$ref": "#/definitions/PassengerCarryingRequirementRef"
+            },
+            "PassengerCarryingRequirement": {
+              "$ref": "#/definitions/PassengerCarryingRequirement"
+            }
+          }
+        }
+      ],
+      "description": "Type for a list of PASSENGER CARRYING Requirements.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd"
+    },
+    "PassengerCarryingRequirementRef": {
+      "description": "Reference to a PASSENGER CARRYING REQUIREMENT.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "VehicleRequirementRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd",
+      "x-netex-reduced": ["PassengerCarryingRequirementRefStructure"]
+    },
+    "VehicleRequirementRefStructure": {
+      "$ref": "#/definitions/VersionOfObjectRefStructure",
+      "description": "Type for a reference to a VEHICLE REQUIREMENT.",
+      "x-netex-role": "reference",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd"
+    },
+    "PassengerCarryingRequirement": {
+      "description": "Requirements for carrying passengers on a service.",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "VehicleRequirement",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/VehicleRequirement_VersionStructure"
+        },
+        {
+          "properties": {
+            "PassengerCapacity": {
+              "$ref": "#/definitions/PassengerCapacity"
+            },
+            "LowFloor": {
+              "type": "boolean",
+              "description": "Whether Vehicle is low floor to facilitate access by the mobility impaired."
+            },
+            "HasLiftOrRamp": {
+              "type": "boolean",
+              "description": "Whether vehicle has lift or ramp to facilitate wheelchair access."
+            },
+            "HasHoist": {
+              "type": "boolean",
+              "description": "Whether vehicle has hoist for wheelchair access."
+            },
+            "HoistOperatingRadius": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "Distance from VEHICLE needed to operate hoist."
+            },
+            "BoardingHeight": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "Maximum step height to board. +v1.1"
+            },
+            "GapToPlatform": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "Expected maximal gap between VEHICLE and platform. +v1.1"
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["PassengerCarryingRequirement_VersionStructure"]
+    },
+    "VehicleRequirement_VersionStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DataManagedObjectStructure"
+        },
+        {
+          "properties": {
+            "Name": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/MultilingualString"
+                }
+              ],
+              "description": "Name of FACILITY REQUIREMENT."
+            }
+          }
+        }
+      ],
+      "description": "Type for a VEHICLE REQUIREMENT.",
+      "x-netex-role": "structure",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd"
+    },
+    "vehicleManoeuvringRequirements_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/containmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "VehicleManoeuvringRequirementRef": {
+              "$ref": "#/definitions/VehicleManoeuvringRequirementRef"
+            },
+            "VehicleManoeuvringRequirement": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/VehicleManoeuvringRequirement"
+                }
+              ],
+              "description": "An area within a Site. May be connected to Quays by PATH LINKs."
+            }
+          }
+        }
+      ],
+      "description": "Type for a list of PASSENGER CARRYING REQUIREMENTs.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd"
+    },
+    "VehicleManoeuvringRequirementRef": {
+      "description": "Reference to a VEHICLE MANOEUVRING REQUIREMENT.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "VehicleRequirementRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd",
+      "x-netex-reduced": ["VehicleManoeuvringRequirementRefStructure"]
+    },
+    "VehicleManoeuvringRequirement": {
+      "description": "Requirements for carrying passengers.",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "VehicleRequirement",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/VehicleRequirement_VersionStructure"
+        },
+        {
+          "properties": {
+            "Reversible": {
+              "type": "boolean",
+              "description": "Whether vehicle must be reversible."
+            },
+            "MinimumTurningCircle": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "Minimum distance needed to turn vehicle."
+            },
+            "MinimumOvertakingWidth": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "Minimum distance needed to overtake."
+            },
+            "MinimumLength": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/LengthType"
+                }
+              ],
+              "description": "Minimum distance needed to accommodate vehicle."
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["VehicleManoeuvringRequirement_VersionStructure"]
+    },
+    "facilityRequirements_RelStructure": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/containmentAggregationStructure"
+        },
+        {
+          "properties": {
+            "FacilityRequirementRef": {
+              "$ref": "#/definitions/FacilityRequirementRef"
+            },
+            "FacilityRequirement": {
+              "$ref": "#/definitions/FacilityRequirement"
+            }
+          }
+        }
+      ],
+      "description": "Type for a list of FACILITY REQUIREMENTs.",
+      "x-netex-role": "collection",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd"
+    },
+    "FacilityRequirementRef": {
+      "description": "Reference to a FACILITY REQUIREMENT.",
+      "x-netex-role": "reference",
+      "x-netex-substitutionGroup": "VehicleRequirementRef",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_support.xsd",
+      "x-netex-reduced": ["FacilityRequirementRefStructure"]
+    },
+    "FacilityRequirement": {
+      "description": "Requirements for carrying passengers.",
+      "x-netex-role": "entity",
+      "x-netex-substitutionGroup": "VehicleRequirement",
+      "x-netex-source": "netex_framework/netex_reusableComponents/netex_vehicleType_version.xsd",
+      "allOf": [
+        {
+          "$ref": "#/definitions/VehicleRequirement_VersionStructure"
+        },
+        {
+          "properties": {
+            "facilitySets": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/serviceFacilitySets_RelStructure"
+                }
+              ],
+              "description": "Facilities required for VEHICLE."
+            }
+          }
+        }
+      ],
+      "x-netex-reduced": ["FacilityRequirement_VersionStructure"]
+    }
+  },
+  "x-netex-collapsed": 77
+}

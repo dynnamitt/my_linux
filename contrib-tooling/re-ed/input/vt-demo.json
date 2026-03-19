@@ -1,0 +1,49 @@
+{
+  "title": "VehicleType",
+  "type": "object",
+  "properties": {
+    "shortName": { "type": "string" },
+    "description": { "type": "string" },
+    "length": { "type": "number" },
+    "width": { "type": "number" },
+    "monitored": { "type": "boolean" },
+    "lowFloor": { "type": "boolean" },
+    "transportMode": { "$ref": "#/$defs/TransportModeEnumeration" },
+    "fuelType": { "$ref": "#/$defs/FuelTypeEnumeration" },
+    "propulsionType": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/PropulsionTypeEnumeration" }
+    },
+    "name": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/TextType" }
+    },
+    "capacity": { "$ref": "#/$defs/PassengerCapacityStructure" }
+  },
+  "$defs": {
+    "TransportModeEnumeration": {
+      "enum": ["bus", "tram", "rail", "metro", "water", "air", "coach"]
+    },
+    "FuelTypeEnumeration": {
+      "enum": ["diesel", "electric", "hydrogen", "naturalGas", "petrol", "biodiesel"]
+    },
+    "PropulsionTypeEnumeration": {
+      "enum": ["combustion", "electric", "hybrid", "hydrogenFuelCell"]
+    },
+    "TextType": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "string" },
+        "lang": { "type": "string" }
+      }
+    },
+    "PassengerCapacityStructure": {
+      "type": "object",
+      "properties": {
+        "seatingCapacity": { "type": "number" },
+        "standingCapacity": { "type": "number" },
+        "wheelchairPlaces": { "type": "number" }
+      }
+    }
+  }
+}

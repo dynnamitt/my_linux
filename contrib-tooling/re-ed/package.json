@@ -1,0 +1,33 @@
+{
+  "name": "re-ed",
+  "version": "1.0.0",
+  "description": "Stub react-mui from types or schema",
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "workspaces": ["packages/*-editor", "!packages/*@*"],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest",
+    "scaffold:schema": "node --experimental-strip-types scaffold/schema-driven.ts",
+    "scaffold:types": "node --experimental-strip-types scaffold/types-driven.ts",
+    "tsc": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ts-morph": "^27.0.2"
+  },
+  "devDependencies": {
+    "@emotion/react": "^11.0.0",
+    "@emotion/styled": "^11.0.0",
+    "@mui/material": "^7.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^5.1.1",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.0",
+    "vite": "^6.2.0"
+  }
+}
