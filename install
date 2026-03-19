@@ -136,7 +136,7 @@ my_linux() {
   git_conf
   fix_fonts
   #fix_tmux_deps
-  lazyvim
+  #lazyvim
 
   ln -s ~/.my_linux/terraformrc ~/.terraformrc # maybe createdir , not tested
   # tmux
