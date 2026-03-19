@@ -18,6 +18,22 @@ get_user_shell() {
 
 USER_SHELL=$(get_user_shell)
 
+declare -A REPOS=(
+  [sobek]="git@github.com:entur/sobek.git"
+  [shepet]="git@github.com:entur/shepet.git"
+  [hathor]="git@github.com:entur/hathor.git"
+)
+
+ensure_repos() {
+  for name in "${!REPOS[@]}"; do
+    local dir="$ENTUR_DIR/$name"
+    if [ ! -d "$dir" ]; then
+      echo "Cloning $name..."
+      git clone "${REPOS[$name]}" "$dir" || { echo "Failed to clone $name"; exit 1; }
+    fi
+  done
+}
+
 is_port_open() {
   # Use bash /dev/tcp - no nc required
   (echo >/dev/tcp/localhost/"$1") 2>/dev/null
@@ -97,6 +113,7 @@ start_hathor() {
 # ---------------------
 #    M A I N
 # ---------------------
+ensure_repos
 start_postgres || exit 1
 start_sobek || exit 1
 start_shepet || exit 1
