@@ -1,6 +1,6 @@
 ---
 name: bevy-ecs
-description: Architectural guidance and implementation patterns for Bevy ECS — components, systems, states, observers, relationships, scheduling, queries, assets, UI, raycasting. Use for any Bevy game/app development including entity relationships, state management, and system scheduling.
+description: Architectural guidance and implementation patterns for Bevy ECS — components, systems, states, observers, relationships, scheduling, queries, assets, animation, UI, raycasting. Use for any Bevy game/app development including entity relationships, state management, and system scheduling.
 ---
 
 # Bevy Game Development Skill
@@ -257,6 +257,10 @@ See [references/system-sets.md](references/system-sets.md) — SystemSet groupin
 ## Asset Loading
 
 See [references/assets.md](references/assets.md) — Handle lifecycle, loading states, AssetEvent, custom asset types.
+
+## Animation (0.18)
+
+See [references/animation.md](references/animation.md) — AnimationGraph, AnimationPlayer, transitions, procedural clips, GLTF loading.
 
 ## Common Pitfalls to Avoid
 
