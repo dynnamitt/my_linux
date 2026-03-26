@@ -2,15 +2,16 @@
 name: netex-opinions
 description: >
   Domain knowledge about NeTEx (Network Timetable Exchange) XSD schema structure,
-  code generation challenges, and tooling landscape. Use when working with NeTEx
-  XSD schemas, generating code from NeTEx in any language, understanding NeTEx
-  part structure, evaluating XSD-to-code tools, or dealing with NeTEx
-  cross-dependencies and subset selection.
+  code generation challenges, tooling landscape, and rail data modeling best
+  practices. Use when working with NeTEx XSD schemas, generating code from NeTEx
+  in any language, understanding NeTEx part structure, evaluating XSD-to-code
+  tools, dealing with NeTEx cross-dependencies and subset selection, or modeling
+  rail timetables, train formations, and service disruptions in NeTEx.
 ---
 
 # NeTEx Domain Knowledge
 
-Reference material from analysis of NeTEx 2.0 XSD schemas and code generation tooling (Feb 2026).
+Reference material from analysis of NeTEx 2.0 XSD schemas, code generation tooling (Feb 2026), and rail service data modeling best practices (Jan 2025).
 
 ## NeTEx XSD structure
 
@@ -49,6 +50,19 @@ See [references/real-data-containers.md](references/real-data-containers.md) for
 - Why frame XSDs are the authoritative "top-tier entity" registry
 - Implications for code generation (flatten scaffolding, parse frames for entity lists)
 
+## Rail data modeling best practices
+
+See [references/rail-best-practices.md](references/rail-best-practices.md) for:
+- Package structure (shared vs line-specific files) and frame types with their contents
+- ID conventions (`[codespace]:[entityType]:[uniqueId]`) and versioning rules
+- Profile differences between Nordic Profile and EPIP
+- Calendar modeling approaches (DayTypes, UicOperatingPeriod, OperatingPeriod) and daylight saving
+- ServiceJourney/JourneyPattern/passingTimes structure and best practices
+- Train formation hierarchy (CompoundTrain → Train → TrainComponent → TrainElement)
+- DatedServiceJourneys for stable IDs in ticketing and seat reservation
+- Separation of concerns between timetable, rolling stock, and crew
+- Rail-specific patterns: splits/joins, reversals, cross-border, over-midnight
+
 ## Key insights
 
 1. **SIRI is structurally required** — `NeTEx_publication.xsd` unconditionally imports 3 SIRI files. Any code generator starting from that entry point needs SIRI present. Only 12 files / 2,204 lines — negligible overhead.
@@ -66,3 +80,9 @@ See [references/real-data-containers.md](references/real-data-containers.md) for
 7. **Type distribution is heavily framework-weighted** — Of ~3,000 base definitions (framework + SIRI only, no domain parts), ~92% come from `netex_framework/` (reusable components: 45%, responsibility: 30%, generic framework: 15%), ~6% from SIRI, ~5% core/service. Domain parts add modest incremental counts. This distribution matters for splitting generated output into manageable modules.
 
 8. **NeTEx XSD naming convention reveals natural module boundaries** — `*_support.xsd` (180 files) defines base types/enums, `*_version.xsd` (198 files) defines concrete elements. The directory structure (`netex_framework/netex_reusableComponents/`, `netex_framework/netex_responsibility/`, etc.) maps cleanly to output module boundaries.
+
+9. **NeTEx data is passenger-journey-centric** — It describes journey opportunities from the individual passenger's perspective, not infrastructure movements. The related but distinct TAF/TAP TSI standard covers the infrastructure provider's view. In Transmodel, a VEHICLE can be a bus, ferry, or an entire train — even one with many coaches is still a single VEHICLE.
+
+10. **DatedServiceJourneys are essential for ticketing** — ServiceJourney IDs are inherently unstable in rail; infrastructure or rolling-stock changes after publication can force ID changes. DatedServiceJourneys provide the stable ID layer for reservations and SIRI real-time, with backwards references to track what was replaced during disruptions.
+
+11. **VehicleScheduleFrame enables separation of concerns** — Decouples rolling-stock management from the passenger timetable, critical in rail where Operators, Rolling Stock Providers, and Infrastructure Providers manage their data independently. TrainBlocks describe the complete formation (including coaches from other ServiceJourneys sharing the physical train).
