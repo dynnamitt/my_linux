@@ -11,7 +11,7 @@ Evaluated Feb 2026. The key discriminator is **substitution group support** — 
 | **Modelina** | TypeScript + others | No | No | Unknown | Active | Missing critical features |
 | **xsdata** | Python | Yes | Yes | Optimized | Active (v26.2) | Best XSD tool, Python only |
 | **xsd2jsonschema** | JSON Schema | Partial | Partial | Broken | Stable (dormant) | Broken for NeTEx |
-| **Custom fast-xml-parser** | JSON Schema | No | Yes | Proven (458 files) | N/A (project-specific) | Proven — the approach that works |
+| **Custom Java DOM (GraalVM)** | JSON Schema | Partial (annotations) | Yes | Proven (458 files) | N/A (project-specific) | Proven — the approach that works |
 | **@kie-tools/xml-parser-ts-codegen** | TypeScript | Yes (unions) | Unknown | Unknown | Apache-backed | Not tested on arbitrary XSD |
 | **xuri/xgen** | Go/C/Java/Rust/TS | Unknown | Unknown | Unknown | Active | Unproven at NeTEx scale |
 
@@ -55,16 +55,18 @@ Evaluated Feb 2026. The key discriminator is **substitution group support** — 
 - Only works for simple single-file or import-only schemas. ISO 20022 (banking) uses imports, not includes, which is why it worked there.
 - **Verdict**: Broken for NeTEx. Do not use.
 
-### Custom fast-xml-parser converter (project-specific)
-- XSD → JSON Schema Draft 07 using `fast-xml-parser` for XML parsing, paired with `json-schema-to-typescript` for final output
-- ~630-line TypeScript converter purpose-built for NeTEx
-- **Two-pass architecture**: pass 1 collects groups and raw type entries; pass 2 converts (groups must be available before complex types reference them)
+### Custom Java DOM converter via GraalVM (project-specific — `netex-typescript-model`)
+- XSD → JSON Schema Draft 07 using Java standard library DOM APIs (`DocumentBuilderFactory`, `org.w3c.dom.Node`) via GraalVM JavaScript interop, paired with `json-schema-to-typescript` for final TypeScript output
+- Plain JavaScript (`xsd-to-jsonschema.js`), no modules, no npm. Runs on stock JDK 21+ with GraalJS polyglot dependencies resolved by Maven
+- **Two-pass architecture**: pass 1 collects groups, raw type entries, element registry, substitution group reverse map, and frame registry; pass 2 converts types and stamps annotations
 - Handles: `complexType`, `simpleType`, `element`, `group`, `attributeGroup`, `complexContent` (extension/restriction), `simpleContent`, `sequence`, `choice`, `all`
-- Tracks `sourceFile` per definition during parsing — enables subset filtering at JSON Schema emission time
-- **Proven results**: 458 XSD files → 2,963 JSON Schema definitions → 15,108 lines TypeScript, zero compile errors
-- **Known limitations**: no substitution groups, no `xsd:any`, no attribute `use="required"`, no `mixed` content, no `xsd:redefine`
-- **Depth-limited cycle breaking**: circular `$ref` chains are broken at configurable depth to prevent infinite recursion
-- **Verdict**: The approach that actually works for NeTEx → TypeScript. Substitution group support would be the main enhancement.
+- **Stamps 10 per-definition `x-netex-*` annotations**: `x-netex-source`, `x-netex-assembly`, `x-netex-role` (8-value classification), `x-netex-atom` (transparent wrapper detection), `x-netex-frames` (frame membership), `x-netex-mixed`, `x-netex-substitutionGroup`, `x-netex-sg-members`, `x-netex-refTarget`, `x-netex-collapsed`. Plus 1 per-property: `x-netex-choice` (choice group siblings). Also stamps OpenAPI 3.x `xml: { attribute: true }` on attribute-derived properties
+- **Substitution groups partially modeled**: reads `substitutionGroup` attributes, builds reverse registry, stamps `x-netex-substitutionGroup`/`x-netex-sg-members` annotations. Used for entity classification (rule 8) and sub-graph pruning. **Not yet generating `oneOf`/`anyOf` union types** for polymorphic element references
+- **Sub-graph pruning**: `--sub-graph <TypeName>` prunes schema to definitions reachable from a root type (follows `$ref`, `allOf`, substitution group edges). `--collapse` then inlines transparent wrappers (atom-stamped definitions)
+- **Assembly-driven**: `--parts` flag accepts config keys (`part1_network`) or natural names (`network`) for subset selection. Configuration flows from `assembly-config.json`
+- **Proven results**: 458 XSD files → 2,963+ JSON Schema definitions → TypeScript, zero compile errors
+- **Known limitations**: polymorphic substitution group unions (no `oneOf`/`anyOf`), `xsd:any`/`xsd:anyAttribute` (ignored), attribute `use="required"` (not tracked — all optional), `mixed` content (flagged but not modeled), `xsd:redefine` (not supported, NeTEx doesn't use it), namespace-qualified names stripped (no collision in practice)
+- **Verdict**: The proven approach for NeTEx → TypeScript. Substitution group union generation is the main open enhancement (tracked as GitHub issue).
 
 ### @kie-tools/xml-parser-ts-codegen (npm)
 - Generates TypeScript types + metadata from XSD
@@ -82,7 +84,7 @@ Evaluated Feb 2026. The key discriminator is **substitution group support** — 
 ## Recommended pipelines by target language
 
 ### TypeScript
-**Primary**: Custom `fast-xml-parser` XSD→JSON Schema converter → `json-schema-to-typescript` — proven at NeTEx scale (458 files → 2,963 definitions → zero compile errors). Key `json-schema-to-typescript` options: `unreachableDefinitions: true`, `format: false` (skip prettier for speed), `additionalProperties: false`.
+**Primary**: Custom Java DOM XSD→JSON Schema converter (GraalVM interop) → `json-schema-to-typescript` — proven at NeTEx scale (458 files → 2,963+ definitions → zero compile errors). Two-stage pipeline with 10 `x-netex-*` annotations enriching the intermediate schema. Key `json-schema-to-typescript` options: `unreachableDefinitions: true`, `format: false` (skip prettier for speed), `additionalProperties: false`. See `netex-typescript-model` for the reference implementation.
 **Alternative**: Same converter → `json-schema-to-zod` (gets both types and runtime validation)
 **Backup**: `xuri/xgen -l=TypeScript` (untested at NeTEx scale)
 **Do not use**: `xsd2jsonschema` (broken `xs:include`, crashes on `simpleContent`)
@@ -98,13 +100,14 @@ Evaluated Feb 2026. The key discriminator is **substitution group support** — 
 
 ## Key risks for NeTEx code generation
 
-1. **Substitution groups** — Mapped to `oneOf`/`anyOf` in JSON Schema, which may produce overly permissive types. Most custom converters skip substitution groups entirely; elements in a group are treated as independent types.
-2. **Circular references** — JSON Schema handles via `$ref` cycles. In practice, depth-limited recursion is needed during conversion to prevent infinite loops. `json-schema-to-typescript` handles the resulting `$ref` cycles gracefully.
-3. **Scale** — 458 XSD files is large. Tools proven on <100 files may hit performance or memory issues. The custom converter + `json-schema-to-typescript` handles the full set in seconds.
+1. **Substitution groups** — The proven approach is annotation-based: stamp `x-netex-substitutionGroup`/`x-netex-sg-members` during parsing, use for classification and sub-graph pruning, but don't yet generate `oneOf`/`anyOf` unions. Full polymorphic references remain an open enhancement.
+2. **Circular references** — JSON Schema handles via `$ref` cycles. `json-schema-to-typescript` handles the resulting `$ref` cycles gracefully. Deeply circular NeTEx types (frames containing frames) may produce overly permissive types.
+3. **Scale** — 458 XSD files is large. Tools proven on <100 files may hit performance or memory issues. The custom Java DOM converter + `json-schema-to-typescript` handles the full set in seconds.
 4. **Namespace isolation** — NeTEx uses a single namespace for all parts but imports GML and SIRI. Tools must handle mixed namespace schemas. In practice, stripping namespace prefixes works because NeTEx and SIRI/GML use distinct naming conventions.
 5. **Extension depth** — Deep inheritance chains (Entity → DataManagedObject → specific types) stress type resolution.
 6. **Group resolution ordering** — `xsd:group` definitions must be collected before complex types that reference them. A two-pass approach (collect groups first, then convert types) solves this.
 7. **Disabled-part cross-references** — When generating a subset, types from disabled parts are referenced but missing. Emitting placeholder `{}` definitions (which compile as `unknown` in TypeScript) provides graceful degradation.
+8. **Choice group fidelity** — `xsd:choice` groups are flattened to optional properties in JSON Schema (no `oneOf`). The `x-netex-choice` per-property annotation preserves sibling information for downstream consumers (e.g., data fakers that emit only the first alternative).
 
 ## Documentation propagation pitfalls
 

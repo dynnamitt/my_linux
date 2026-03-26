@@ -26,8 +26,9 @@ See [references/xsd-structure.md](references/xsd-structure.md) for:
 ## Code generation tooling landscape
 
 See [references/tooling-evaluation.md](references/tooling-evaluation.md) for:
-- Evaluation of 8 XSD-to-code tools across languages (including the proven custom converter)
+- Evaluation of 8 XSD-to-code tools across languages (including the proven Java DOM/GraalVM converter)
 - Why substitution group support is the key discriminator for NeTEx
+- The 10 `x-netex-*` annotation stamps and their downstream uses
 - Risk assessment per tool
 - Recommendations for different target languages
 - Documentation propagation pitfalls (JSON Schema `$ref` + `description`)
@@ -35,20 +36,25 @@ See [references/tooling-evaluation.md](references/tooling-evaluation.md) for:
 ## Generation pipeline patterns
 
 See [references/pipeline-patterns.md](references/pipeline-patterns.md) for:
-- Recommended pipeline architecture (load all → filter output)
-- Annotation propagation strategy (`xsd:documentation` → JSDoc/docstrings)
-- Output splitting by XSD source directory (natural module boundaries)
+- Recommended pipeline architecture (load all → filter output) with configuration-driven assemblies
+- Two-stage reference implementation (Java DOM → JSON Schema → TypeScript)
+- Annotation enrichment layer (10 per-definition + 1 per-property `x-netex-*` stamps)
+- Sub-graph pruning (`--sub-graph`, `--collapse`) for focused outputs
+- Annotation propagation strategy (`xsd:documentation` → JSDoc/docstrings, `@see` links)
+- Output splitting by XSD source directory (natural module boundaries) with barrel exports
 - Cross-module import resolution approaches
-- Source file tracking and two-pass parsing
+- Documentation outputs (schema HTML viewer, TypeDoc, docs index)
 
 ## Real data container heuristics
 
 See [references/real-data-containers.md](references/real-data-containers.md) for:
 - How to distinguish top-tier NeTEx entities from structural scaffolding (`_VersionStructure`, `_RelStructure`, etc.)
 - Three converging signals: frame membership, `DataManagedObject` inheritance, substitution groups
+- Formalized 8-role classification system (`x-netex-role` priority cascade)
+- Supporting annotations: `x-netex-frames`, `x-netex-atom`, `x-netex-refTarget`, `x-netex-sg-members`
 - Machine-applicable classification rules (suffix-based + frame parsing)
 - Why frame XSDs are the authoritative "top-tier entity" registry
-- Implications for code generation (flatten scaffolding, parse frames for entity lists)
+- Implications for code generation (role-based filtering, atom collapsing, flatten scaffolding)
 
 ## Rail data modeling best practices
 
@@ -69,7 +75,7 @@ See [references/rail-best-practices.md](references/rail-best-practices.md) for:
 
 2. **Subset selection is hard** — `netex_service/netex_all.xsd` includes all parts unconditionally. The filter files (`netex_filter_frame.xsd`) have hard dependencies on Part 1. Generating code for a subset requires either synthetic aggregators or load-all-filter-output.
 
-3. **Substitution groups are the key challenge** — Every major NeTEx element is a substitution group member. Most XSD-to-code tools don't handle them. This is the single biggest discriminator when choosing tooling.
+3. **Substitution groups are the key challenge** — Every major NeTEx element is a substitution group member. Most XSD-to-code tools don't handle them. The proven approach is annotation-based: stamp `x-netex-substitutionGroup`/`x-netex-sg-members` during parsing for classification and sub-graph pruning, even if full `oneOf`/`anyOf` union generation isn't yet implemented.
 
 4. **Part 4 was never published** — NeTEx skips from Part 3 to Part 5. Not an error.
 
