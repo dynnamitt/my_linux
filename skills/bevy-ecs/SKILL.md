@@ -262,6 +262,10 @@ See [references/assets.md](references/assets.md) — Handle lifecycle, loading s
 
 See [references/animation.md](references/animation.md) — AnimationGraph, AnimationPlayer, transitions, procedural clips, GLTF loading.
 
+## Scenes & Serialization (0.18)
+
+See [references/scenes.md](references/scenes.md) — DynamicScene save/load, RON format, BSN macro, SceneSpawner, Reflect requirements.
+
 ## Common Pitfalls to Avoid
 
 - Forgetting to register systems in `main.rs`
