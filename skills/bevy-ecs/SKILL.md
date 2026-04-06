@@ -266,6 +266,10 @@ See [references/animation.md](references/animation.md) — AnimationGraph, Anima
 
 See [references/scenes.md](references/scenes.md) — DynamicScene save/load, RON format, BSN macro, SceneSpawner, Reflect requirements.
 
+## hexx Hex Grid Library
+
+See [references/hexx-crate.md](references/hexx-crate.md) — Hex coordinates, multi-resolution chunking (`to_lower_res`/`to_higher_res`), dense storage maps, mesh builders, pathfinding, shape generators.
+
 ## Common Pitfalls to Avoid
 
 - Forgetting to register systems in `main.rs`
