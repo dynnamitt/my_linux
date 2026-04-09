@@ -24,13 +24,13 @@ with no server after initial asset load.
 ```
 # Example Exograph model
 @postgres
-module VehicleModule {
+module ProductModule {
   @access(true)
-  type Vehicle {
+  type Product {
     @pk id: Int = autoIncrement()
     name: String
-    plate: String
-    vehicleType: String
+    sku: String
+    productType: String
   }
 }
 ```
@@ -66,8 +66,8 @@ struct Query;
 
 #[graphql_object]
 impl Query {
-    fn search_vehicles(q: String) -> Vec<Vehicle> {
-        VEHICLES.iter()
+    fn search_products(q: String) -> Vec<Product> {
+        PRODUCTS.iter()
             .filter(|v| v.name.to_lowercase().contains(&q.to_lowercase()))
             .cloned()
             .collect()

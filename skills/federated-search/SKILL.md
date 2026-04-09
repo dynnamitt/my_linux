@@ -38,18 +38,18 @@ experience despite the fan-out. This avoids:
 
 The tradeoff: you lose fuzzy full-text ranking across entity types. If your
 users need "search everything with one relevance score", you need a search
-engine. If they need "find vehicles by plate, routes by name, operators by
+engine. If they need "find products by SKU, categories by name, brands by
 code" — federated search is simpler and faster.
 
 ## The pattern
 
 ```
-[ search input: "oslo" ]
-  ├─ async → GET /vehicles?q=oslo     → Vehicle group (lazy)
-  ├─ async → GET /routes?q=oslo       → Route group (lazy)
-  ├─ async → GET /operators?q=oslo    → Operator group (lazy)
+[ search input: "desk" ]
+  ├─ async → GET /products?q=desk     → Product group (lazy)
+  ├─ async → GET /categories?q=desk   → Category group (lazy)
+  ├─ async → GET /brands?q=desk       → Brand group (lazy)
   └─ (each result row offers two actions)
-       a) append filter prefix to query: "vehicle:oslo"
+       a) append filter prefix to query: "brand:acme"
        b) navigate directly to the result
 ```
 
@@ -92,7 +92,7 @@ When building this in React, read the reference files for detailed code:
 
 ### Prefix-based query parsing
 
-If your search supports filter prefixes (e.g. `vehicle:`, `route:`):
+If your search supports filter prefixes (e.g. `brand:`, `category:`):
 
 - Parse prefixes from the query string before dispatching
 - Auto-suggest available prefixes as the user types (match against backend-supported indexes)
@@ -108,8 +108,8 @@ If your search supports filter prefixes (e.g. `vehicle:`, `route:`):
 | [Turnstone](https://github.com/tomsouthall/turnstone) | Yes | Purpose-built for multi-endpoint grouped typeahead |
 | [Downshift](https://www.downshift-js.com/) | DIY | Accessible combobox primitives. Pair with `Promise.allSettled()` |
 
-If your project already uses **Downshift** (common in Entur apps via `@entur/dropdown`),
-extend it with parallel async sources rather than adding a new library.
+If your project already uses **Downshift**, extend it with parallel async
+sources rather than adding a new library.
 
 ## Prior art
 

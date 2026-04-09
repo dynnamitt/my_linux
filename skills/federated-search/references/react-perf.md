@@ -10,15 +10,15 @@ that make the dropdown feel sluggish.
 
 ```tsx
 // Bad: sequential — each source waits for the previous
-const vehicles = await fetchVehicles(query)
-const routes = await fetchRoutes(query)
-const operators = await fetchOperators(query)
+const products = await fetchProducts(query)
+const categories = await fetchCategories(query)
+const brands = await fetchBrands(query)
 
 // Good: parallel — all sources fire at once
-const [vehicles, routes, operators] = await Promise.all([
-  fetchVehicles(query),
-  fetchRoutes(query),
-  fetchOperators(query),
+const [products, categories, brands] = await Promise.all([
+  fetchProducts(query),
+  fetchCategories(query),
+  fetchBrands(query),
 ])
 ```
 
@@ -27,27 +27,27 @@ independently:
 
 ```tsx
 function useSearchSources(query: string) {
-  const vehicles = useQuery({ queryKey: ['vehicles', query], queryFn: () => searchVehicles(query) })
-  const routes = useQuery({ queryKey: ['routes', query], queryFn: () => searchRoutes(query) })
-  const operators = useQuery({ queryKey: ['operators', query], queryFn: () => searchOperators(query) })
-  return { vehicles, routes, operators }
+  const products = useQuery({ queryKey: ['products', query], queryFn: () => searchProducts(query) })
+  const categories = useQuery({ queryKey: ['categories', query], queryFn: () => searchCategories(query) })
+  const brands = useQuery({ queryKey: ['brands', query], queryFn: () => searchBrands(query) })
+  return { products, categories, brands }
 }
 ```
 
 ## 2. Partial dependencies (`async-dependencies`, CRITICAL)
 
-When some sources depend on others (e.g., fetch org first, then filter
-vehicles by org), use promise chaining to start independent work early:
+When some sources depend on others (e.g., fetch brand first, then filter
+products by brand), use promise chaining to start independent work early:
 
 ```tsx
-const orgPromise = fetchOrg(query)
-const routePromise = fetchRoutes(query) // independent, starts immediately
-const vehiclePromise = orgPromise.then(org => fetchVehicles(query, org.id))
+const brandPromise = fetchBrand(query)
+const categoryPromise = fetchCategories(query) // independent, starts immediately
+const productPromise = brandPromise.then(brand => fetchProducts(query, brand.id))
 
-const [org, routes, vehicles] = await Promise.all([
-  orgPromise,
-  routePromise,
-  vehiclePromise,
+const [brand, categories, products] = await Promise.all([
+  brandPromise,
+  categoryPromise,
+  productPromise,
 ])
 ```
 
@@ -60,14 +60,14 @@ without waiting for slow ones:
 function SearchDropdown({ query }: { query: string }) {
   return (
     <div role="listbox">
-      <Suspense fallback={<GroupSkeleton label="Vehicles" />}>
-        <VehicleResults query={query} />
+      <Suspense fallback={<GroupSkeleton label="Products" />}>
+        <ProductResults query={query} />
       </Suspense>
-      <Suspense fallback={<GroupSkeleton label="Routes" />}>
-        <RouteResults query={query} />
+      <Suspense fallback={<GroupSkeleton label="Categories" />}>
+        <CategoryResults query={query} />
       </Suspense>
-      <Suspense fallback={<GroupSkeleton label="Operators" />}>
-        <OperatorResults query={query} />
+      <Suspense fallback={<GroupSkeleton label="Brands" />}>
+        <BrandResults query={query} />
       </Suspense>
     </div>
   )
@@ -107,14 +107,14 @@ function FederatedSearch() {
 ## 5. Request deduplication (`client-swr-dedup`, MEDIUM-HIGH)
 
 With multiple components reading the same source, SWR/React Query
-deduplicates automatically. If the user types "osl" then "oslo",
-the "osl" results are already cached:
+deduplicates automatically. If the user types "des" then "desk",
+the "des" results are already cached:
 
 ```tsx
 // Multiple components can call this — only one request fires
-function useVehicleSearch(query: string) {
+function useProductSearch(query: string) {
   return useSWR(
-    query.length >= 2 ? `/api/vehicles?q=${query}` : null,
+    query.length >= 2 ? `/api/products?q=${query}` : null,
     fetcher,
     { dedupingInterval: 300 }
   )

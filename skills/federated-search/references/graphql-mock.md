@@ -22,36 +22,36 @@ import { startStandaloneServer } from '@apollo/server/standalone'
 
 // --- Static data (replace with your domain) ---
 
-const vehicles = [
-  { id: 'v1', name: 'Oslo Tram 11', plate: 'AB12345', type: 'TRAM' },
-  { id: 'v2', name: 'Oslo Bus 31', plate: 'CD67890', type: 'BUS' },
-  { id: 'v3', name: 'Bergen Light Rail', plate: 'EF11111', type: 'TRAM' },
-  { id: 'v4', name: 'Trondheim Bus 5', plate: 'GH22222', type: 'BUS' },
+const products = [
+  { id: 'p1', name: 'Wireless Keyboard', sku: 'KB-001', type: 'ELECTRONICS' },
+  { id: 'p2', name: 'Standing Desk', sku: 'DSK-042', type: 'FURNITURE' },
+  { id: 'p3', name: 'USB-C Hub', sku: 'HUB-007', type: 'ELECTRONICS' },
+  { id: 'p4', name: 'Desk Lamp', sku: 'LMP-019', type: 'FURNITURE' },
 ]
 
-const routes = [
-  { id: 'r1', name: 'Oslo S - Majorstuen', line: '11', mode: 'TRAM' },
-  { id: 'r2', name: 'Oslo S - Fornebu', line: '31', mode: 'BUS' },
-  { id: 'r3', name: 'Bergen - Flesland', line: '1', mode: 'LIGHT_RAIL' },
+const categories = [
+  { id: 'c1', name: 'Electronics', slug: 'electronics', parent: 'ROOT' },
+  { id: 'c2', name: 'Furniture', slug: 'furniture', parent: 'ROOT' },
+  { id: 'c3', name: 'Accessories', slug: 'accessories', parent: 'ELECTRONICS' },
 ]
 
-const operators = [
-  { id: 'o1', name: 'Ruter', code: 'RUT' },
-  { id: 'o2', name: 'Skyss', code: 'SKY' },
-  { id: 'o3', name: 'AtB', code: 'ATB' },
+const brands = [
+  { id: 'b1', name: 'Acme', code: 'ACM' },
+  { id: 'b2', name: 'Globex', code: 'GLX' },
+  { id: 'b3', name: 'Initech', code: 'ITC' },
 ]
 
 // --- Schema ---
 
 const typeDefs = `#graphql
-  type Vehicle { id: ID!, name: String!, plate: String!, type: String! }
-  type Route   { id: ID!, name: String!, line: String!, mode: String! }
-  type Operator { id: ID!, name: String!, code: String! }
+  type Product  { id: ID!, name: String!, sku: String!, type: String! }
+  type Category { id: ID!, name: String!, slug: String!, parent: String! }
+  type Brand    { id: ID!, name: String!, code: String! }
 
   type Query {
-    searchVehicles(q: String!, limit: Int = 5): [Vehicle!]!
-    searchRoutes(q: String!, limit: Int = 5): [Route!]!
-    searchOperators(q: String!, limit: Int = 5): [Operator!]!
+    searchProducts(q: String!, limit: Int = 5): [Product!]!
+    searchCategories(q: String!, limit: Int = 5): [Category!]!
+    searchBrands(q: String!, limit: Int = 5): [Brand!]!
   }
 `
 
@@ -62,12 +62,12 @@ const match = (fields, q) => item =>
 
 const resolvers = {
   Query: {
-    searchVehicles: (_, { q, limit }) =>
-      vehicles.filter(match(['name', 'plate'], q)).slice(0, limit),
-    searchRoutes: (_, { q, limit }) =>
-      routes.filter(match(['name', 'line'], q)).slice(0, limit),
-    searchOperators: (_, { q, limit }) =>
-      operators.filter(match(['name', 'code'], q)).slice(0, limit),
+    searchProducts: (_, { q, limit }) =>
+      products.filter(match(['name', 'sku'], q)).slice(0, limit),
+    searchCategories: (_, { q, limit }) =>
+      categories.filter(match(['name', 'slug'], q)).slice(0, limit),
+    searchBrands: (_, { q, limit }) =>
+      brands.filter(match(['name', 'code'], q)).slice(0, limit),
   },
 }
 
@@ -93,22 +93,22 @@ Apollo Sandbox opens at `http://localhost:4000` for interactive queries.
 # so each group can render as soon as its response arrives.
 
 # Request 1
-query SearchVehicles($q: String!) {
-  searchVehicles(q: $q, limit: 5) { id name plate type }
+query SearchProducts($q: String!) {
+  searchProducts(q: $q, limit: 5) { id name sku type }
 }
 
 # Request 2
-query SearchRoutes($q: String!) {
-  searchRoutes(q: $q, limit: 5) { id name line mode }
+query SearchCategories($q: String!) {
+  searchCategories(q: $q, limit: 5) { id name slug parent }
 }
 
 # Request 3
-query SearchOperators($q: String!) {
-  searchOperators(q: $q, limit: 5) { id name code }
+query SearchBrands($q: String!) {
+  searchBrands(q: $q, limit: 5) { id name code }
 }
 ```
 
-Variables: `{ "q": "oslo" }`
+Variables: `{ "q": "desk" }`
 
 ## Simulating slow responses
 
@@ -119,24 +119,24 @@ const delay = ms => new Promise(r => setTimeout(r, ms))
 
 const resolvers = {
   Query: {
-    searchVehicles: async (_, { q, limit }) => {
+    searchProducts: async (_, { q, limit }) => {
       await delay(100)  // fast
-      return vehicles.filter(match(['name', 'plate'], q)).slice(0, limit)
+      return products.filter(match(['name', 'sku'], q)).slice(0, limit)
     },
-    searchRoutes: async (_, { q, limit }) => {
+    searchCategories: async (_, { q, limit }) => {
       await delay(800)  // slow — tests skeleton/suspense
-      return routes.filter(match(['name', 'line'], q)).slice(0, limit)
+      return categories.filter(match(['name', 'slug'], q)).slice(0, limit)
     },
-    searchOperators: async (_, { q, limit }) => {
+    searchBrands: async (_, { q, limit }) => {
       await delay(300)  // medium
-      return operators.filter(match(['name', 'code'], q)).slice(0, limit)
+      return brands.filter(match(['name', 'code'], q)).slice(0, limit)
     },
   },
 }
 ```
 
-This lets you see groups appear one by one — vehicles first, then
-operators, then routes — validating that your Suspense boundaries
+This lets you see groups appear one by one — products first, then
+brands, then categories — validating that your Suspense boundaries
 and loading states work correctly.
 
 ## React hooks (client side)
@@ -144,22 +144,22 @@ and loading states work correctly.
 Using Apollo Client with separate queries per group:
 
 ```tsx
-const SEARCH_VEHICLES = gql`
-  query SearchVehicles($q: String!) {
-    searchVehicles(q: $q, limit: 5) { id name plate type }
+const SEARCH_PRODUCTS = gql`
+  query SearchProducts($q: String!) {
+    searchProducts(q: $q, limit: 5) { id name sku type }
   }
 `
 
 function useSearchSources(query: string) {
   const skip = query.length < 2
-  const vehicles = useQuery(SEARCH_VEHICLES, { variables: { q: query }, skip })
-  const routes = useQuery(SEARCH_ROUTES, { variables: { q: query }, skip })
-  const operators = useQuery(SEARCH_OPERATORS, { variables: { q: query }, skip })
+  const products = useQuery(SEARCH_PRODUCTS, { variables: { q: query }, skip })
+  const categories = useQuery(SEARCH_CATEGORIES, { variables: { q: query }, skip })
+  const brands = useQuery(SEARCH_BRANDS, { variables: { q: query }, skip })
 
   return [
-    { label: 'Vehicles', ...vehicles },
-    { label: 'Routes', ...routes },
-    { label: 'Operators', ...operators },
+    { label: 'Products', ...products },
+    { label: 'Categories', ...categories },
+    { label: 'Brands', ...brands },
   ]
 }
 ```
