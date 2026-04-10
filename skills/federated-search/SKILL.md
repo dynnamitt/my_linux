@@ -90,14 +90,15 @@ When building this in React, read the reference files for detailed code:
 - [ ] Escape closes, Enter activates focused item
 - [ ] Two action types per item: autocomplete (append to query) vs jump-to (navigate)
 
-### Prefix-based query parsing
+### Prefix-based query parsing & filter suggestions → `references/filter-suggestions.md`
 
-If your search supports filter prefixes (e.g. `brand:`, `category:`):
-
-- Parse prefixes from the query string before dispatching
-- Auto-suggest available prefixes as the user types (match against backend-supported indexes)
-- When a prefix is active, only fire that specific source query
-- Show prefix chips in the input for active filters
+- [ ] Register known enum fields (e.g. `type`, `parent`, `brand`) in an enum registry
+- [ ] Parse `field:value` prefixes from the query string before dispatching
+- [ ] AND-tokenize free text: spaces split into tokens, all must match
+- [ ] Auto-suggest `field:value` completions when a token prefixes a known enum value
+- [ ] Gate suggestions behind an opt-in toggle to keep default UX clean
+- [ ] Replace the matched token nearest to cursor on suggestion click
+- [ ] Guard dropdown open/close against DOM-replacement races (timestamp guard)
 
 ## Libraries
 
