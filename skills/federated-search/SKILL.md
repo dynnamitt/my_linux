@@ -90,6 +90,16 @@ When building this in React, read the reference files for detailed code:
 - [ ] Escape closes, Enter activates focused item
 - [ ] Two action types per item: autocomplete (append to query) vs jump-to (navigate)
 
+### Relationship-aware resolvers → `references/resolver-relationships.md`
+
+- [ ] Interview the data model: which entity owns each filterable field?
+- [ ] Map join paths for every `field:value` prefix (forward, reverse, sibling)
+- [ ] Forward join: child → parent lookup for filter fields on parent entity
+- [ ] Reverse join: parent surfaces when a child entity matches the query
+- [ ] Sibling join: chain through shared parent (child → parent → parent's collection)
+- [ ] Extract shared helpers (`modeFrom`, reverse-join set, parent matcher) to avoid 3x duplication
+- [ ] Guard reverse-join sets against empty tokens (matchAll returns true for everything)
+
 ### Prefix-based query parsing & filter suggestions → `references/filter-suggestions.md`
 
 - [ ] Register known enum fields (e.g. `type`, `parent`, `brand`) in an enum registry
