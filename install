@@ -1,24 +1,36 @@
 #!/usr/bin/env bash
 
-# Makes it possible to run via curl <url>|sh
-fix_this() {
-  # Clone if needed
-  #
+CATPP_VER=v2.1.3
+
+# Helpers
+
+pkg_mgr() { command -v pacman >/dev/null && echo pacman \
+          || command -v apt    >/dev/null && echo apt \
+          || command -v brew   >/dev/null && echo brew; }
+
+clone_if() { [ -d "$2" ] || git clone ${3:+-b "$3"} "$1" "$2"; }
+
+lnk() { ln -sf ~/.my_linux/"$1" ~/"$2"; }
+
+SKILLS_GIST=$(cat ~/.my_linux/skills.txt 2>/dev/null)
+
+skill_add() { npx skills add "$1" -g --all -y; }
+
+# Stages
+
+sync_repo() {
   if [ ! -d ~/.my_linux/.git ]; then
     git clone git://github.com/dynnamitt/my_linux.git ~/.my_linux
   else
-    echo ".my_linux clone skipped... syncing.."
+    echo ".my_linux clone skipped… syncing"
     (cd ~/.my_linux && git pull)
   fi
 }
 
-CATPP_VER=v2.1.3
-
-fix_tmux_deps() {
-  mkdir -p ~/.tmux/plugins
-  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-  mkdir -p ~/.config/tmux/plugins/catppuccin
-  git clone -b $CATPP_VER https://github.com/catppuccin/tmux.git ~/.config/tmux/plugins/catppuccin/tmux
+tmux_deps() {
+  clone_if https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+  clone_if https://github.com/catppuccin/tmux.git \
+    ~/.config/tmux/plugins/catppuccin/tmux "$CATPP_VER"
 }
 
 git_conf() {
@@ -28,140 +40,80 @@ git_conf() {
 }
 
 pkgs() {
-
-  if command -v apt >/dev/null; then
-    sudo apt install silversearcher-ag git \
-      nodejs terminator python3-pip zsh docker.io
-    sudo pip3 install --upgrade pip
-  elif command -v pacman >/dev/null; then
-    sudo pacman -S \
-      yay \
-      docker \
-      tree \
-      fzf \
-      zig \
-      exa \
-      terminator \
-      ripgrep \
-      bat \
-      kitty \
-      neovim \
-      parallel \
-      powertop \
-      python \
-      python-pipenv \
-      pyenv \
-      jq \
-      yq \
-      yamllint \
-      kubectl
-    yay -S k9s piston-bin
-    #   tfenv \
-  elif command -v brew >/dev/null; then
-    brew install \
-      git \
-      node \
-      terminator \
-      python3 \
-      zsh \
-      docker \
-      tree \
-      fzf \
-      zig \
-      eza \
-      ripgrep \
-      bat \
-      tmux \
-      neovim \
-      parallel \
-      jq \
-      yamllint \
-      kubectl \
-      k9s \
-      tfenv
-  else
-    echo "Unsupported package manager. Please install packages manually or install Homebrew."
-    echo "Supported package managers: apt, pacman, brew"
-  fi
-
+  case $(pkg_mgr) in
+    apt)
+      sudo apt install silversearcher-ag git \
+        nodejs terminator python3-pip zsh docker.io
+      sudo pip3 install --upgrade pip ;;
+    pacman)
+      yay -S \
+        docker tree fzf zig eza terminator \
+        ripgrep bat kitty neovim parallel powertop \
+        python python-pipenv pyenv \
+        jq yq yamllint kubectl k9s piston-bin ;;
+    brew)
+      brew install \
+        git node terminator python3 zsh docker \
+        tree fzf zig eza ripgrep bat tmux neovim \
+        parallel jq yamllint kubectl k9s tfenv ;;
+    *) echo "No supported pkg manager (apt/pacman/brew)" ;;
+  esac
 }
 
 lazyvim() {
-  git clone https://github.com/LazyVim/starter ~/.config/nvim
+  clone_if https://github.com/LazyVim/starter ~/.config/nvim
   rm -rf ~/.config/nvim/.git
 }
 
-fonts_() {
-  find ~/sync1/fonts -iname '*tf' -printf '"%p"\n' 2>/dev/null
-  find ./fonts -iname '*tf' -printf '"%p"\n' 2>/dev/null
-  exit 0
-}
-
 oh_my() {
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || return 1
+  clone_if https://github.com/romkatv/powerlevel10k.git \
+    "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k"
 }
 
 fix_fonts() {
-  if command -v pacman >/dev/null; then
-    sudo pacman -S $(pacman -Sgq nerd-fonts)
-  elif command -v brew >/dev/null; then
-    brew tap homebrew/cask-fonts
-    brew install --cask \
-      font-fira-code \
-      font-jetbrains-mono \
-      font-0xproto \
-      font-hack-nerd-font \
-      font-fira-code-nerd-font \
-      font-jetbrains-mono-nerd-font
-  else
-    echo "Unsupported package manager for fonts. Please install fonts manually."
-    echo "Recommended fonts: Fira Code, JetBrains Mono, 0xProto, Nerd Fonts"
-  fi
-  # my the way:
-  # FAV is :  0xProto
-  # -------------
+  case $(pkg_mgr) in
+    pacman) sudo pacman -S $(pacman -Sgq nerd-fonts) ;;
+    brew)
+      brew tap homebrew/cask-fonts
+      brew install --cask \
+        font-fira-code font-jetbrains-mono font-0xproto \
+        font-hack-nerd-font font-fira-code-nerd-font \
+        font-jetbrains-mono-nerd-font ;;
+    *) echo "Install fonts manually: Fira Code, JetBrains Mono, 0xProto, Nerd Fonts" ;;
+  esac
 }
 
-# ---------------------------------
-#
-#                main
-#
-# ---------------------------------
+symlinks() {
+  lnk terraformrc .terraformrc
+  lnk tmux.conf   .tmux.conf
+  lnk _ctags      .ctags
+  lnk _emacs      .emacs
+  lnk ghci.conf   .ghci
+}
+
+agent_skills() {
+  npm install -g skills || return 1
+  [[ -z "$SKILLS_GIST" ]] && { echo "No gist URL in skills.txt"; return 1; }
+  local raw="${SKILLS_GIST/gist.github.com/gist.githubusercontent.com}/raw"
+  curl -fsSL "$raw" | grep -v '^#' | grep -v '^$' | while read -r ref; do
+    echo "Adding skill: $ref"
+    skill_add "$ref"
+  done
+}
+
 my_linux() {
-  echo -e "\n ▪ super simple automagic setup... \n"
-  fix_this
+  echo -e "\n ▪ super simple automagic setup… \n"
+  sync_repo
   oh_my
   pkgs
   git_conf
   fix_fonts
-  #fix_tmux_deps
-  #lazyvim
-
-  ln -s ~/.my_linux/terraformrc ~/.terraformrc # maybe createdir , not tested
-  # tmux
-  ln -s ~/.my_linux/tmux.conf ~/.tmux.conf
-
-  # ctags
-  ln -s ~/.my_linux/_ctags ~/.ctags
-
-  # emacs
-  ln -s ~/.my_linux/_emacs ~/.emacs
-
-  # ghci
-  ln -s ~/.my_linux/ghci.conf ~/.ghci
-
-  # . ~/.my_linux/vim-pimp
-
-  # symlinking
-  # rm -f ~/.Xresources && ln -s ~/.my_linux/Xresources ~/.Xresources
-  # rm -f ~/.Xdefaults && ln -s ~/.my_linux/Xresources ~/.Xdefaults
-  # rm -f ~/.xinitrc && ln -s ~/.my_linux/xinitrc ~/.xinitrc
-  # rm -f ~/.xbindkeyrc && ln -s ~/.my_linux/xbindkeyrc ~/.xbindkeyrc
-
+  symlinks
+  agent_skills
 }
 
-if [ ! -z "$1" ]; then
+if [[ -n "$1" ]]; then
   my_linux
 else
   echo "skipped installing all, use argument to trigger."

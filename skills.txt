@@ -1,1 +1,1 @@
-File will list MUST-HAVEs from skills.sh
+https://gist.github.com/dynnamitt/79f8604bea7c7a370f76e35db7c94609
