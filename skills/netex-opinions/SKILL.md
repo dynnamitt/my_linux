@@ -69,6 +69,16 @@ See [references/rail-best-practices.md](references/rail-best-practices.md) for:
 - Separation of concerns between timetable, rolling stock, and crew
 - Rail-specific patterns: splits/joins, reversals, cross-border, over-midnight
 
+## Bus Nordic procurement standard
+
+See [references/bus-nordic.md](references/bus-nordic.md) for:
+- Bus class definitions (A, B, I, II, III) from ECE R 107 with Nordic capacity/length/floor-type tables
+- NeTEx mapping: VehicleType + FacilitySet + AccessibilityAssessment + PassengerCapacity (the "vehicle functional profile" axis)
+- Complete requirements checklist (mandatory vs optional) across 10 chapters
+- Safety, seating, accessibility, information systems, and driver environment specs
+- Nordic-specific additions beyond EU baseline (alcolock, climate ranges, USB, NCS contrast, ITxPT S01)
+- Finland-specific minimum seat/door counts for Class I
+
 ## Key insights
 
 1. **SIRI is structurally required** — `NeTEx_publication.xsd` unconditionally imports 3 SIRI files. Any code generator starting from that entry point needs SIRI present. Only 12 files / 2,204 lines — negligible overhead.
@@ -92,3 +102,5 @@ See [references/rail-best-practices.md](references/rail-best-practices.md) for:
 10. **DatedServiceJourneys are essential for ticketing** — ServiceJourney IDs are inherently unstable in rail; infrastructure or rolling-stock changes after publication can force ID changes. DatedServiceJourneys provide the stable ID layer for reservations and SIRI real-time, with backwards references to track what was replaced during disruptions.
 
 11. **VehicleScheduleFrame enables separation of concerns** — Decouples rolling-stock management from the passenger timetable, critical in rail where Operators, Rolling Stock Providers, and Infrastructure Providers manage their data independently. TrainBlocks describe the complete formation (including coaches from other ServiceJourneys sharing the physical train).
+
+12. **Each transport mode brings a different ResourceFrame metadata axis** — Rail depth is in *composition/formation* (CompoundTrain → Train → TrainComponent → TrainElement), bus depth is in *functional compliance profiles* per ECE R 107 class (Bus Nordic 2.0), and *spatial layout* (deck plans) cuts across all three modes. Bus Nordic's class-to-requirement matrix maps to VehicleType + FacilitySet + AccessibilityAssessment + PassengerCapacity. Ferry's mode-specific metadata axis has not yet been explored (as of Apr 2025).
