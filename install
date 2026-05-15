@@ -43,20 +43,20 @@ pkgs() {
   case $(pkg_mgr) in
   apt)
     sudo apt install silversearcher-ag git \
-      nodejs terminator python3-pip zsh docker.io
+      nodejs node-typescript-language-server terminator python3-pip zsh docker.io
     sudo pip3 install --upgrade pip
     ;;
   pacman)
     yay -S \
       docker tree fzf zig eza terminator \
-      ripgrep bat kitty neovim parallel powertop \
+      ripgrep bat kitty neovim typescript-language-server parallel powertop \
       python python-pipenv pyenv meld \
       jq yq yamllint kubectl k9s piston-bin
     ;;
   brew)
     brew install \
       git node terminator python3 zsh docker \
-      tree fzf zig eza ripgrep bat tmux neovim meld parallel jq yamllint kubectl k9s tfenv
+      tree fzf zig eza ripgrep bat tmux neovim typescript-language-server meld parallel jq yamllint kubectl k9s tfenv
     ;;
   *) echo "No supported pkg manager (apt/pacman/brew)" ;;
   esac
