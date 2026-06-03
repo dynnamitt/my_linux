@@ -1,0 +1,38 @@
+<!doctype html>
+<!-- popup/popup.html — toolbar popup UI: preset <select> + custom class <input>
+     (with history datalist), columns, slideshow-breakout toggle, the state-aware
+     Reframe button, and a status line. Behavior is in popup.js. -->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <h1>img-src-reframer</h1>
+
+    <label for="preset">Preset class</label>
+    <select id="preset"></select>
+
+    <label for="cls">Class (custom wins)</label>
+    <input
+      id="cls"
+      type="text"
+      list="cls-history"
+      placeholder="e.g. thumb"
+      autocomplete="off"
+    />
+    <datalist id="cls-history"></datalist>
+
+    <label for="cols">Columns</label>
+    <input id="cols" type="number" min="1" max="20" step="1" />
+
+    <label class="check"
+      ><input id="breakout" type="checkbox" /> Slideshow-breakout</label
+    >
+
+    <button id="reframe" type="button" class="off">Reframe: OFF</button>
+    <p id="status" class="status" role="status"></p>
+
+    <script src="popup.js"></script>
+  </body>
+</html>

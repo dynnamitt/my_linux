@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- test/fixture.html — manual test page: a table gallery (class on the img), a list
+     gallery (class on the anchor), and a <nav> with paginated prev/next links. Serve
+     over HTTP (e.g. `python3 -m http.server`) to exercise the scoped auto features. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>img-src-reframer fixture</title>
+  <style>
+    body { font: 14px system-ui, sans-serif; margin: 24px; }
+    table { border-collapse: collapse; margin-bottom: 32px; }
+    td { border: 1px solid #ccc; padding: 6px; }
+    ul.gallery { list-style: none; display: flex; gap: 8px; padding: 0; }
+    img { display: block; }
+    h2 { margin-top: 28px; }
+  </style>
+</head>
+<body>
+  <h1>img-src-reframer fixture</h1>
+  <p>Load the extension, click its toolbar icon, then Reframe.</p>
+
+  <!-- Pass B: class on the <img>, inside td > a -->
+  <h2>Table, class on <code>img.thumb</code></h2>
+  <table>
+    <tr>
+      <td><a href="https://picsum.photos/id/10/1200/1200"><img class="thumb" src="https://picsum.photos/id/10/180/180"></a></td>
+      <td><a href="https://picsum.photos/id/20/1200/1200"><img class="thumb" src="https://picsum.photos/id/20/180/180"></a></td>
+      <td><a href="https://picsum.photos/id/30/1200/1200"><img class="thumb" src="https://picsum.photos/id/30/180/180"></a></td>
+      <td><a href="https://picsum.photos/id/40/1200/1200"><img class="thumb" src="https://picsum.photos/id/40/180/180"></a></td>
+      <td><a href="https://picsum.photos/id/50/1200/1200"><img class="thumb" src="https://picsum.photos/id/50/180/180"></a></td>
+    </tr>
+    <tr>
+      <td><a href="https://picsum.photos/id/60/1200/1200"><img class="thumb" src="https://picsum.photos/id/60/180/180"></a></td>
+      <td><a href="https://picsum.photos/id/70/1200/1200"><img class="thumb" src="https://picsum.photos/id/70/180/180"></a></td>
+      <td><a href="https://picsum.photos/id/80/1200/1200"><img class="thumb" src="https://picsum.photos/id/80/180/180"></a></td>
+      <td><a href="https://picsum.photos/id/90/1200/1200"><img class="thumb" src="https://picsum.photos/id/90/180/180"></a></td>
+      <td><a href="https://picsum.photos/id/100/1200/1200"><img class="thumb" src="https://picsum.photos/id/100/180/180"></a></td>
+    </tr>
+  </table>
+
+  <!-- Pass A: class on the <a>, inside ul > li -->
+  <h2>List, class on <code>a.gal</code></h2>
+  <ul class="gallery">
+    <li><a class="gal" href="https://picsum.photos/id/110/1200/1200"><img src="https://picsum.photos/id/110/180/180"></a></li>
+    <li><a class="gal" href="https://picsum.photos/id/120/1200/1200"><img src="https://picsum.photos/id/120/180/180"></a></li>
+    <li><a class="gal" href="https://picsum.photos/id/130/1200/1200"><img src="https://picsum.photos/id/130/180/180"></a></li>
+    <li><a class="gal" href="https://picsum.photos/id/140/1200/1200"><img src="https://picsum.photos/id/140/180/180"></a></li>
+  </ul>
+
+  <!-- Pagination links for the meta nav scan: only page= URLs whose text reads next/prev match -->
+  <nav>
+    <a href="?page=1">1</a>
+    <a href="?page=2">2</a>
+    <a href="/gallery?cat=cats&page=3">3</a>
+    <a href="?page=1" rel="prev">« Previous</a>
+    <a href="?page=3" rel="next">Next →</a>
+  </nav>
+</body>
+</html>
