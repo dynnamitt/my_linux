@@ -42,7 +42,7 @@ async function loadCfg() {
   return {
     cls: cfg?.cls ?? "",
     cols: cfg?.cols ?? DEFAULT_COLS,
-    breakout: cfg?.breakout ?? false,
+    breakout: cfg?.breakout ?? true, // opt-out: on by default
     history: cfg?.history ?? [],
   };
 }
@@ -151,7 +151,9 @@ async function inject(tabId, cfg) {
   await step("executeScript", () =>
     browser.scripting.executeScript({ target, files: [CONTENT_JS] }),
   );
-  const arg = { cls: cfg.cls, cols: cfg.cols };
+  // breakout is passed so cells built this run carry the intent themselves (the
+  // hash signal self-authorizes; see reframe.js), not just the cached global toggle.
+  const arg = { cls: cfg.cls, cols: cfg.cols, breakout: cfg.breakout };
   const frames = await step("run", () =>
     browser.scripting.executeScript({
       target,
@@ -187,6 +189,7 @@ async function onReframe() {
 
   const cfg = { cls, cols, breakout, history: (await loadCfg()).history };
   await saveCfg(cfg);
+  console.info(`[img-src-reframer] config saved — breakout:${breakout} cls:"${cls}" cols:${cols}`);
 
   try {
     const res = await inject(tab.id, cfg);
@@ -205,7 +208,8 @@ async function onReframe() {
 
 async function init() {
   [activeTab] = await browser.tabs.query({ active: true, currentWindow: true });
-  const cfg = await loadCfg();
+    const cfg = await loadCfg();
+    console.info(`[img-src-reframer] popup opened — persisted breakout:${cfg.breakout}`);
   fillLists(cfg.history);
   $("preset").value = PRESET_CLASSES.includes(cfg.cls) ? cfg.cls : "";
   $("cls").value = cfg.cls;

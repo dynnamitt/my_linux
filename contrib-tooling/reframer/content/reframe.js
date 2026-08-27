@@ -14,8 +14,14 @@
  *  - Auto-trigger (one-shot, consumed signals, run only via auto.js so the
  *    popup-injected path never double-builds): `window.__reframerAuto()` reframes on
  *    a same-tab prev/next nav (sessionStorage AUTO_KEY), or slideshow-breakouts a
- *    cell-opened page whose URL was queued in storage.local (BREAKOUT_KEY).
- *  - slideshowBreakout(): strip a markup page down to its bottom-most `.slideshow img`.
+ *    cell-opened page marked by a #hash (BREAKOUT_HASH, primary) or queued in
+ *    storage.local (BREAKOUT_KEY, fallback).
+ *  - slideshowBreakout(): strip a markup page down to its bottom-most `.slideshow img`,
+ *    wrap it in an <a href> to the original page (nav → back → re-breakout), overlay
+ *    one floating ‹ › button that opens prev/next in a new tab (each new tab carries
+ *    the set in its own fragment → re-breakout), and emit the grid's url set as
+ *    <link rel=grid-page-N-img-M href=…> into <head>. The set survives page→page via
+ *    sessionStorage (per-tab), seeded by the grid fragment on first breakout.
  *
  * Exposes `window.__reframerBuild` (called by the popup via executeScript func) and
  * `window.__reframerAuto`. The IIFE guard makes re-injection idempotent: if the build
@@ -40,8 +46,19 @@
   const AUTO_KEY = "reframerAuto";   // sessionStorage flag: paginate-and-reframe mode
 
   // Slideshow-breakout: a cell link opening a markup page can be stripped down to its
-  // slideshow image. Cell clicks queue the opened URL cross-tab (survives target=_blank,
-  // unlike sessionStorage); the companion on that page consumes it and acts if enabled.
+  // slideshow image — but only if breakout was enabled for the build that created the
+  // cell. The opener signals the new tab two ways:
+  //   • BREAKOUT_HASH (primary): the click handler rewrites cell.href's fragment
+  //     BEFORE navigation — synchronous, so it cannot lose the cross-tab race that a
+  //     storage write → document_start read hits (the new tab routinely reads before
+  //     the opener's write lands, esp. Firefox). Fragments survive HTTP redirects.
+  //     The hash itself carries the intent, so the new tab needs no storage round-trip
+  //     to decide: a cell only bears the hash when its build had breakout on.
+  //   • BREAKOUT_KEY (fallback): storage.local queue, for redirects that drop the hash;
+  //     gated consumer-side on the persisted cfg.breakout toggle.
+  const BREAKOUT_HASH = "reframer-breakout"; // #fragment marker set on cell hrefs at click
+  const HASH_SEP = "|"; // fragment: #reframer-breakout|img-1|…|img-n carries the full set
+  const SET_KEY = "reframerSet"; // sessionStorage: JSON url set, survives same-tab nav
   const BREAKOUT_KEY = "reframerBreakout"; // storage.local: URLs opened from reframe cells
   const BREAKOUT_MAX = 30;                 // cap the queue
   const SLIDESHOW_SEL = '[class~="slideshow" i] img'; // .slideshow img (descendant), case-insensitive
@@ -194,7 +211,8 @@
    * @param {string} [label] banner text
    */
   function showPending(label = "Reframing… (waiting for page)") {
-    if (document.getElementById(PENDING_ID)) return;
+    const existing = document.getElementById(PENDING_ID);
+    if (existing) { existing.textContent = label; return; } // relabel in place
     const el = document.createElement("div");
     el.id = PENDING_ID;
     el.textContent = label;
@@ -241,28 +259,172 @@
   }
 
   /**
+   * Parse the slideshow-breakout fragment `#reframer-breakout|img-1|…|img-n` — the
+   * marker + the url set the grid carried (already absolute, piped in by the cell
+   * click handler). Returns null when the marker is absent.
+   * @param {string} hash full location.hash ("#…")
+   * @returns {{urls:string[]}|null}
+   */
+  function parseBreakoutHash(hash) {
+    if (!hash?.startsWith(`#${BREAKOUT_HASH}`)) return null;
+    const urls = hash
+      .slice(BREAKOUT_HASH.length + 1) // drop "#reframer-breakout"
+      .split(HASH_SEP)
+      .map((part) => { try { return decodeURIComponent(part); } catch { return ""; } })
+      .filter(Boolean);
+    return { urls };
+  }
+
+  /** Persist the set for this tab (survives same-tab nav; per-tab, dies with it). */
+  function stashSet(urls) {
+    if (!urls?.length) return;
+    try { sessionStorage.setItem(SET_KEY, JSON.stringify(urls)); } catch {}
+  }
+
+  /** The set stashed by a prior breakout on this tab, else null. */
+  function readSet() {
+    try { return JSON.parse(sessionStorage.getItem(SET_KEY) || "null"); } catch { return null; }
+  }
+
+  /** Emit one <link rel=grid-page-N-img-M href=…> per url (n = page of 26). */
+  function emitGridLinks(doc, urls) {
+    const head = doc.querySelector("head") || doc.documentElement;
+    urls.forEach((u, i) => {
+      const link = doc.createElement("link");
+      link.rel = `grid-page-${Math.floor(i / 26) + 1}-img-${(i % 26) + 1}`;
+      link.href = u;
+      head.append(link);
+    });
+  }
+
+  /**
    * Strip the page down to its bottom-most `.slideshow img` (case-insensitive class):
-   * keep only that image — as a fresh <img src> — centered on black; drop everything
-   * else. Halts (no DOM change) if no usable image is found.
+   * keep only that image — as a fresh <img src> — centered on black, scaled to fit
+   * the viewport; drop everything else. Halts (no DOM change) if no usable image is
+   * found. If the re-requested image fails to load, reloads back to the full page.
+   * When `urls` is provided (the grid's href set), the image is wrapped in an
+   * <a href> back to the original page (that url stays queued → re-breakout), one
+   * floating ‹ › button opens prev/next in a new tab (the new tab gets the set via
+   * its fragment and breaks out on its own), and the set is emitted as
+   * <link rel=grid-page-N-img-M href=…> in <head>.
+   * @param {string[]} [urls]
    * @returns {boolean} whether an image was found and broken out
    */
-  function slideshowBreakout() {
+  function slideshowBreakout(urls = []) {
     const imgs = document.querySelectorAll(SLIDESHOW_SEL);
     const found = imgs[imgs.length - 1]; // bottom-most
     const src = found && (found.currentSrc || found.src);
     if (!src) return false; // no .slideshow img (or no usable src) → halt, leave page intact
+
+    // Halt in-flight loads before the destructive strip. (Timers/listeners of page
+    // scripts survive — an auto-advancing slideshow can still navigate away; there
+    // is no way to cancel those from a content script.)
+    window.stop();
+
+    // Non-destructive loop: ‹ › must navigate, return to the original page, and
+    // re-breakout — so always restore our url to the queue (get→set is racy;
+    // "set if missing" loses nothing).
+    if (browser?.storage?.local) {
+      browser.storage.local.get(BREAKOUT_KEY).then((res) => {
+        const q = res?.[BREAKOUT_KEY] || [];
+        if (!q.includes(location.href)) {
+          q.push(location.href);
+          browser.storage.local.set({ [BREAKOUT_KEY]: q.slice(-BREAKOUT_MAX) });
+        }
+      }).catch(() => {});
+    }
+    stashSet(urls); // keep the set for this tab's next page
+
+    // Current position in the carried href set; the page url is the closest match
+    // (fragments don't change gallery identity). -1 = unlisted → start at 0.
+    let idx = Math.max(0, urls.findIndex((u) => u === location.href));
 
     // Insert a BRAND-NEW img (don't move the page's live node): gallery/lazyload
     // scripts and MutationObservers often track the original and would remove it once
     // we restructure the DOM — leaving a black page with no image. A fresh node, with
     // only `src`, is invisible to the page's scripts.
     const img = document.createElement("img");
+    // Constrain to the viewport: natural-size images would otherwise overflow.
+    img.style.cssText = "max-width:100vw;max-height:100vh;object-fit:contain";
+    // Dead-end guard: hotlink protection or an expired signed URL would otherwise
+    // leave the user on a black page with a broken image and no way back.
+    img.onerror = () => location.reload();
     img.src = src; // resolved absolute URL
+    // Wrap the img in a same-tab link back to the original page: requeue above makes
+    // this navigation re-breakout (the non-destructive loop).
+    const back = document.createElement("a");
+    back.href = location.href;
+    back.title = "Back to page (re-breakouts)";
+    back.append(img);
+
     const body = document.createElement("body");
+    // overflow:hidden: nothing may scroll or spill, whatever the img does.
     body.style.cssText =
-      "margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#000";
-    body.append(img);
+      "margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:#000;overflow:hidden";
+    body.append(back);
+
+    if (urls.length) {
+      // Two floating buttons: ‹ prev (left) / › next (right), each opening in a NEW
+      // TAB (target=_blank semantics) with the set re-tagged in the fragment → the
+      // new tab breaks out on its own. Same-tab nav would race this page's
+      // window.stop(); a new tab side-steps it.
+      const BTN_CSS =
+        "position:fixed;top:50%;transform:translateY(-50%);" +
+        "width:52px;height:52px;display:flex;align-items:center;justify-content:center;" +
+        "border:1px solid rgba(255,255,255,.35);border-radius:50%;text-decoration:none;" +
+        "background:rgba(20,22,28,.55);color:#fff;font:600 24px/1 system-ui,sans-serif;" +
+        "cursor:pointer;user-select:none;";
+      /** The set member at idx + delta (wraps), fragment-tagged with the whole set. */
+      const tagged = (delta) => {
+        const target = urls[(idx + delta + urls.length) % urls.length];
+        try {
+          const u = new URL(target);
+          u.hash = [BREAKOUT_HASH, ...urls.map((x) => encodeURIComponent(x))].join(HASH_SEP);
+          return u.href;
+        } catch { return target; }
+      };
+      const mkBtn = (glyph, side, delta) => {
+        const b = document.createElement("a");
+        b.target = "_blank";
+        b.rel = "noopener";
+        b.textContent = glyph;
+        b.href = tagged(delta);
+        b.title = `${delta < 0 ? "Previous" : "Next"} (new tab): ${urls[(idx + delta + urls.length) % urls.length]}`;
+        b.style.cssText = BTN_CSS + (side === "left" ? "left:18px" : "right:18px");
+        return b;
+      };
+      body.append(mkBtn("‹", "left", -1), mkBtn("›", "right", 1));
+
+      // Keyboard: ← prev / → next, same new-tab semantics.
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+        window.open(tagged(e.key === "ArrowLeft" ? -1 : 1), "_blank", "noopener");
+      });
+    }
+
+    // <html> itself survives replaceChildren — strip any page class/style it carries
+    // so the original stylesheet-less attributes can't impose layout on the new body.
+    document.documentElement.removeAttribute("class");
+    document.documentElement.removeAttribute("style");
     document.documentElement.replaceChildren(body); // drop <head> + old <body>
+
+    // Fresh head: pass on the whole set as <link rel=grid-page-N-img-M href=…> so the
+    // page itself advertises the grid it came from; link#reframer-grid-current tracks
+    // the slideshow position.
+    const head = document.createElement("head");
+    if (urls.length) {
+      emitGridLinks(document, urls);
+      const cur = document.createElement("link");
+      cur.id = "reframer-grid-current";
+      cur.rel = "grid-current";
+      cur.href = urls[idx];
+      head.append(cur);
+    }
+    const title = document.createElement("title");
+    title.textContent = urls.length ? `${idx + 1} / ${urls.length}` : "slideshow-breakout";
+    head.append(title);
+    document.documentElement.prepend(head);
+    document.title = title.textContent; // some UIs need the property, not the element
     return true;
   }
 
@@ -321,10 +483,10 @@
   /**
    * Render the overlay grid for the given config. If an overlay already exists,
    * tears it down (toggle off).
-   * @param {{cls:string,cols:number}} cfg
+   * @param {{cls:string,cols:number,breakout?:boolean}} cfg
    * @returns {{count:number,toggledOff:boolean}}
    */
-  function build({ cls, cols }) {
+  function build({ cls, cols, breakout }) {
     injectStyles();
     removePending(); // the grid/notice replaces any pending banner
 
@@ -380,10 +542,22 @@
       cell.target = "_blank";
       cell.rel = "noopener";
       cell.style.backgroundImage = cssUrl(it.src);
-      // Always queue the target; the opened tab decides whether to slideshow-breakout
-      // (it gates on cfg.breakout). Keeping the single gate in the consumer means every
-      // build() caller — manual or auto-reframe — behaves the same.
-      cell.addEventListener("click", () => queueBreakout(it.href));
+      // Signal the target page. The hash carries the breakout intent decided at
+      // build time — and, separator-joined, the full anchor-href set of this grid
+      // (not the thumbnail img.src), so the survival set flows page → page through
+      // the non-destructive loop: ‹ › same-tab navigation, back to the original,
+      // breakout re-runs. The storage queue stays as a cfg-gated fallback for
+      // fragment-stripping redirects.
+      cell.addEventListener("click", () => {
+        queueBreakout(it.href); // fallback signal (survives a hash-dropping redirect)
+        if (!breakout) return; // no intent → leave the URL untouched
+        try {
+          const u = new URL(cell.href);
+          const parts = [BREAKOUT_HASH, ...items.map((x) => encodeURIComponent(x.href))];
+          u.hash = parts.join(HASH_SEP); // primary signal: set before navigation, no race
+          cell.href = u.href;
+        } catch {}
+      });
       grid.append(cell);
     });
 
@@ -408,7 +582,8 @@
       browser.storage.local.get(STORAGE_KEY).then((res) => {
         const cfg = res?.[STORAGE_KEY];
         if (cfg?.cls && !document.getElementById(OVERLAY_ID)) {
-          build({ cls: cfg.cls, cols: cfg.cols ?? DEFAULT_COLS }); // clears the banner
+          // pass breakout through so auto-reframed cells signal like manual ones
+          build({ cls: cfg.cls, cols: cfg.cols ?? DEFAULT_COLS, breakout: cfg.breakout });
         } else {
           removePending();
         }
@@ -418,11 +593,15 @@
 
   /**
    * One-shot trigger run by the registered companion (auto.js) — never by the
-   * popup-injected path, so there is no race with build(). Two independent signals,
+   * popup-injected path, so there is no race with build(). Three independent signals,
    * each consumed once:
    *   1. same-tab prev/next reframe — sessionStorage flag set by a nav chip.
-   *   2. slideshow-breakout — this page's URL queued (storage.local) by a cell click;
-   *      if breakout is enabled, strip the page to its `.slideshow img`.
+   *   2. slideshow-breakout via hash — the cell was built with breakout on, so the
+   *      #hash (marker + the grid's url set) self-authorizes the strip; the set
+   *      becomes ‹ › slideshow buttons and <head> link tags (no storage round-trip).
+   *   3. slideshow-breakout via queue — this page's URL queued (storage.local) by a
+   *      cell click; fallback for fragment-stripping redirects, gated on
+   *      cfg.breakout. The grid's url set does not survive this path (no ‹ › nav).
    */
   window.__reframerAuto = function reframerAuto() {
     let flagged;
@@ -432,16 +611,50 @@
     } catch {}
     if (flagged) return autoReframe();
 
+    // Slideshow-breakout via hash: the fragment carries marker + url set, is readable
+    // at document_start with zero async — this is what actually fires in Firefox — and
+    // self-authorizes (a hash-bearing cell was built with breakout on), so it bypasses
+    // the storage cfg gate entirely.
+    const hashSignal = parseBreakoutHash(location.hash);
+    if (hashSignal) {
+      stashSet(hashSignal.urls); // seed this tab's set before the fragment is stripped
+      // One-shot: strip the hash so a plain reload restores the full markup page.
+      try { history.replaceState(null, "", location.pathname + location.search); } catch {}
+      showPending("Breaking out…"); // feedback while the page finishes loading
+      // Wait for full load (not just DOMContentLoaded): the strip is destructive, so
+      // let lazy images/scripts settle and the real src resolve before tearing down.
+      whenLoaded(() => {
+        if (slideshowBreakout(hashSignal.urls)) return; // strip removes the banner
+        // Failure feedback: don't leave the user staring at an unexplained page.
+        showPending("Breakout failed: no .slideshow img found");
+        setTimeout(removePending, 4000);
+      });
+      return;
+    }
     if (!browser?.storage?.local) return;
     browser.storage.local.get([BREAKOUT_KEY, STORAGE_KEY]).then((res) => {
       const queue = res?.[BREAKOUT_KEY] || [];
-      if (!queue.includes(location.href)) return;
-      browser.storage.local.set({ [BREAKOUT_KEY]: queue.filter((u) => u !== location.href) }); // consume
+      const urlHit = queue.includes(location.href);
+      // Breadcrumb trail: every gate in the chain, so a silent no-op is diagnosable
+      // from the page console alone.
+      console.info(
+        `[img-src-reframer] breakout check — queued:${urlHit} enabled:${!!res?.[STORAGE_KEY]?.breakout}`,
+      );
+      if (!urlHit) return;
+      // Consume the queue entry so it can't stale-fire on a later coincidental visit.
+      browser.storage.local.set({ [BREAKOUT_KEY]: queue.filter((u) => u !== location.href) });
       if (!res?.[STORAGE_KEY]?.breakout) return;
       showPending("Breaking out…"); // feedback while the page finishes loading
       // Wait for full load (not just DOMContentLoaded): the strip is destructive, so
       // let lazy images/scripts settle and the real src resolve before tearing down.
-      whenLoaded(() => { if (!slideshowBreakout()) removePending(); }); // strip removes the banner
+      whenLoaded(() => {
+        // No fragment set survived the redirect — recover the stashed set from a
+        // prior breakout on this tab so ‹ › nav keeps working page → page.
+        if (slideshowBreakout(readSet() || [])) return; // strip removes the banner
+        // Failure feedback: don't leave the user staring at an unexplained page.
+        showPending("Breakout failed: no .slideshow img found");
+        setTimeout(removePending, 4000);
+      });
     }).catch(() => {});
   };
 })();

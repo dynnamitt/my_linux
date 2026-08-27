@@ -55,15 +55,25 @@ async function syncAuto(add = []) {
     runAt: "document_start",
     persistAcrossSessions: true,
   };
-  try {
-    await (existing
-      ? browser.scripting.updateContentScripts([spec])
-      : browser.scripting.registerContentScripts([spec]));
-  } catch (e) {
-    // register can race a persisted id ("already registered"); fall back to update.
-    await browser.scripting.updateContentScripts([spec]).catch((err) =>
-      console.warn("[img-src-reframer] content-script sync failed:", err)
-    );
+  // Older Firefox rejects registrations carrying unknown properties (e.g.
+  // persistAcrossSessions predates wide support) — retry once without it rather
+  // than leaving the origin permanently unregistered (silent no-breakout bug).
+  for (const s of [spec, (({ persistAcrossSessions, ...rest }) => rest)(spec)]) {
+    try {
+      await (existing
+        ? browser.scripting.updateContentScripts([s])
+        : browser.scripting.registerContentScripts([s]));
+      console.info(`[img-src-reframer] auto script registered for: ${matches.join(", ")}`);
+      return;
+    } catch (e) {
+      console.warn(`[img-src-reframer] registration attempt failed (${e?.message ?? e})`);
+      if (existing) continue; // update failing won't be fixed by dropping a prop
+      // register can also race a persisted id ("already registered"); try update once.
+      await browser.scripting.updateContentScripts([s]).then(
+        () => console.info(`[img-src-reframer] auto script updated for: ${matches.join(", ")}`),
+        (err) => console.warn("[img-src-reframer] content-script sync failed:", err),
+      );
+    }
   }
 }
 

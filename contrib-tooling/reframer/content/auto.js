@@ -12,6 +12,14 @@
  * so this runs harmlessly on every load of a registered origin.
  */
 (() => {
-  try { window.__reframerAuto?.(); }
-  catch (e) { console.warn("[img-src-reframer] auto-reframe skipped:", e); }
+  try {
+    if (!window.__reframerAuto) {
+      // reframe.js must run first in the same registration — if it didn't, the
+      // build/auto functions simply don't exist on this page.
+      console.warn("[img-src-reframer] auto.js ran but __reframerAuto is missing");
+      return;
+    }
+    console.info(`[img-src-reframer] auto.js on ${location.href}`);
+    window.__reframerAuto();
+  } catch (e) { console.warn("[img-src-reframer] auto-reframe skipped:", e); }
 })();
