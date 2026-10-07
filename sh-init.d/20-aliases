@@ -11,9 +11,9 @@ alias hc="helm --kube-context"
 
 # oxi
 if command -v exa >/dev/null 2>&1; then
-    alias ls="exa --icons"
+    alias ls="exa --icons=auto"
 elif command -v eza >/dev/null 2>&1; then
-    alias ls="eza --icons"
+    alias ls="eza --icons=auto"
 fi
 
 # nvim
